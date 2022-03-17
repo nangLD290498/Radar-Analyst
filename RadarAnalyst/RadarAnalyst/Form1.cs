@@ -1,4 +1,4 @@
-namespace RadarAnalyst
+﻿namespace RadarAnalyst
 {
     public partial class Form1 : Form
     {
@@ -57,9 +57,11 @@ namespace RadarAnalyst
             ((System.ComponentModel.ISupportInitialize)(pictureBox1)).EndInit();
             tc_mainTap.ContextMenuStrip = null;
         }
-        private void addTabPage(string title)
+        private void addTabPage(string tabCode)
         {
-            TabPage myTabPage = new TabPage(title);
+            // TabPage myTabPage = new TabPage(tabCode);
+            Console.WriteLine("Form1::addTabPage");
+            TabPage myTabPage = Factory.TabFactory.getTab(tabCode);
             // add close button
             ContextMenuStrip cms_close = new ContextMenuStrip();
             ToolStripMenuItem tsmi_close = new ToolStripMenuItem();
@@ -71,7 +73,7 @@ namespace RadarAnalyst
             bool isAdded = false;
             foreach (TabPage tp in tc_mainTap.TabPages)
             {
-                if (tp.Text == title)
+                if (tp.Text == tabCode)
                 {
                     MessageBox.Show("Cua so dang chay !", "Thong bao",MessageBoxButtons.OK, MessageBoxIcon.Information);
                     isAdded = true;
@@ -93,42 +95,42 @@ namespace RadarAnalyst
 
         private void smi_kvctd_Click(object sender, EventArgs e)
         {
-            addTabPage("KV CHON TD");
+            addTabPage(Util.Constant.KVCTD);
         }
 
         private void smi_dcdd_Click(object sender, EventArgs e)
         {
-            addTabPage("Do Cao D. Dai");
+            addTabPage(Util.Constant.DCDD);
         }
 
         private void smi_ktmpx_Click(object sender, EventArgs e)
         {
-            addTabPage("Kich Thuoc MPX");
+            addTabPage(Util.Constant.KTMPX);
         }
 
         private void smi_dll_Click(object sender, EventArgs e)
         {
-            addTabPage("Do Loi Lom");
+            addTabPage(Util.Constant.DLL);
         }
 
         private void smi_dn_Click(object sender, EventArgs e)
         {
-            addTabPage("Do Nghieng");
+            addTabPage(Util.Constant.DN);
         }
 
         private void smi_mcdh_Click(object sender, EventArgs e)
         {
-            addTabPage("Mat Cat Dia Hinh");
+            addTabPage(Util.Constant.MCDH);
         }
 
         private void smi_gck_Click(object sender, EventArgs e)
         {
-            addTabPage("Goc Che Khuat");
+            addTabPage(Util.Constant.GCK);
         }
 
         private void smi_pvphmp_Click(object sender, EventArgs e)
         {
-            addTabPage("Pham Vi Phat Hien MP");
+            addTabPage(Util.Constant.PVPHMP);
         }
 
        

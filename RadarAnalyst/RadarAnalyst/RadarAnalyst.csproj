@@ -14,6 +14,27 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="UIComponent\PVPHMPTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\GCKTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\MCDHTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\DNTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\DLLTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\KTMPXTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\DCDDTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
