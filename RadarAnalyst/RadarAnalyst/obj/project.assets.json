@@ -8,24 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\nvthanh6\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\nangl\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+      "projectUniqueName": "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
       "projectName": "RadarAnalyst",
-      "projectPath": "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
-      "packagesPath": "C:\\Users\\nvthanh6\\.nuget\\packages\\",
-      "outputPath": "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\obj\\",
+      "projectPath": "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+      "packagesPath": "C:\\Users\\nangl\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\nvthanh6\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\nangl\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

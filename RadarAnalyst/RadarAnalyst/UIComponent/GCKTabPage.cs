@@ -8,14 +8,13 @@ namespace RadarAnalyst.UIComponent
 {
     public partial class GCKTabPage : TabPage
     {
-        public GCKTabPage(String text) : base(text)
+        public GCKTabPage(String tabCode, String text) : base(text)
         {
             Console.WriteLine("Init GCK Tab Page");
             this.Location = new System.Drawing.Point(4, 24);
-            this.Name = text;
+            this.Name = tabCode;
             this.Size = new System.Drawing.Size(1245, 575);
             this.TabIndex = 0;
-            this.Name = text;
             this.UseVisualStyleBackColor = true;
 
             Label lbl;
