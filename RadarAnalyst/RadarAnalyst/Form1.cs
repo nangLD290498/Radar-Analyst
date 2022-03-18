@@ -73,7 +73,7 @@
             bool isAdded = false;
             foreach (TabPage tp in tc_mainTap.TabPages)
             {
-                if (tp.Text == tabCode)
+                if (tp.Name == tabCode)
                 {
                     MessageBox.Show("Cua so dang chay !", "Thong bao",MessageBoxButtons.OK, MessageBoxIcon.Information);
                     isAdded = true;
@@ -83,6 +83,7 @@
             if (!isAdded)
             {
                 tc_mainTap.TabPages.Clear();
+               ///MessageBox.Show(myTabPage.Text + "||" + myTabPage.Name+"||"+tabCode);
                 tc_mainTap.TabPages.Add(myTabPage);
             }
         }

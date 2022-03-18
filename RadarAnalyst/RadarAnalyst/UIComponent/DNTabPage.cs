@@ -8,14 +8,13 @@ namespace RadarAnalyst.UIComponent
 {
     public partial class DNTabPage : TabPage
     {
-        public DNTabPage(String text) : base(text)
+        public DNTabPage(String tabCode, String text) : base(text)
         {
             Console.WriteLine("Init DN Tab Page");
             this.Location = new System.Drawing.Point(4, 24);
-            this.Name = text;
+            this.Name = tabCode;
             this.Size = new System.Drawing.Size(1245, 575);
             this.TabIndex = 0;
-            this.Name = text;
             this.UseVisualStyleBackColor = true;
 
             Label lbl;

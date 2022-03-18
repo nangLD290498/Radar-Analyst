@@ -8,14 +8,13 @@ namespace RadarAnalyst.UIComponent
 {
     public partial class KVCTDTabPage : TabPage
     {
-        public KVCTDTabPage(String text) : base(text)
+        public KVCTDTabPage(String tabCode, String text) : base(text)
         {   
             Console.WriteLine("Init KVCTD Tab Page");
             this.Location = new System.Drawing.Point(4, 24);
-            this.Name = text;
+            this.Name = tabCode;
             this.Size = new System.Drawing.Size(1245, 575);
             this.TabIndex = 0;
-            this.Name = text;
             this.UseVisualStyleBackColor = true;
 
             Label lbl;
