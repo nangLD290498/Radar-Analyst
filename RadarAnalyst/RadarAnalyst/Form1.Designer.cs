@@ -41,10 +41,7 @@
             this.smi_pvphmp = new System.Windows.Forms.ToolStripMenuItem();
             this.smi_help = new System.Windows.Forms.ToolStripMenuItem();
             this.tc_mainTap = new System.Windows.Forms.TabControl();
-            
             this.ms_mainMenu.SuspendLayout();
-            this.tc_mainTap.SuspendLayout();
-            
             this.SuspendLayout();
             // 
             // ms_mainMenu
@@ -153,7 +150,6 @@
             this.tc_mainTap.SelectedIndex = 0;
             this.tc_mainTap.Size = new System.Drawing.Size(1253, 603);
             this.tc_mainTap.TabIndex = 1;
-            
             // 
             // Form1
             // 
@@ -163,16 +159,17 @@
             this.Controls.Add(this.tc_mainTap);
             this.Controls.Add(this.ms_mainMenu);
             this.MainMenuStrip = this.ms_mainMenu;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1293, 691);
             this.MinimumSize = new System.Drawing.Size(1293, 691);
             this.Name = "Form1";
             this.Text = "Rada Analyst";
             this.ms_mainMenu.ResumeLayout(false);
             this.ms_mainMenu.PerformLayout();
-            this.tc_mainTap.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
-            //WELCOME PAGE
             addWelcomeTabPage();
+            this.PerformLayout();
+
         }
 
         #endregion

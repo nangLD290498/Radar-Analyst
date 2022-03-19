@@ -70,3 +70,5 @@ C:\Users\nangl\OneDrive\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debu
 C:\Users\nangl\OneDrive\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\RadarAnalyst.pdb
 C:\Users\nangl\OneDrive\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\RadarAnalyst.genruntimeconfig.cache
 C:\Users\nangl\OneDrive\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\ref\RadarAnalyst.dll
+C:\Users\nangl\OneDrive\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\Interop.MapInfo.dll
+C:\Users\nangl\OneDrive\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\RadarAnalyst.csproj.ResolveComReference.cache
