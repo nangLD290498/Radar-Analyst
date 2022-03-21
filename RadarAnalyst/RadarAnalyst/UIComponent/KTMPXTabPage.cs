@@ -11,8 +11,11 @@ namespace RadarAnalyst.UIComponent
         Button daiRadaP18MButton;
         Button daiRadaVRS2DMButton;
         Label resultLbl;
-        int Rmin = 150;
-        int Rmax = 850;
+        int Rmin = 300;
+        int Rmax = 1500;
+        int ratio = 8;
+        int pictureBoxHeight = 350, pictureBoxWidth = 800;
+        private PictureBox pictureBox1 = new PictureBox();
 
         public KTMPXTabPage(String tabCode, String text) : base(text)
         {
@@ -45,13 +48,13 @@ namespace RadarAnalyst.UIComponent
 
             this.initUI();
 
-
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
         private void initUI()
         {
+            // ======================================================================================
             daiRadaP18MButton = new Button();
             this.Controls.Add(daiRadaP18MButton);
             // Set the location of the button
@@ -70,6 +73,8 @@ namespace RadarAnalyst.UIComponent
             daiRadaP18MButton.Click += new EventHandler(this.daiRadaP18MButtonClick);
 
 
+
+            // ======================================================================================
             daiRadaVRS2DMButton = new Button();
             this.Controls.Add(daiRadaVRS2DMButton);
             // Set the location of the button
@@ -88,10 +93,12 @@ namespace RadarAnalyst.UIComponent
             daiRadaVRS2DMButton.Click += new EventHandler(this.daiRadaVRS2DMButtonClick);
 
 
+
+            // ======================================================================================
             resultLbl = new System.Windows.Forms.Label();
             this.Controls.Add(resultLbl);
             //resultLbl.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            resultLbl.Location = new Point(700, 30);
+            resultLbl.Location = new Point(600, 30);
             resultLbl.AutoSize = true;
             resultLbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             resultLbl.Font = new System.Drawing.Font("Segoe UI", 16, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -104,8 +111,20 @@ namespace RadarAnalyst.UIComponent
             text += "Bán kính min MPX: Rmin " + Rmin + " m\n";
             text += "Bán kính max MPX: Rmax " + Rmax + " m\n";
 
-
             resultLbl.Text = text;
+
+
+
+            // ======================================================================================
+            // Dock the PictureBox to the form and set its background to white.
+            //pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(600, 200);
+            pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
+            pictureBox1.BackColor = Color.LightGray;
+            // Connect the Paint event of the PictureBox to the event handler method.
+            pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
+            // Add the PictureBox control to the Form.
+            this.Controls.Add(pictureBox1);
         }
 
         void daiRadaP18MButtonClick(object sender, System.EventArgs e)
@@ -128,6 +147,40 @@ namespace RadarAnalyst.UIComponent
             text += "Bán kính max MPX: Rmax " + Rmax + " m\n";
 
             resultLbl.Text = text;
+        }
+
+        private void drawGraph(object sender, PaintEventArgs e)
+        {
+            // ======================================================================================
+            // Center text
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            string text = "Text";
+            SizeF textSize = e.Graphics.MeasureString(text, Font);
+            Font font = new System.Drawing.Font("Segoe UI", 16, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            PointF locationToDraw = new PointF();
+            locationToDraw.X = (pictureBoxWidth / 2) - (textSize.Width / 2);
+            locationToDraw.Y = 0;
+            e.Graphics.DrawString(text, font, Brushes.Black, locationToDraw);
+
+            // ======================================================================================
+            // Create solid brush.
+            SolidBrush maxElipBrush = new SolidBrush(Color.Blue);
+            // Create location and size of ellipse.
+            int RmaxX = 500;
+            int RmaxY = 100;
+            int Dmax = Rmax * 2 / ratio;
+            // Fill ellipse on screen.
+            e.Graphics.FillEllipse(maxElipBrush, RmaxX, RmaxY, Dmax, Dmax);
+
+            // ======================================================================================
+            SolidBrush minElipBrush = new SolidBrush(Color.White);
+            int RminX = RmaxX + (Rmax - Rmin) / ratio;
+            int RminY = RmaxY + (Rmax - Rmin) / ratio;
+            int Dmin = Rmin * 2 / ratio;
+            e.Graphics.FillEllipse(minElipBrush, RminX, RminY, Dmin, Dmin);
+
+            // ======================================================================================
+
         }
     }
 }

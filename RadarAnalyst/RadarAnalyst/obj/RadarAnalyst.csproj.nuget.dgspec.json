@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Z-project\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {}
+    "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {}
   },
   "projects": {
-    "C:\\Z-project\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {
+    "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Z-project\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+        "projectUniqueName": "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
         "projectName": "RadarAnalyst",
-        "projectPath": "C:\\Z-project\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
-        "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Z-project\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\obj\\",
+        "projectPath": "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+        "packagesPath": "C:\\Users\\nvthanh6\\.nuget\\packages\\",
+        "outputPath": "D:\\PrivateWork\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nvthanh6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +61,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300-preview.22154.4\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
