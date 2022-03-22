@@ -12,7 +12,7 @@ namespace RadarAnalyst.UIComponent
         Button daiRadaVRS2DMButton;
         Label resultLbl;
         int Rmin = 300;
-        int Rmax = 1500;
+        int Rmax = 800;
         int ratio = 8;
         int pictureBoxHeight = 350, pictureBoxWidth = 800;
         private PictureBox pictureBox1 = new PictureBox();
@@ -25,26 +25,8 @@ namespace RadarAnalyst.UIComponent
             this.Size = new System.Drawing.Size(1245, 575);
             this.TabIndex = 0;
             this.UseVisualStyleBackColor = true;
-
             
-
             this.SuspendLayout();
-
-            // 
-            // 
-            // 
-            //Label lbl;
-            //lbl = new System.Windows.Forms.Label();
-            //this.Controls.Add(lbl);
-            //lbl.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            //lbl.AutoSize = true;
-            //lbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            //lbl.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            //lbl.Name = "lbl_appName";
-            //lbl.Size = new System.Drawing.Size(796, 76);
-            //lbl.TabIndex = 0;
-            //lbl.Text = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
-            //lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
             this.initUI();
 
@@ -163,14 +145,17 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawString(text, font, Brushes.Black, locationToDraw);
 
             // ======================================================================================
+            // Create pen.
+            Pen bluePen = new Pen(Color.Blue, 5);
             // Create solid brush.
-            SolidBrush maxElipBrush = new SolidBrush(Color.Blue);
+            SolidBrush maxElipBrush = new SolidBrush(Color.LightBlue);
             // Create location and size of ellipse.
             int RmaxX = 500;
             int RmaxY = 100;
             int Dmax = Rmax * 2 / ratio;
             // Fill ellipse on screen.
             e.Graphics.FillEllipse(maxElipBrush, RmaxX, RmaxY, Dmax, Dmax);
+            e.Graphics.DrawEllipse(bluePen, RmaxX, RmaxY, Dmax, Dmax);
 
             // ======================================================================================
             SolidBrush minElipBrush = new SolidBrush(Color.White);
@@ -178,6 +163,7 @@ namespace RadarAnalyst.UIComponent
             int RminY = RmaxY + (Rmax - Rmin) / ratio;
             int Dmin = Rmin * 2 / ratio;
             e.Graphics.FillEllipse(minElipBrush, RminX, RminY, Dmin, Dmin);
+            e.Graphics.DrawEllipse(bluePen, RminX, RminY, Dmin, Dmin);
 
             // ======================================================================================
 
