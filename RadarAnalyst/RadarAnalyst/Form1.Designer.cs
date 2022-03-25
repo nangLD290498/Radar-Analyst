@@ -159,9 +159,9 @@
             this.Controls.Add(this.tc_mainTap);
             this.Controls.Add(this.ms_mainMenu);
             this.MainMenuStrip = this.ms_mainMenu;
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1293, 691);
-            this.MinimumSize = new System.Drawing.Size(1293, 691);
+            //this.MaximizeBox = true;
+            //this.MaximumSize = new System.Drawing.Size(1500, 700);
+            //this.MinimumSize = new System.Drawing.Size(1500, 700);
             this.Name = "Form1";
             this.Text = "Rada Analyst";
             this.ms_mainMenu.ResumeLayout(false);

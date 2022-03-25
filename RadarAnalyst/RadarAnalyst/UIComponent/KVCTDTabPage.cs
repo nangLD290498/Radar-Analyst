@@ -26,30 +26,30 @@ namespace RadarAnalyst.UIComponent
 
             this.SuspendLayout();
 
-            // Mapinfo
-            MapInfo.MapInfoApplication mapinfo = new MapInfo.MapInfoApplication();
+            //// Mapinfo
+            //MapInfo.MapInfoApplication mapinfo = new MapInfo.MapInfoApplication();
 
-            // Get the handle to the whole MapInfo application.
-            // 9 = SYS_INFO_MAPINFOWND.
-            string handle = mapinfo.Eval("SystemInfo(9)");
+            //// Get the handle to the whole MapInfo application.
+            //// 9 = SYS_INFO_MAPINFOWND.
+            //string handle = mapinfo.Eval("SystemInfo(9)");
 
-            // Convert the handle to an IntPtr type.
-            IntPtr oldhandle = new IntPtr(Convert.ToInt32(handle));
+            //// Convert the handle to an IntPtr type.
+            //IntPtr oldhandle = new IntPtr(Convert.ToInt32(handle));
 
-            //Make mapinfo visible otherwise it won't show up in our control.
-            mapinfo.Visible = true;
+            ////Make mapinfo visible otherwise it won't show up in our control.
+            //mapinfo.Visible = true;
 
-            //Set the parent of MapInfo to a picture box on the form.
-            SetParent(oldhandle, this.Handle);
+            ////Set the parent of MapInfo to a picture box on the form.
+            //SetParent(oldhandle, this.Handle);
 
-            //Get current window style of MapInfo window
-            int style = GetWindowLong(oldhandle, GWL_STYLE);
+            ////Get current window style of MapInfo window
+            //int style = GetWindowLong(oldhandle, GWL_STYLE);
 
-            //Take current window style and remove WS_CAPTION(title bar) from it
-            SetWindowLong(oldhandle, GWL_STYLE, (style & ~WS_CAPTION));
+            ////Take current window style and remove WS_CAPTION(title bar) from it
+            //SetWindowLong(oldhandle, GWL_STYLE, (style & ~WS_CAPTION));
 
-            //Maximize MapInfo so that it fits into our control
-            mapinfo.Do("Set Window 1011 Max");
+            ////Maximize MapInfo so that it fits into our control
+            //mapinfo.Do("Set Window 1011 Max");
 
             this.ResumeLayout(false);
             this.PerformLayout();
