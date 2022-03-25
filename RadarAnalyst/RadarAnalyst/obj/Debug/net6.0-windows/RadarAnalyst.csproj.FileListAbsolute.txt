@@ -88,3 +88,5 @@ C:\Z-project\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\re
 C:\Z-project\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\RadarAnalyst.pdb
 C:\Z-project\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\RadarAnalyst.genruntimeconfig.cache
 C:\Z-project\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\ref\RadarAnalyst.dll
+C:\Users\ldnang\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\RadarAnalyst.UIComponent.Component1.resources
+C:\Users\ldnang\Desktop\Radar-Analyst\RadarAnalyst\RadarAnalyst\obj\Debug\net6.0-windows\RadarAnalyst.UIComponent.KTMPXTabPage.resources
