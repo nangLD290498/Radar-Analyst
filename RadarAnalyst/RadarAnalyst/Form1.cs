@@ -59,16 +59,6 @@
         }
         private void addTabPage(string tabCode)
         {
-            // TabPage myTabPage = new TabPage(tabCode);
-            Console.WriteLine("Form1::addTabPage");
-            TabPage myTabPage = Factory.TabFactory.getTab(tabCode);
-            // add close button
-            ContextMenuStrip cms_close = new ContextMenuStrip();
-            ToolStripMenuItem tsmi_close = new ToolStripMenuItem();
-            tsmi_close.Text = "Close";
-            cms_close.Items.Add(tsmi_close);
-            tc_mainTap.ContextMenuStrip = cms_close;
-            tsmi_close.Click +=  new System.EventHandler(tsmi_close_Click);
             // cant not open a new tab if it is up running
             bool isAdded = false;
             foreach (TabPage tp in tc_mainTap.TabPages)
@@ -82,16 +72,39 @@
             }
             if (!isAdded)
             {
-                tc_mainTap.TabPages.Clear();
-               ///MessageBox.Show(myTabPage.Text + "||" + myTabPage.Name+"||"+tabCode);
-                tc_mainTap.TabPages.Add(myTabPage);
+                DialogResult dialogResul = DialogResult.Yes;
+                if (tc_mainTap.TabPages.Count == 1)
+                {
+                    if (tc_mainTap.TabPages[0].Text != "Welcome")
+                    {
+                         dialogResul = MessageBox.Show("ban co dong cua so "+ tc_mainTap.TabPages[0].Text + " !", "Thong bao", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    }
+                }
+
+                if(dialogResul != DialogResult.No)
+                {
+                    tc_mainTap.TabPages.Clear();
+                    // TabPage myTabPage = new TabPage(tabCode);
+                    Console.WriteLine("Form1::addTabPage");
+                    TabPage myTabPage = Factory.TabFactory.getTab(tabCode);
+                    tc_mainTap.TabPages.Add(myTabPage);
+                }
+               
             }
+            // add close button
+            ContextMenuStrip cms_close = new ContextMenuStrip();
+            ToolStripMenuItem tsmi_close = new ToolStripMenuItem();
+            tsmi_close.Text = "Close";
+            cms_close.Items.Add(tsmi_close);
+            tc_mainTap.ContextMenuStrip = cms_close;
+            tsmi_close.Click += new System.EventHandler(tsmi_close_Click);
         }
 
 
         private void tsmi_close_Click(object sender, EventArgs e)
         {
-            tc_mainTap.TabPages.Remove(tc_mainTap.SelectedTab);
+            DialogResult dialogResul = MessageBox.Show("ban co dong cua so " + tc_mainTap.TabPages[0].Text + " !", "Thong bao", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (dialogResul != DialogResult.No)  tc_mainTap.TabPages.Remove(tc_mainTap.SelectedTab);
         }
 
         private void smi_kvctd_Click(object sender, EventArgs e)
