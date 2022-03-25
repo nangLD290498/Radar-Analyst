@@ -151,7 +151,7 @@
             this.tc_mainTap.Location = new System.Drawing.Point(12, 37);
             this.tc_mainTap.Name = "tc_mainTap";
             this.tc_mainTap.SelectedIndex = 0;
-            this.tc_mainTap.Size = new System.Drawing.Size(1253, 603);
+            this.tc_mainTap.Size = new System.Drawing.Size(1500, 700);
             this.tc_mainTap.TabIndex = 1;
             
             // 
@@ -159,11 +159,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1277, 652);
+            this.ClientSize = new System.Drawing.Size(1500, 700);
             this.Controls.Add(this.tc_mainTap);
             this.Controls.Add(this.ms_mainMenu);
             this.MainMenuStrip = this.ms_mainMenu;
-            this.MinimumSize = new System.Drawing.Size(1293, 691);
+            this.MinimumSize = new System.Drawing.Size(1500, 700);
             this.Name = "Form1";
             this.Text = "Rada Analyst";
             this.ms_mainMenu.ResumeLayout(false);
