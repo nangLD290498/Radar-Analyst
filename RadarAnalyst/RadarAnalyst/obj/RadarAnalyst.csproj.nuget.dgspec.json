@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {}
+    "C:\\Users\\ldnang\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {
+    "C:\\Users\\ldnang\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+        "projectUniqueName": "C:\\Users\\ldnang\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
         "projectName": "RadarAnalyst",
-        "projectPath": "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
-        "packagesPath": "C:\\Users\\nangl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\obj\\",
+        "projectPath": "C:\\Users\\ldnang\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+        "packagesPath": "C:\\Users\\ldnang\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ldnang\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nangl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ldnang\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
