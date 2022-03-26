@@ -13,7 +13,8 @@ namespace RadarAnalyst.UIComponent
             Console.WriteLine("Init GCK Tab Page");
             this.Location = new System.Drawing.Point(4, 24);
             this.Name = tabCode;
-            this.Size = new System.Drawing.Size(1245, 575);
+            this.Padding = new System.Windows.Forms.Padding(3);
+            this.Size = new System.Drawing.Size(1326, 633);
             this.TabIndex = 0;
             this.UseVisualStyleBackColor = true;
 

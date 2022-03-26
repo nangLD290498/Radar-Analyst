@@ -65,31 +65,17 @@
             {
                 if (tp.Name == tabCode)
                 {
-                    MessageBox.Show("Cua so dang chay !", "Thong bao",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cua so dang chay !", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     isAdded = true;
                     break;
                 }
             }
             if (!isAdded)
             {
-                DialogResult dialogResul = DialogResult.Yes;
-                if (tc_mainTap.TabPages.Count == 1)
-                {
-                    if (tc_mainTap.TabPages[0].Text != "Welcome")
-                    {
-                         dialogResul = MessageBox.Show("ban co dong cua so "+ tc_mainTap.TabPages[0].Text + " !", "Thong bao", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    }
-                }
-
-                if(dialogResul != DialogResult.No)
-                {
-                    tc_mainTap.TabPages.Clear();
-                    // TabPage myTabPage = new TabPage(tabCode);
-                    Console.WriteLine("Form1::addTabPage");
-                    TabPage myTabPage = Factory.TabFactory.getTab(tabCode);
-                    tc_mainTap.TabPages.Add(myTabPage);
-                }
-               
+                tc_mainTap.TabPages.Clear();
+                Console.WriteLine("Form1::addTabPage");
+                TabPage myTabPage = Factory.TabFactory.getTab(tabCode);
+                tc_mainTap.TabPages.Add(myTabPage);
             }
             // add close button
             ContextMenuStrip cms_close = new ContextMenuStrip();
@@ -103,8 +89,7 @@
 
         private void tsmi_close_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResul = MessageBox.Show("ban co dong cua so " + tc_mainTap.TabPages[0].Text + " !", "Thong bao", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (dialogResul != DialogResult.No)  tc_mainTap.TabPages.Remove(tc_mainTap.SelectedTab);
+            tc_mainTap.TabPages.Remove(tc_mainTap.SelectedTab);
         }
 
         private void smi_kvctd_Click(object sender, EventArgs e)
@@ -147,6 +132,6 @@
             addTabPage(Util.Constant.PVPHMP);
         }
 
-       
+
     }
 }

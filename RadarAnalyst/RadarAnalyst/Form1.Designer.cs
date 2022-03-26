@@ -142,8 +142,8 @@
             // 
             // tc_mainTap
             // 
-            this.tc_mainTap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tc_mainTap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tc_mainTap.Location = new System.Drawing.Point(12, 37);
             this.tc_mainTap.Name = "tc_mainTap";
@@ -186,8 +186,8 @@
         private ToolStripMenuItem smi_gck;
         private ToolStripMenuItem smi_pvphmp;
         private ToolStripMenuItem smi_help;
-        
+
         private TabControl tc_mainTap;
-        
+
     }
 }
