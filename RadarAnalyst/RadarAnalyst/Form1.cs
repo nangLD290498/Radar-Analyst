@@ -59,23 +59,13 @@
         }
         private void addTabPage(string tabCode)
         {
-            // TabPage myTabPage = new TabPage(tabCode);
-            Console.WriteLine("Form1::addTabPage");
-            TabPage myTabPage = Factory.TabFactory.getTab(tabCode);
-            // add close button
-            ContextMenuStrip cms_close = new ContextMenuStrip();
-            ToolStripMenuItem tsmi_close = new ToolStripMenuItem();
-            tsmi_close.Text = "Close";
-            cms_close.Items.Add(tsmi_close);
-            tc_mainTap.ContextMenuStrip = cms_close;
-            tsmi_close.Click +=  new System.EventHandler(tsmi_close_Click);
             // cant not open a new tab if it is up running
             bool isAdded = false;
             foreach (TabPage tp in tc_mainTap.TabPages)
             {
                 if (tp.Name == tabCode)
                 {
-                    MessageBox.Show("Cua so dang chay !", "Thong bao",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cua so dang chay !", "Thong bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     isAdded = true;
                     break;
                 }
@@ -83,9 +73,17 @@
             if (!isAdded)
             {
                 tc_mainTap.TabPages.Clear();
-               ///MessageBox.Show(myTabPage.Text + "||" + myTabPage.Name+"||"+tabCode);
+                Console.WriteLine("Form1::addTabPage");
+                TabPage myTabPage = Factory.TabFactory.getTab(tabCode);
                 tc_mainTap.TabPages.Add(myTabPage);
             }
+            // add close button
+            ContextMenuStrip cms_close = new ContextMenuStrip();
+            ToolStripMenuItem tsmi_close = new ToolStripMenuItem();
+            tsmi_close.Text = "Close";
+            cms_close.Items.Add(tsmi_close);
+            tc_mainTap.ContextMenuStrip = cms_close;
+            tsmi_close.Click += new System.EventHandler(tsmi_close_Click);
         }
 
 
@@ -134,6 +132,6 @@
             addTabPage(Util.Constant.PVPHMP);
         }
 
-       
+
     }
 }

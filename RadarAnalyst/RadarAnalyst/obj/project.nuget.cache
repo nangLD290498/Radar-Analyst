@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "ZKfmd8bUsVDKP/w6phqJd1Jo6l+n9sTRfl5BATfJfh1Kepadd/fosXQmUT9uHPIZPiJZnY/52fA6H2rFh9ccxw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ldnang\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+=======
+  "dgSpecHash": "0dxsdGR67kuvr/ioS5e7pwG2MQt27tOaLqddkBU0hbe/Zuivz0rP8RhxQQ4QTbNh3uveKUPPs04KPGEgOeBjWg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\RadarAnalyst.csproj",
+>>>>>>> main
   "expectedPackageFiles": [],
   "logs": []
 }
