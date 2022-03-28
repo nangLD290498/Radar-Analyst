@@ -166,6 +166,9 @@ namespace RadarAnalyst.UIComponent
             this.nud_ha.Size = new System.Drawing.Size(107, 23);
             this.nud_ha.TabIndex = 6;
             this.nud_ha.Maximum = 9999999999;
+            this.nud_ha.Minimum = 0;
+            this.nud_ha.DecimalPlaces = 1;
+            this.nud_ha.Increment = 0.1m;
             // label_ha_unit
             this.label_ha_unit.AutoSize = true;
             this.label_ha_unit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -190,6 +193,9 @@ namespace RadarAnalyst.UIComponent
             this.nud_l.Size = new System.Drawing.Size(107, 23);
             this.nud_l.TabIndex = 5;
             this.nud_l.Maximum = 9999999999;
+            this.nud_l.Minimum = 0;
+            this.nud_l.DecimalPlaces = 1;
+            this.nud_l.Increment = 0.1m;
             // label_l_unit
             this.label_l_unit.AutoSize = true;
             this.label_l_unit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -214,6 +220,9 @@ namespace RadarAnalyst.UIComponent
             this.nud_delta_H_tt.Size = new System.Drawing.Size(107, 23);
             this.nud_delta_H_tt.TabIndex = 4;
             this.nud_delta_H_tt.Maximum = 9999999999;
+            this.nud_delta_H_tt.Minimum = 0;
+            this.nud_delta_H_tt.DecimalPlaces = 1;
+            this.nud_delta_H_tt.Increment = 0.1m;
             // label_l_unit
             this.label_delta_H_tt_unit.AutoSize = true;
             this.label_delta_H_tt_unit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
