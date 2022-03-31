@@ -4,6 +4,15 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UIComponent\GroupBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\LabelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\MossieButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="UIComponent\Component1.cs">
       <SubType>Component</SubType>
     </Compile>

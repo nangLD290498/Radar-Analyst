@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
+
 
 namespace RadarAnalyst.UIComponent
 {
@@ -13,32 +15,32 @@ namespace RadarAnalyst.UIComponent
         private const String VRS_2DM = "VRS_2DM";
         private String modOn = P_18M;
 
-        private Button btn_P_18M;
-        private Button btn_VRS_2DM;
+        private MossieButton btn_P_18M;
+        private MossieButton btn_VRS_2DM;
 
-        private GroupBox gb_picture;
-        private GroupBox gb_ouputTable;
-        private GroupBox gb_inputTable;
-        private Button btn_ok;
+        private GroupBoxEx gb_picture;
+        private GroupBoxEx gb_ouputTable;
+        private GroupBoxEx gb_inputTable;
+        private MossieButton btn_ok;
 
-        private Label label_ha_title;
+        private LabelEx label_ha_title;
         private NumericUpDown nud_ha;
-        private Label label_ha_unit;
+        private LabelEx label_ha_unit;
 
-        private Label label_l_title;
+        private LabelEx label_l_title;
         private NumericUpDown nud_l;
-        private Label label_l_unit;
+        private LabelEx label_l_unit;
 
-        private Label label_delta_H_tt_title;
+        private LabelEx label_delta_H_tt_title;
         private NumericUpDown nud_delta_H_tt;
-        private Label label_delta_H_tt_unit;
+        private LabelEx label_delta_H_tt_unit;
 
-        private Label label_first_result_title;
-        private Label label_first_result_value;
-        private Label label_first_result_unit;
+        private LabelEx label_first_result_title;
+        private LabelEx label_first_result_value;
+        private LabelEx label_first_result_unit;
 
-        private Label label_second_result_title;
-        private Label label_second_result_value;
+        private LabelEx label_second_result_title;
+        private LabelEx label_second_result_value;
 
         private PictureBox pictureBox1 = new PictureBox();
         int pictureBoxHeight = 500;
@@ -49,6 +51,11 @@ namespace RadarAnalyst.UIComponent
         private const float nud_delta_h_default_value = 5.0F;
         private float hRotation = 1.5F;
         private float lRotation = 7.5F;
+
+        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+        private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
+        private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
+        private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
 
         public DLLTabPage(String tabCode, String text) : base(text)
         {
@@ -62,24 +69,26 @@ namespace RadarAnalyst.UIComponent
             this.SuspendLayout();
             // create layout
             initUI();
+            this.Paint += new PaintEventHandler(set_background);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
         private void initUI()
         {
+            
             // radar buttons
             initRadarButton();
             // input
-            this.gb_inputTable = new System.Windows.Forms.GroupBox();
+            this.gb_inputTable = new GroupBoxEx();
             this.gb_inputTable.SuspendLayout();
             this.Controls.Add(this.gb_inputTable);
             this.gb_inputTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.gb_inputTable.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.gb_inputTable.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.gb_inputTable.Location = new System.Drawing.Point(199, 197);
-            this.gb_inputTable.MaximumSize = new System.Drawing.Size(253, 250);
-            this.gb_inputTable.MinimumSize = new System.Drawing.Size(253, 250);
+            this.gb_inputTable.MaximumSize = new System.Drawing.Size(253, 396);
+            this.gb_inputTable.MinimumSize = new System.Drawing.Size(253, 396);
             this.gb_inputTable.Name = "gb_inputTable";
-            this.gb_inputTable.Size = new System.Drawing.Size(253, 250);
+            this.gb_inputTable.Size = new System.Drawing.Size(253, 396);
             this.gb_inputTable.TabIndex = 3;
             this.gb_inputTable.TabStop = false;
             this.gb_inputTable.Text = "BẢNG NHẬP SỐ LIỆU";
@@ -87,12 +96,12 @@ namespace RadarAnalyst.UIComponent
             this.gb_inputTable.PerformLayout();
             initInputTable();
             // output
-            this.gb_ouputTable = new System.Windows.Forms.GroupBox();
+            this.gb_ouputTable = new GroupBoxEx();
             this.gb_ouputTable.SuspendLayout();
             this.Controls.Add(this.gb_ouputTable);
             this.gb_ouputTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_ouputTable.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.gb_ouputTable.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.gb_ouputTable.Location = new System.Drawing.Point(458, 9);
             this.gb_ouputTable.MaximumSize = new System.Drawing.Size(822, 172);
             this.gb_ouputTable.MinimumSize = new System.Drawing.Size(822, 172);
@@ -105,11 +114,11 @@ namespace RadarAnalyst.UIComponent
             this.gb_ouputTable.PerformLayout();
             initOutputTable();
             //picture
-            this.gb_picture = new System.Windows.Forms.GroupBox();
+            this.gb_picture = new GroupBoxEx();
             this.Controls.Add(this.gb_picture);
             this.gb_picture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_picture.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.gb_picture.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.gb_picture.Location = new System.Drawing.Point(458, 197);
             this.gb_picture.MaximumSize = new System.Drawing.Size(822, 396);
             this.gb_picture.MinimumSize = new System.Drawing.Size(822, 396);
@@ -117,73 +126,50 @@ namespace RadarAnalyst.UIComponent
             this.gb_picture.Size = new System.Drawing.Size(822, 396);
             this.gb_picture.TabIndex = 5;
             this.gb_picture.TabStop = false;
-
-            // ======================================================================================
-            // Dock the PictureBox to the form and set its background to white.
-            //pictureBox1.Dock = DockStyle.Fill;
-            //pictureBox1.Location = new Point(0, 0);
-            //pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
-            //pictureBox1.BackColor = Color.LightGray;
-            // Connect the Paint event of the PictureBox to the event handler method.
-            //pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
-            // Add the PictureBox control to the Form.
-            //this.gb_picture.Controls.Add(pictureBox1);
         }
 
 
         private void initRadarButton()
         {
-            this.btn_VRS_2DM = new System.Windows.Forms.Button();
-            this.btn_P_18M = new System.Windows.Forms.Button();
+            this.btn_VRS_2DM = new MossieButton("ĐÀI RA ĐA \n VRS-2DM");
+            this.btn_P_18M = new MossieButton("ĐÀI RA ĐA \n P-18 M");
             this.Controls.Add(this.btn_VRS_2DM);
             this.Controls.Add(this.btn_P_18M);
-            // 
-            // btn_VRS_2DM
-            // 
-            this.btn_VRS_2DM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_VRS_2DM.BackColor = System.Drawing.Color.AliceBlue;
-            this.btn_VRS_2DM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 286);
-            this.btn_VRS_2DM.MaximumSize = new System.Drawing.Size(135, 83);
-            this.btn_VRS_2DM.MinimumSize = new System.Drawing.Size(135, 83);
-            this.btn_VRS_2DM.Name = "btn_VRS_2DM";
-            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 83);
-            this.btn_VRS_2DM.TabIndex = 1;
-            this.btn_VRS_2DM.Text = "ĐÀI RA ĐA \n VRS-2DM";
-            this.btn_VRS_2DM.UseVisualStyleBackColor = false;
-            this.btn_VRS_2DM.Click += new System.EventHandler(this.btn_VRS_2DM_Click);
-            // 
+
             // btn_P_18M
-            // 
-            this.btn_P_18M.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_P_18M.BackColor = System.Drawing.Color.LightBlue;
-            this.btn_P_18M.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_P_18M.Location = new System.Drawing.Point(47, 181);
-            this.btn_P_18M.MaximumSize = new System.Drawing.Size(135, 83);
-            this.btn_P_18M.MinimumSize = new System.Drawing.Size(135, 83);
+            //this.btn_P_18M.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            //| System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
-            this.btn_P_18M.Size = new System.Drawing.Size(135, 83);
-            this.btn_P_18M.TabIndex = 0;
-            this.btn_P_18M.Text = "ĐÀI RA ĐA \n P-18 M";
-            this.btn_P_18M.UseVisualStyleBackColor = false;
+            this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
+            //this.btn_P_18M.Text = "ĐÀI RA ĐA \n P-18 M";
             this.btn_P_18M.Click += new System.EventHandler(this.btn_P_18M_Click);
+
+            // btn_VRS_2DM
+            //this.btn_VRS_2DM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            //| System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 260);
+            this.btn_VRS_2DM.Name = "btn_VRS_2DM";
+            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 50);
+            //this.btn_VRS_2DM.Text = "ĐÀI RA ĐA \n VRS-2DM";
+            this.btn_VRS_2DM.Click += new System.EventHandler(this.btn_VRS_2DM_Click);
+            
+            
         }
 
 
         private void initInputTable()
         {
-            this.label_ha_title = new System.Windows.Forms.Label();
-            this.label_ha_unit = new System.Windows.Forms.Label();
-            this.label_l_title = new System.Windows.Forms.Label();
-            this.label_l_unit = new System.Windows.Forms.Label();
-            this.label_delta_H_tt_title = new System.Windows.Forms.Label();
-            this.label_delta_H_tt_unit = new System.Windows.Forms.Label();
+            this.label_ha_title = new LabelEx();
+            this.label_ha_unit = new LabelEx();
+            this.label_l_title = new LabelEx();
+            this.label_l_unit = new LabelEx();
+            this.label_delta_H_tt_title = new LabelEx();
+            this.label_delta_H_tt_unit = new LabelEx();
             this.nud_ha = new System.Windows.Forms.NumericUpDown();
             this.nud_l = new System.Windows.Forms.NumericUpDown();
             this.nud_delta_H_tt = new System.Windows.Forms.NumericUpDown();
-            this.btn_ok = new System.Windows.Forms.Button();
+            this.btn_ok = new MossieButton("OK");
 
             ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_l)).BeginInit();
@@ -206,7 +192,7 @@ namespace RadarAnalyst.UIComponent
             // ================================================================
             // label_ha_title
             this.label_ha_title.AutoSize = true;
-            this.label_ha_title.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_ha_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_ha_title.Location = new System.Drawing.Point(21, 40);
             this.label_ha_title.Name = "label_ha_title";
             this.label_ha_title.Size = new System.Drawing.Size(58, 20);
@@ -224,7 +210,7 @@ namespace RadarAnalyst.UIComponent
             this.nud_ha.Value = new decimal(nud_ha_default_value);
             // label_ha_unit
             this.label_ha_unit.AutoSize = true;
-            this.label_ha_unit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_ha_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_ha_unit.Location = new System.Drawing.Point(207, 40);
             this.label_ha_unit.Name = "label_ha_unit";
             this.label_ha_unit.Size = new System.Drawing.Size(29, 20);
@@ -234,7 +220,7 @@ namespace RadarAnalyst.UIComponent
             // ================================================================
             // label_l_title
             this.label_l_title.AutoSize = true;
-            this.label_l_title.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_l_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_l_title.Location = new System.Drawing.Point(21, 80);
             this.label_l_title.Name = "label_l_title";
             this.label_l_title.Size = new System.Drawing.Size(58, 20);
@@ -252,7 +238,7 @@ namespace RadarAnalyst.UIComponent
             this.nud_l.Value = new decimal(nud_l_default_value);
             // label_l_unit
             this.label_l_unit.AutoSize = true;
-            this.label_l_unit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_l_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_l_unit.Location = new System.Drawing.Point(207, 80);
             this.label_l_unit.Name = "label_l_unit";
             this.label_l_unit.Size = new System.Drawing.Size(29, 20);
@@ -262,7 +248,7 @@ namespace RadarAnalyst.UIComponent
             // ================================================================
             // label_l_title
             this.label_delta_H_tt_title.AutoSize = true;
-            this.label_delta_H_tt_title.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_delta_H_tt_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_delta_H_tt_title.Location = new System.Drawing.Point(21, 120);
             this.label_delta_H_tt_title.Name = "label_delta_H_tt_title";
             this.label_delta_H_tt_title.Size = new System.Drawing.Size(58, 20);
@@ -280,7 +266,7 @@ namespace RadarAnalyst.UIComponent
             this.nud_delta_H_tt.Value = new decimal(nud_delta_h_default_value);
             // label_l_unit
             this.label_delta_H_tt_unit.AutoSize = true;
-            this.label_delta_H_tt_unit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_delta_H_tt_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_delta_H_tt_unit.Location = new System.Drawing.Point(207, 120);
             this.label_delta_H_tt_unit.Name = "label_delta_H_tt_unit";
             this.label_delta_H_tt_unit.Size = new System.Drawing.Size(29, 20);
@@ -291,7 +277,7 @@ namespace RadarAnalyst.UIComponent
             // btn_ok
             // 
             this.btn_ok.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_ok.Location = new System.Drawing.Point(99, 200);
+            this.btn_ok.Location = new System.Drawing.Point(80, 340);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(61, 31);
             this.btn_ok.TabIndex = 0;
@@ -307,12 +293,12 @@ namespace RadarAnalyst.UIComponent
 
         private void initOutputTable()
         {
-            this.label_first_result_title = new System.Windows.Forms.Label();
-            this.label_first_result_value = new System.Windows.Forms.Label();
-            this.label_first_result_unit = new System.Windows.Forms.Label();
+            this.label_first_result_title = new LabelEx();
+            this.label_first_result_value = new LabelEx();
+            this.label_first_result_unit = new LabelEx();
 
-            this.label_second_result_title = new System.Windows.Forms.Label();
-            this.label_second_result_value = new System.Windows.Forms.Label();
+            this.label_second_result_title = new LabelEx();
+            this.label_second_result_value = new LabelEx();
 
             // 
             // gb_ouputTable
@@ -327,7 +313,7 @@ namespace RadarAnalyst.UIComponent
             // ================================================================
             // label_first_result_title
             this.label_first_result_title.AutoSize = true;
-            this.label_first_result_title.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_first_result_title.Location = new System.Drawing.Point(30, 50);
             this.label_first_result_title.Name = "label_first_result_title";
             this.label_first_result_title.Size = new System.Drawing.Size(180, 31);
@@ -335,7 +321,7 @@ namespace RadarAnalyst.UIComponent
             this.label_first_result_title.Text = "Độ lồi lõm cho phép: ";
             // label_first_result_value
             this.label_first_result_value.AutoSize = true;
-            this.label_first_result_value.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_first_result_value.ForeColor = System.Drawing.Color.Red;
             this.label_first_result_value.Location = new System.Drawing.Point(220, 50);
             this.label_first_result_value.Name = "label_first_result_value";
@@ -344,7 +330,7 @@ namespace RadarAnalyst.UIComponent
             this.label_first_result_value.Text = "000000";
             // label17
             this.label_first_result_unit.AutoSize = true;
-            this.label_first_result_unit.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_first_result_unit.Location = new System.Drawing.Point(300, 50);
             this.label_first_result_unit.Name = "label_first_result_unit";
             this.label_first_result_unit.Size = new System.Drawing.Size(10, 31);
@@ -354,7 +340,7 @@ namespace RadarAnalyst.UIComponent
             // ================================================================
             // label_second_result_title
             this.label_second_result_title.AutoSize = true;
-            this.label_second_result_title.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_second_result_title.Location = new System.Drawing.Point(30, 90);
             this.label_second_result_title.Name = "label_second_result_title";
             this.label_second_result_title.Size = new System.Drawing.Size(150, 31);
@@ -362,7 +348,7 @@ namespace RadarAnalyst.UIComponent
             this.label_second_result_title.Text = "Đánh giá";
             // label_second_result_value
             this.label_second_result_value.AutoSize = true;
-            this.label_second_result_value.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_second_result_value.ForeColor = System.Drawing.Color.Red;
             this.label_second_result_value.Location = new System.Drawing.Point(120, 90);
             this.label_second_result_value.Name = "label_second_result_value";
@@ -372,16 +358,16 @@ namespace RadarAnalyst.UIComponent
         }
         private void btn_P_18M_Click(object sender, EventArgs e)
         {
-            btn_P_18M.BackColor = Color.LightBlue;
-            btn_VRS_2DM.BackColor = Color.AliceBlue;
+            //btn_P_18M.BackColor = Color.LightBlue;
+            //btn_VRS_2DM.BackColor = Color.AliceBlue;
 
             this.modOn = P_18M;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
         {
-            btn_P_18M.BackColor = Color.AliceBlue;
-            btn_VRS_2DM.BackColor = Color.LightBlue;
+            //btn_P_18M.BackColor = Color.AliceBlue;
+            //btn_VRS_2DM.BackColor = Color.LightBlue;
 
             this.modOn = VRS_2DM;
         }
@@ -417,7 +403,8 @@ namespace RadarAnalyst.UIComponent
             //pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
-            pictureBox1.BackColor = Color.LightGray;
+
+            pictureBox1.BackColor = groupBoxColor;
             // Connect the Paint event of the PictureBox to the event handler method.
             pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
             // Add the PictureBox control to the Form.
@@ -442,29 +429,30 @@ namespace RadarAnalyst.UIComponent
 
             // ========================================================================================================
             // draw begin line
-            Pen pen = new Pen(Color.Black, 2);
+            Pen pen = new Pen(lineBlueColor, 2);
             PointF point1 = new PointF(haBaseX - 50F, 50.0F);
             PointF point2 = new PointF(haBaseX + 50F, 50.0F);
             e.Graphics.DrawLine(pen, point1, point2);
+
+            // ========================================================================================================
+            // draw end line
+            pen = new Pen(lineBlueColor, 2);
+            PointF endLineBeginPoint = new PointF(50.0F, endLineY);
+            PointF endLineEndPoint = new PointF(750.0F, endLineY);
+            e.Graphics.DrawLine(pen, endLineBeginPoint, endLineEndPoint);
 
             float haOnPic = haBaseY + haOnPicMin + haValue / hRotation;
             if(haOnPic > haOnPicMax) haOnPic = haOnPicMax;
 
             // ========================================================================================================
             // draw ha line black
-            pen = new Pen(Color.Black, 2);
+            pen = new Pen(lineBlueColor, 2);
             PointF haTopPoint = new PointF(haBaseX, haBaseY);
             PointF haBotPoint = new PointF(haBaseX, haOnPic);
             e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
 
             // draw triangle
-            //pen = new Pen(Brushes.Black, 2);
-            //float haBaseXForTriangle = haBaseX - 15F;
-            //e.Graphics.DrawLine(pen, new PointF(0F + haBaseXForTriangle, 30F + haOnPic), new PointF(30 + haBaseXForTriangle, 30F + haOnPic));
-            //e.Graphics.DrawLine(pen, new PointF(0 + haBaseXForTriangle, 30F + haOnPic), new PointF(15 + haBaseXForTriangle, 0F + haOnPic));
-            //e.Graphics.DrawLine(pen, new PointF(15 + haBaseXForTriangle, 0F + haOnPic), new PointF(30 + haBaseXForTriangle, 30F + haOnPic));
-
-            SolidBrush blueBrush = new SolidBrush(Color.Blue);
+            SolidBrush blueBrush = new SolidBrush(violetColor);
             PointF trianglePoint1 = new PointF(haBaseX, haOnPic);
             PointF trianglePoint3 = new PointF(haBaseX + 15F, haOnPic + 30F);
             PointF trianglePoint2 = new PointF(haBaseX - 15F, haOnPic + 30F);
@@ -486,7 +474,7 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, 30F + haOnPic), new PointF(haBaseX - 15F, 25F + haOnPic));
             // draw text ha
             string text1 = " ha";
-            using (Font font1 = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point))
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
                 RectangleF rectF1 = new RectangleF(haBaseX - 60F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F: haTextY, 30, 20);
@@ -518,7 +506,7 @@ namespace RadarAnalyst.UIComponent
 
             //draw text L
             string lText = "  L";
-            using (Font font1 = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point))
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 RectangleF rectF1 = new RectangleF(haBaseX + (lOnPic- haBaseX)/2 - 30/2, endLineY + 40F, 30, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
@@ -526,11 +514,25 @@ namespace RadarAnalyst.UIComponent
                 e.Graphics.DrawString(lText, font1, Brushes.Black, rectF1);
             }
 
-            // ========================================================================================================
-            // draw line delta h
             float deltaHOnPic = endLineY - deltaHOnPicMin * 2 - deltaHValue / hRotation;
             if (deltaHOnPic < (endLineY - deltaHOnPicMax)) deltaHOnPic = endLineY - deltaHOnPicMax;
 
+            // ========================================================================================================
+            // draw curve
+            pen = new Pen(lineBlueColor, 1);
+            // Create points that define curve.
+            PointF curvePoint1 = new PointF(haBaseX - 75F, haBaseY + haOnPic + 50F);
+            PointF curvePoint2 = new PointF(haBaseX + 20F, haBaseY + haOnPic - 15F);
+            PointF curvePoint3 = new PointF(lOnPic - 150F, deltaHOnPic + 20F);
+            PointF curvePoint4 = new PointF(lOnPic, deltaHOnPic);
+            PointF curvePoint5 = new PointF(lOnPic + 100F, endLineY - 5F);
+            PointF curvePoint6 = new PointF(lOnPic + 140F, endLineY - 20F);
+            PointF[] curvePoints = { curvePoint1, curvePoint2, curvePoint3, curvePoint4, curvePoint5, curvePoint6 };
+            e.Graphics.DrawCurve(pen, curvePoints);
+
+            // ========================================================================================================
+            // draw line delta h
+            pen = new Pen(Color.White, 2);
             PointF deltaHTopPoint = new PointF(lOnPic, deltaHOnPic);
             PointF detaHBotPoint = new PointF(lOnPic, endLineY);
             e.Graphics.DrawLine(pen, deltaHTopPoint, detaHBotPoint);
@@ -538,11 +540,11 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawLine(pen, new PointF(lOnPic, deltaHOnPic), new PointF(lOnPic - 5F, deltaHOnPic + 5F));
             e.Graphics.DrawLine(pen, new PointF(lOnPic, deltaHOnPic), new PointF(lOnPic + 5F, deltaHOnPic + 5F));
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(lOnPic, endLineY), new PointF(lOnPic + 5F, endLineY - 5F));
-            e.Graphics.DrawLine(pen, new PointF(lOnPic, endLineY), new PointF(lOnPic - 5F, endLineY - 5F));
+            e.Graphics.DrawLine(pen, new PointF(lOnPic, endLineY - 2F), new PointF(lOnPic + 5F, endLineY - 7F));
+            e.Graphics.DrawLine(pen, new PointF(lOnPic, endLineY - 2F), new PointF(lOnPic - 5F, endLineY - 7F));
             //draw text delta h
             string deltaHText = "Δh";
-            using (Font font1 = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point))
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
                 RectangleF rectF1 = new RectangleF(lOnPic + 10F, deltaHOnPic - 20F, 30, 20);
@@ -551,30 +553,24 @@ namespace RadarAnalyst.UIComponent
                 e.Graphics.DrawString(deltaHText, font1, Brushes.Black, rectF1);
             }
 
-            // draw dash line ha
+            // draw dash line delta H
             e.Graphics.DrawLine(dashPen, detaHBotPoint, new PointF(lOnPic, endLineY + 50));
+        }
 
-            // ========================================================================================================
-            // draw curve
-            pen = new Pen(Color.Black, 3);
+        private void set_background(Object sender, PaintEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
 
-            // Create points that define curve.
-            PointF curvePoint1 = new PointF(haBaseX - 75F, haBaseY + haOnPic + 50F);
-            PointF curvePoint2 = new PointF(haBaseX + 20F, haBaseY + haOnPic - 15F);
-            PointF curvePoint3 = new PointF(lOnPic - 150F, deltaHOnPic + 20F);
-            PointF curvePoint4 = new PointF(lOnPic, deltaHOnPic - 5F);
-            PointF curvePoint5 = new PointF(lOnPic + 100F, endLineY - 5F);
-            PointF curvePoint6 = new PointF(lOnPic + 140F, endLineY - 20F);
-            PointF[] curvePoints = { curvePoint1, curvePoint2, curvePoint3, curvePoint4, curvePoint5, curvePoint6 };
-            e.Graphics.DrawCurve(pen, curvePoints);
+            //the rectangle, the same size as our Form
+            Rectangle gradient_rectangle = new Rectangle(0, 0, Width, Height);
 
+            //define gradient's properties
+            System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#07081d");
 
-            // ========================================================================================================
-            // draw end line
-            pen = new Pen(Color.White, 2);
-            PointF endLineBeginPoint = new PointF(50.0F, endLineY);
-            PointF endLineEndPoint = new PointF(750.0F, endLineY);
-            e.Graphics.DrawLine(pen, endLineBeginPoint, endLineEndPoint);
+            Brush b = new LinearGradientBrush(gradient_rectangle, col, col, 65f);
+            
+            //apply gradient         
+            graphics.FillRectangle(b, gradient_rectangle);
         }
     }
 }
