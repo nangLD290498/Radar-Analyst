@@ -75,7 +75,17 @@ namespace RadarAnalyst.UIComponent
             this.gb_picture.Size = new System.Drawing.Size(822, 396);
             this.gb_picture.TabIndex = 5;
             this.gb_picture.TabStop = false;
-            initPicture();
+
+            // ======================================================================================
+            // Dock the PictureBox to the form and set its background to white.
+            //pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
+            pictureBox1.BackColor = Color.LightGray;
+            // Connect the Paint event of the PictureBox to the event handler method.
+            pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
+            // Add the PictureBox control to the Form.
+            this.gb_picture.Controls.Add(pictureBox1);
         }
 
 
@@ -315,13 +325,46 @@ namespace RadarAnalyst.UIComponent
             this.label_second_result_value.TabIndex = 4;
             this.label_second_result_value.Text = "Đạt/Không đạt";
         }
-
-
-        private void initPicture()
+        private void drawGraph(object sender, PaintEventArgs e)
         {
-            //todo: draw picture
-        }
+            int Rmin = 300;
+            int Rmax = 800;
+            int ratio = 8;
+            int pictureBoxHeight = 350;
+            int pictureBoxWidth = 800;
 
+            // ======================================================================================
+            // Center text
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            string text = "Text";
+            SizeF textSize = e.Graphics.MeasureString(text, Font);
+            Font font = new System.Drawing.Font("Segoe UI", 16, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            PointF locationToDraw = new PointF();
+            locationToDraw.X = (pictureBoxWidth / 2) - (textSize.Width / 2);
+            locationToDraw.Y = 0;
+            e.Graphics.DrawString(text, font, Brushes.Black, locationToDraw);
+
+            // ======================================================================================
+            // Create pen.
+            Pen bluePen = new Pen(Color.Blue, 5);
+            // Create solid brush.
+            SolidBrush maxElipBrush = new SolidBrush(Color.LightBlue);
+            // Create location and size of ellipse.
+            int RmaxX = 500;
+            int RmaxY = 100;
+            int Dmax = Rmax * 2 / ratio;
+            // Fill ellipse on screen.
+            e.Graphics.FillEllipse(maxElipBrush, RmaxX, RmaxY, Dmax, Dmax);
+            e.Graphics.DrawEllipse(bluePen, RmaxX, RmaxY, Dmax, Dmax);
+
+            // ======================================================================================
+            SolidBrush minElipBrush = new SolidBrush(Color.White);
+            int RminX = RmaxX + (Rmax - Rmin) / ratio;
+            int RminY = RmaxY + (Rmax - Rmin) / ratio;
+            int Dmin = Rmin * 2 / ratio;
+            e.Graphics.FillEllipse(minElipBrush, RminX, RminY, Dmin, Dmin);
+            e.Graphics.DrawEllipse(bluePen, RminX, RminY, Dmin, Dmin);
+        }
 
         private void btn_P_18M_Click(object sender, EventArgs e)
         {
@@ -404,5 +447,8 @@ namespace RadarAnalyst.UIComponent
         private Label label_second_result_title;
         private Label label_second_result_value;
 
+        private PictureBox pictureBox1 = new PictureBox();
+        int pictureBoxHeight = 350;
+        int pictureBoxWidth = 800;
     }
 }
