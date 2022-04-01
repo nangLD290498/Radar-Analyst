@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-public class GroupBoxEx : GroupBox
+public class GroupBoxCtm : GroupBox
 {
     private Color borderColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
     [DefaultValue(typeof(Color), "Black")]

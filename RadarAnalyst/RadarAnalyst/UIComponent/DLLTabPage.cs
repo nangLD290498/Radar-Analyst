@@ -4,45 +4,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
-
+using RadarAnalyst.UIComponent.ComponentI;
+using RadarAnalyst.UIComponent.Element;
 
 namespace RadarAnalyst.UIComponent
 {
-    public partial class DLLTabPage : TabPage
+    public partial class DLLTabPage : TabPageCI
     {
         private const int lambdaValue = 2;
         private const String P_18M = "P_18M";
         private const String VRS_2DM = "VRS_2DM";
         private String modOn = P_18M;
 
-        private MossieButton btn_P_18M;
-        private MossieButton btn_VRS_2DM;
+        private ButtonCtm btn_P_18M;
+        private ButtonCtm btn_VRS_2DM;
 
-        private GroupBoxEx gb_picture;
-        private GroupBoxEx gb_ouputTable;
-        private GroupBoxEx gb_inputTable;
-        private MossieButton btn_ok;
-
-        private LabelEx label_ha_title;
+        private LabelCtm label_ha_title;
         private NumericUpDown nud_ha;
-        private LabelEx label_ha_unit;
+        private LabelCtm label_ha_unit;
 
-        private LabelEx label_l_title;
+        private LabelCtm label_l_title;
         private NumericUpDown nud_l;
-        private LabelEx label_l_unit;
+        private LabelCtm label_l_unit;
 
-        private LabelEx label_delta_H_tt_title;
+        private LabelCtm label_delta_H_tt_title;
         private NumericUpDown nud_delta_H_tt;
-        private LabelEx label_delta_H_tt_unit;
+        private LabelCtm label_delta_H_tt_unit;
 
-        private LabelEx label_first_result_title;
-        private LabelEx label_first_result_value;
-        private LabelEx label_first_result_unit;
+        private LabelCtm label_first_result_title;
+        private LabelCtm label_first_result_value;
+        private LabelCtm label_first_result_unit;
 
-        private LabelEx label_second_result_title;
-        private LabelEx label_second_result_value;
+        private LabelCtm label_second_result_title;
+        private LabelCtm label_second_result_value;
 
-        private PictureBox pictureBox1 = new PictureBox();
         int pictureBoxHeight = 500;
         int pictureBoxWidth = 850;
 
@@ -57,119 +52,48 @@ namespace RadarAnalyst.UIComponent
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
 
-        public DLLTabPage(String tabCode, String text) : base(text)
+        public DLLTabPage(String tabCode, String text) : base(tabCode, text)
         {
-            Console.WriteLine("Init KTMPX Tab Page");
-            this.Location = new System.Drawing.Point(4, 24);
-            this.Name = tabCode;
-            this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(1326, 633);
-            this.TabIndex = 0;
-            this.UseVisualStyleBackColor = true;
-            this.SuspendLayout();
             // create layout
-            initUI();
-            this.Paint += new PaintEventHandler(set_background);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-        }
-        private void initUI()
-        {
-            
-            // radar buttons
             initRadarButton();
-            // input
-            this.gb_inputTable = new GroupBoxEx();
-            this.gb_inputTable.SuspendLayout();
-            this.Controls.Add(this.gb_inputTable);
-            this.gb_inputTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.gb_inputTable.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_inputTable.Location = new System.Drawing.Point(199, 197);
-            this.gb_inputTable.MaximumSize = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.MinimumSize = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.Name = "gb_inputTable";
-            this.gb_inputTable.Size = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.TabIndex = 3;
-            this.gb_inputTable.TabStop = false;
-            this.gb_inputTable.Text = "BẢNG NHẬP SỐ LIỆU";
-            this.gb_inputTable.ResumeLayout(false);
-            this.gb_inputTable.PerformLayout();
-            initInputTable();
-            // output
-            this.gb_ouputTable = new GroupBoxEx();
-            this.gb_ouputTable.SuspendLayout();
-            this.Controls.Add(this.gb_ouputTable);
-            this.gb_ouputTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_ouputTable.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_ouputTable.Location = new System.Drawing.Point(458, 9);
-            this.gb_ouputTable.MaximumSize = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.MinimumSize = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.Name = "gb_ouputTable";
-            this.gb_ouputTable.Size = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.TabIndex = 4;
-            this.gb_ouputTable.TabStop = false;
-            this.gb_ouputTable.Text = "KẾT QUẢ TÍNH TOÁN";
-            this.gb_ouputTable.ResumeLayout(false);
-            this.gb_ouputTable.PerformLayout();
-            initOutputTable();
-            //picture
-            this.gb_picture = new GroupBoxEx();
-            this.Controls.Add(this.gb_picture);
-            this.gb_picture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_picture.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.gb_picture.Location = new System.Drawing.Point(458, 197);
-            this.gb_picture.MaximumSize = new System.Drawing.Size(822, 396);
-            this.gb_picture.MinimumSize = new System.Drawing.Size(822, 396);
-            this.gb_picture.Name = "gb_picture";
-            this.gb_picture.Size = new System.Drawing.Size(822, 396);
-            this.gb_picture.TabIndex = 5;
-            this.gb_picture.TabStop = false;
-        }
 
+            initInputTable();
+
+            initOutputTable();
+        }
 
         private void initRadarButton()
         {
-            this.btn_VRS_2DM = new MossieButton("ĐÀI RA ĐA \n VRS-2DM");
-            this.btn_P_18M = new MossieButton("ĐÀI RA ĐA \n P-18 M");
+            this.btn_VRS_2DM = new ButtonCtm("ĐÀI RA ĐA \n VRS-2DM");
+            this.btn_P_18M = new ButtonCtm("ĐÀI RA ĐA \n P-18 M");
             this.Controls.Add(this.btn_VRS_2DM);
             this.Controls.Add(this.btn_P_18M);
 
             // btn_P_18M
-            //this.btn_P_18M.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            //| System.Windows.Forms.AnchorStyles.Left)));
             this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
             this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
-            //this.btn_P_18M.Text = "ĐÀI RA ĐA \n P-18 M";
             this.btn_P_18M.Click += new System.EventHandler(this.btn_P_18M_Click);
 
             // btn_VRS_2DM
-            //this.btn_VRS_2DM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            //| System.Windows.Forms.AnchorStyles.Left)));
             this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 260);
             this.btn_VRS_2DM.Name = "btn_VRS_2DM";
             this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 50);
-            //this.btn_VRS_2DM.Text = "ĐÀI RA ĐA \n VRS-2DM";
             this.btn_VRS_2DM.Click += new System.EventHandler(this.btn_VRS_2DM_Click);
-            
-            
         }
 
 
         private void initInputTable()
         {
-            this.label_ha_title = new LabelEx();
-            this.label_ha_unit = new LabelEx();
-            this.label_l_title = new LabelEx();
-            this.label_l_unit = new LabelEx();
-            this.label_delta_H_tt_title = new LabelEx();
-            this.label_delta_H_tt_unit = new LabelEx();
+            this.label_ha_title = new LabelCtm();
+            this.label_ha_unit = new LabelCtm();
+            this.label_l_title = new LabelCtm();
+            this.label_l_unit = new LabelCtm();
+            this.label_delta_H_tt_title = new LabelCtm();
+            this.label_delta_H_tt_unit = new LabelCtm();
             this.nud_ha = new System.Windows.Forms.NumericUpDown();
             this.nud_l = new System.Windows.Forms.NumericUpDown();
             this.nud_delta_H_tt = new System.Windows.Forms.NumericUpDown();
-            this.btn_ok = new MossieButton("OK");
 
             ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_l)).BeginInit();
@@ -187,7 +111,6 @@ namespace RadarAnalyst.UIComponent
             this.gb_inputTable.Controls.Add(this.nud_ha);
             this.gb_inputTable.Controls.Add(this.nud_l);
             this.gb_inputTable.Controls.Add(this.nud_delta_H_tt);
-            this.gb_inputTable.Controls.Add(this.btn_ok);
 
             // ================================================================
             // label_ha_title
@@ -273,18 +196,6 @@ namespace RadarAnalyst.UIComponent
             this.label_delta_H_tt_unit.TabIndex = 7;
             this.label_delta_H_tt_unit.Text = "m";
 
-            // 
-            // btn_ok
-            // 
-            this.btn_ok.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_ok.Location = new System.Drawing.Point(80, 340);
-            this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(61, 31);
-            this.btn_ok.TabIndex = 0;
-            this.btn_ok.Text = "OK";
-            this.btn_ok.UseVisualStyleBackColor = true;
-            this.btn_ok.Click += new System.EventHandler(this.btn_ok_click);
-
             ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_l)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_delta_H_tt)).EndInit();
@@ -293,12 +204,12 @@ namespace RadarAnalyst.UIComponent
 
         private void initOutputTable()
         {
-            this.label_first_result_title = new LabelEx();
-            this.label_first_result_value = new LabelEx();
-            this.label_first_result_unit = new LabelEx();
+            this.label_first_result_title = new LabelCtm();
+            this.label_first_result_value = new LabelCtm();
+            this.label_first_result_unit = new LabelCtm();
 
-            this.label_second_result_title = new LabelEx();
-            this.label_second_result_value = new LabelEx();
+            this.label_second_result_title = new LabelCtm();
+            this.label_second_result_value = new LabelCtm();
 
             // 
             // gb_ouputTable
@@ -372,7 +283,7 @@ namespace RadarAnalyst.UIComponent
             this.modOn = VRS_2DM;
         }
 
-        private void btn_ok_click(object sender, EventArgs e)
+        public override void btn_ok_click(object sender, EventArgs e)
         {
             float haValue = (float)Convert.ToDouble(nud_ha.Value);
             float lValue = (float)Convert.ToDouble(nud_l.Value);
@@ -398,17 +309,17 @@ namespace RadarAnalyst.UIComponent
             label_second_result_value.Text = deltaHValue >= delta_H_ttValue ? "Đạt yêu cầu" : "Không đạt yêu cầu";
 
             // ======================================================================================
-            this.gb_picture.Controls.Remove(pictureBox1);
+            this.gb_picture.Controls.Remove(this.pictureBox1);
             // Dock the PictureBox to the form and set its background to white.
-            //pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
+            //this.pictureBox1.Dock = DockStyle.Fill;
+            this.pictureBox1.Location = new Point(0, 0);
+            this.pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
 
-            pictureBox1.BackColor = groupBoxColor;
+            this.pictureBox1.BackColor = groupBoxColor;
             // Connect the Paint event of the PictureBox to the event handler method.
-            pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
             // Add the PictureBox control to the Form.
-            this.gb_picture.Controls.Add(pictureBox1);
+            this.gb_picture.Controls.Add(this.pictureBox1);
             
         }
 
@@ -555,22 +466,6 @@ namespace RadarAnalyst.UIComponent
 
             // draw dash line delta H
             e.Graphics.DrawLine(dashPen, detaHBotPoint, new PointF(lOnPic, endLineY + 50));
-        }
-
-        private void set_background(Object sender, PaintEventArgs e)
-        {
-            Graphics graphics = e.Graphics;
-
-            //the rectangle, the same size as our Form
-            Rectangle gradient_rectangle = new Rectangle(0, 0, Width, Height);
-
-            //define gradient's properties
-            System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#07081d");
-
-            Brush b = new LinearGradientBrush(gradient_rectangle, col, col, 65f);
-            
-            //apply gradient         
-            graphics.FillRectangle(b, gradient_rectangle);
         }
     }
 }
