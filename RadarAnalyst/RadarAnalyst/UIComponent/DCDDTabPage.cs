@@ -3,515 +3,624 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RadarAnalyst.UIComponent.ComponentI;
+using RadarAnalyst.UIComponent.Element;
 
 namespace RadarAnalyst.UIComponent
 {
-    public partial class DCDDTabPage : TabPage
+    public partial class DCDDTabPage : TabPageCI
     {
+        private const int lambdaValue = 2;
+        private const float P_18M = 2.0F;
+        private const float R36D6M_1_1 = 0.2F;
+        private const float VRS_2DM = 0.1F;
+        private float modOn = P_18M;
 
-        public DCDDTabPage(String tabCode, String text) : base(text)
+        private ButtonCtm btn_P_18M;
+        private ButtonCtm btn_36D6M_1_1;
+        private ButtonCtm btn_VRS_2DM;
+
+        private LabelCtm label_dph_title;
+        private NumericUpDown nud_dph;
+        private LabelCtm label_dph_unit;
+
+        private LabelCtm label_dmax_title;
+        private NumericUpDown nud_dmax;
+        private LabelCtm label_dmax_unit;
+
+        private LabelCtm label_hmt_title;
+        private NumericUpDown nud_hmt;
+        private LabelCtm label_hmt_unit;
+
+        private LabelCtm label_hpx_title;
+        private NumericUpDown nud_hpx;
+        private LabelCtm label_hpx_unit;
+
+        private LabelCtm label_hbd_title;
+        private NumericUpDown nud_hbd;
+        private LabelCtm label_hbd_unit;
+
+        private LabelCtm label_ha_title;
+        private NumericUpDown nud_ha;
+        private LabelCtm label_ha_unit;
+
+        private LabelCtm label_first_result_title;
+        private LabelCtm label_first_result_value;
+        private LabelCtm label_first_result_unit;
+
+        private LabelCtm label_second_result_title;
+        private LabelCtm label_second_result_value;
+        private LabelCtm label_second_result_unit;
+
+        int pictureBoxHeight = 500;
+        int pictureBoxWidth = 850;
+
+        private const float nud_dph_default_value = 150.0F;
+        private const float nud_dmax_default_value = 300.0F;
+        private const float nud_hmt_default_value = 4000.0F;
+        private const float nud_hpx_default_value = 7.0F;
+        private const float nud_hbd_default_value = 3.0F;
+        private const float nud_ha_default_value = 5.0F;
+        private float hRotation = 1.5F;
+        private float lRotation = 7.5F;
+
+        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+        private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
+        private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
+        private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
+
+        public DCDDTabPage(String tabCode, String text) : base(tabCode, text)
         {
-            Console.WriteLine("Init DCDD Tab Page");
-            this.Location = new System.Drawing.Point(4, 24);
-            this.Name = tabCode;
-            this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(1326, 633);
-            this.TabIndex = 0;
-            this.UseVisualStyleBackColor = true;
-            this.SuspendLayout();
             // create layout
-            initUI();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-        }
-
-        private void initUI()
-        {
-            // radar buttons
             initRadarButton();
-            // input
-            this.gb_inputTable = new System.Windows.Forms.GroupBox();
-            this.gb_inputTable.SuspendLayout();
-            this.Controls.Add(this.gb_inputTable);
-            this.gb_inputTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.gb_inputTable.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_inputTable.Location = new System.Drawing.Point(199, 197);
-            this.gb_inputTable.MaximumSize = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.MinimumSize = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.Name = "gb_inputTable";
-            this.gb_inputTable.Size = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.TabIndex = 3;
-            this.gb_inputTable.TabStop = false;
-            this.gb_inputTable.Text = "BẢNG NHẬP SỐ LIỆU";
-            this.gb_inputTable.ResumeLayout(false);
-            this.gb_inputTable.PerformLayout();
-            initInputTable();
-            // output
-            this.gb_ouputTable = new System.Windows.Forms.GroupBox();
-            this.gb_ouputTable.SuspendLayout();
-            this.Controls.Add(this.gb_ouputTable);
-            this.gb_ouputTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_ouputTable.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_ouputTable.Location = new System.Drawing.Point(458, 9);
-            this.gb_ouputTable.MaximumSize = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.MinimumSize = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.Name = "gb_ouputTable";
-            this.gb_ouputTable.Size = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.TabIndex = 4;
-            this.gb_ouputTable.TabStop = false;
-            this.gb_ouputTable.Text = "KẾT QUẢ TÍNH TOÁN";
-            this.gb_ouputTable.ResumeLayout(false);
-            this.gb_ouputTable.PerformLayout();
-            initOutputTable();
-            //picture
-            this.gb_picture = new System.Windows.Forms.GroupBox();
-            this.Controls.Add(this.gb_picture);
-            this.gb_picture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_picture.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_picture.Location = new System.Drawing.Point(458, 197);
-            this.gb_picture.MaximumSize = new System.Drawing.Size(822, 396);
-            this.gb_picture.MinimumSize = new System.Drawing.Size(822, 396);
-            this.gb_picture.Name = "gb_picture";
-            this.gb_picture.Size = new System.Drawing.Size(822, 396);
-            this.gb_picture.TabIndex = 5;
-            this.gb_picture.TabStop = false;
-            initPicture();
-        }
 
+            initInputTable();
+
+            initOutputTable();
+        }
 
         private void initRadarButton()
         {
-            this.btn_radar3 = new System.Windows.Forms.Button();
-            this.btn_radar2 = new System.Windows.Forms.Button();
-            this.btn_radar1 = new System.Windows.Forms.Button();
-            this.Controls.Add(this.btn_radar3);
-            this.Controls.Add(this.btn_radar2);
-            this.Controls.Add(this.btn_radar1);
-            // 
-            // btn_radar3
-            // 
-            this.btn_radar3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_radar3.BackColor = System.Drawing.Color.AliceBlue;
-            this.btn_radar3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_radar3.Location = new System.Drawing.Point(47, 390);
-            this.btn_radar3.MaximumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar3.MinimumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar3.Name = "btn_radar3";
-            this.btn_radar3.Size = new System.Drawing.Size(135, 83);
-            this.btn_radar3.TabIndex = 2;
-            this.btn_radar3.Text = "ĐÀI RA ĐA \n VRS-2DM";
-            this.btn_radar3.UseVisualStyleBackColor = false;
-            this.btn_radar3.Click += new System.EventHandler(this.btn_radar3_Click);
-            // 
-            // btn_radar2
-            // 
-            this.btn_radar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_radar2.BackColor = System.Drawing.Color.AliceBlue;
-            this.btn_radar2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_radar2.Location = new System.Drawing.Point(47, 286);
-            this.btn_radar2.MaximumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar2.MinimumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar2.Name = "btn_radar2";
-            this.btn_radar2.Size = new System.Drawing.Size(135, 83);
-            this.btn_radar2.TabIndex = 1;
-            this.btn_radar2.Text = "ĐÀI RA ĐA \n 36D6M-1-1";
-            this.btn_radar2.UseVisualStyleBackColor = false;
-            this.btn_radar2.Click += new System.EventHandler(this.btn_radar2_Click);
-            // 
-            // btn_radar1
-            // 
-            this.btn_radar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_radar1.BackColor = System.Drawing.Color.LightBlue;
-            this.btn_radar1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_radar1.Location = new System.Drawing.Point(47, 181);
-            this.btn_radar1.MaximumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar1.MinimumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar1.Name = "btn_radar1";
-            this.btn_radar1.Size = new System.Drawing.Size(135, 83);
-            this.btn_radar1.TabIndex = 0;
-            this.btn_radar1.Text = "ĐÀI RA ĐA \n P-18 M";
-            this.btn_radar1.UseVisualStyleBackColor = false;
-            this.btn_radar1.Click += new System.EventHandler(this.btn_radar1_Click);
+            this.btn_VRS_2DM = new ButtonCtm("ĐÀI RA ĐA \n VRS-2DM");
+            this.btn_P_18M = new ButtonCtm("ĐÀI RA ĐA \n P-18 M");
+            this.btn_36D6M_1_1= new ButtonCtm("ĐÀI RA ĐA \n 36D6M-1-1");
+            this.Controls.Add(this.btn_VRS_2DM);
+            this.Controls.Add(this.btn_36D6M_1_1);
+            this.Controls.Add(this.btn_P_18M);
+
+            // btn_P_18M
+            this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
+            this.btn_P_18M.Name = "btn_P_18M";
+            this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
+            this.btn_P_18M.Click += new System.EventHandler(this.btn_P_18M_Click);
+
+            // btn_36D6M_1_1
+            this.btn_36D6M_1_1.Location = new System.Drawing.Point(47, 260);
+            this.btn_36D6M_1_1.Name = "btn_36D6M_1_1";
+            this.btn_36D6M_1_1.Size = new System.Drawing.Size(135, 50);
+            this.btn_36D6M_1_1.Click += new System.EventHandler(this.btn_36D6M_1_1_Click);
+
+            // btn_VRS_2DM
+            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 320);
+            this.btn_VRS_2DM.Name = "btn_VRS_2DM";
+            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 50);
+            this.btn_VRS_2DM.Click += new System.EventHandler(this.btn_VRS_2DM_Click);
         }
 
 
         private void initInputTable()
         {
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.nud_ha = new System.Windows.Forms.NumericUpDown();
-            this.nud_hbd = new System.Windows.Forms.NumericUpDown();
-            this.nud_hpx = new System.Windows.Forms.NumericUpDown();
-            this.nud_hmt = new System.Windows.Forms.NumericUpDown();
-            this.nud_dmax = new System.Windows.Forms.NumericUpDown();
+            this.label_dph_title = new LabelCtm();
+            this.label_dph_unit = new LabelCtm();
+            this.label_dmax_title = new LabelCtm();
+            this.label_dmax_unit = new LabelCtm();
+            this.label_hmt_title = new LabelCtm();
+            this.label_hmt_unit = new LabelCtm();
+            this.label_hpx_title = new LabelCtm();
+            this.label_hpx_unit = new LabelCtm();
+            this.label_hbd_title = new LabelCtm();
+            this.label_hbd_unit = new LabelCtm();
+            this.label_ha_title = new LabelCtm();
+            this.label_ha_unit = new LabelCtm();
             this.nud_dph = new System.Windows.Forms.NumericUpDown();
-            this.btn_ok = new System.Windows.Forms.Button();
+            this.nud_dmax = new System.Windows.Forms.NumericUpDown();
+            this.nud_hmt = new System.Windows.Forms.NumericUpDown();
+            this.nud_hpx = new System.Windows.Forms.NumericUpDown();
+            this.nud_hbd = new System.Windows.Forms.NumericUpDown();
+            this.nud_ha = new System.Windows.Forms.NumericUpDown();
 
-            ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_hbd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_hpx)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_hmt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dmax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_dph)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_dmax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_hmt)).BeginInit();
 
             // 
             // gb_inputTable
             // 
-            this.gb_inputTable.Controls.Add(this.label13);
-            this.gb_inputTable.Controls.Add(this.label12);
-            this.gb_inputTable.Controls.Add(this.label11);
-            this.gb_inputTable.Controls.Add(this.label10);
-            this.gb_inputTable.Controls.Add(this.label9);
-            this.gb_inputTable.Controls.Add(this.label7);
-            this.gb_inputTable.Controls.Add(this.label6);
-            this.gb_inputTable.Controls.Add(this.label5);
-            this.gb_inputTable.Controls.Add(this.label4);
-            this.gb_inputTable.Controls.Add(this.label3);
-            this.gb_inputTable.Controls.Add(this.label2);
-            this.gb_inputTable.Controls.Add(this.label1);
-            this.gb_inputTable.Controls.Add(this.nud_ha);
-            this.gb_inputTable.Controls.Add(this.nud_hbd);
-            this.gb_inputTable.Controls.Add(this.nud_hpx);
-            this.gb_inputTable.Controls.Add(this.nud_hmt);
-            this.gb_inputTable.Controls.Add(this.nud_dmax);
+            this.gb_inputTable.Controls.Add(this.label_dph_title);
+            this.gb_inputTable.Controls.Add(this.label_dph_unit);
+            this.gb_inputTable.Controls.Add(this.label_dmax_title);
+            this.gb_inputTable.Controls.Add(this.label_dmax_unit);
+            this.gb_inputTable.Controls.Add(this.label_hmt_title);
+            this.gb_inputTable.Controls.Add(this.label_hmt_unit);
             this.gb_inputTable.Controls.Add(this.nud_dph);
-            this.gb_inputTable.Controls.Add(this.btn_ok);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(21, 92);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(58, 20);
-            this.label13.TabIndex = 19;
-            this.label13.Text = "Dmax :";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label12.Location = new System.Drawing.Point(21, 209);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 20);
-            this.label12.TabIndex = 18;
-            this.label12.Text = "Hpx   :";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label11.Location = new System.Drawing.Point(21, 265);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 20);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Hbđ   :";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(21, 152);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(56, 20);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Hmt   :";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(21, 321);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 20);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Ha     :";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(21, 37);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 20);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Dph    :";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(207, 321);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(22, 20);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "m";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(207, 209);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(22, 20);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "m";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(207, 265);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(22, 20);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "m";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(207, 152);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 20);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "m";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(207, 92);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 20);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "km";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(207, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 20);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "km";
-            // 
-            // nud_ha
-            // 
-            this.nud_ha.Location = new System.Drawing.Point(87, 318);
-            this.nud_ha.Name = "nud_ha";
-            this.nud_ha.Size = new System.Drawing.Size(107, 23);
-            this.nud_ha.TabIndex = 6;
-            // 
+            this.gb_inputTable.Controls.Add(this.nud_dmax);
+            this.gb_inputTable.Controls.Add(this.nud_hmt);
+            this.gb_inputTable.Controls.Add(this.label_hpx_title);
+            this.gb_inputTable.Controls.Add(this.label_hpx_unit);
+            this.gb_inputTable.Controls.Add(this.label_hbd_title);
+            this.gb_inputTable.Controls.Add(this.label_hbd_unit);
+            this.gb_inputTable.Controls.Add(this.label_ha_title);
+            this.gb_inputTable.Controls.Add(this.label_ha_unit);
+            this.gb_inputTable.Controls.Add(this.nud_hpx);
+            this.gb_inputTable.Controls.Add(this.nud_hbd);
+            this.gb_inputTable.Controls.Add(this.nud_ha);
+
+            // ================================================================
+            // label_dph_title
+            this.label_dph_title.AutoSize = true;
+            this.label_dph_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_dph_title.Location = new System.Drawing.Point(21, 40);
+            this.label_dph_title.Name = "label_dph_title";
+            this.label_dph_title.Size = new System.Drawing.Size(58, 20);
+            this.label_dph_title.TabIndex = 13;
+            this.label_dph_title.Text = "Dph";
+            // nud_dph
+            this.nud_dph.Location = new System.Drawing.Point(87, 40);
+            this.nud_dph.Name = "nud_dph";
+            this.nud_dph.Size = new System.Drawing.Size(107, 23);
+            this.nud_dph.TabIndex = 6;
+            this.nud_dph.Maximum = 9999999999;
+            this.nud_dph.Minimum = 0;
+            this.nud_dph.DecimalPlaces = 1;
+            this.nud_dph.Increment = 0.1m;
+            this.nud_dph.Value = new decimal(nud_dph_default_value);
+            // label_dph_unit
+            this.label_dph_unit.AutoSize = true;
+            this.label_dph_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_dph_unit.Location = new System.Drawing.Point(207, 40);
+            this.label_dph_unit.Name = "label_dph_unit";
+            this.label_dph_unit.Size = new System.Drawing.Size(29, 20);
+            this.label_dph_unit.TabIndex = 7;
+            this.label_dph_unit.Text = "km";
+
+            // ================================================================
+            // label_dmax_title
+            this.label_dmax_title.AutoSize = true;
+            this.label_dmax_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_dmax_title.Location = new System.Drawing.Point(21, 80);
+            this.label_dmax_title.Name = "label_dmax_title";
+            this.label_dmax_title.Size = new System.Drawing.Size(58, 20);
+            this.label_dmax_title.TabIndex = 13;
+            this.label_dmax_title.Text = "Dmax";
+            // nud_dmax
+            this.nud_dmax.Location = new System.Drawing.Point(87, 80);
+            this.nud_dmax.Name = "nud_dmax";
+            this.nud_dmax.Size = new System.Drawing.Size(107, 23);
+            this.nud_dmax.TabIndex = 5;
+            this.nud_dmax.Maximum = 9999999999;
+            this.nud_dmax.Minimum = 0;
+            this.nud_dmax.DecimalPlaces = 1;
+            this.nud_dmax.Increment = 0.1m;
+            this.nud_dmax.Value = new decimal(nud_dmax_default_value);
+            // label_dmax_unit
+            this.label_dmax_unit.AutoSize = true;
+            this.label_dmax_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_dmax_unit.Location = new System.Drawing.Point(207, 80);
+            this.label_dmax_unit.Name = "label_dmax_unit";
+            this.label_dmax_unit.Size = new System.Drawing.Size(29, 20);
+            this.label_dmax_unit.TabIndex = 7;
+            this.label_dmax_unit.Text = "km";
+
+            // ================================================================
+            // label_hmt_title
+            this.label_hmt_title.AutoSize = true;
+            this.label_hmt_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_hmt_title.Location = new System.Drawing.Point(21, 120);
+            this.label_hmt_title.Name = "label_hmt_title";
+            this.label_hmt_title.Size = new System.Drawing.Size(58, 20);
+            this.label_hmt_title.TabIndex = 13;
+            this.label_hmt_title.Text = "Hmt";
+            // nud_hmt
+            this.nud_hmt.Location = new System.Drawing.Point(87, 120);
+            this.nud_hmt.Name = "nud_hmt";
+            this.nud_hmt.Size = new System.Drawing.Size(107, 23);
+            this.nud_hmt.TabIndex = 4;
+            this.nud_hmt.Maximum = 9999999999;
+            this.nud_hmt.Minimum = 0;
+            this.nud_hmt.DecimalPlaces = 1;
+            this.nud_hmt.Increment = 0.1m;
+            this.nud_hmt.Value = new decimal(nud_hmt_default_value);
+            // label_hmt_unit
+            this.label_hmt_unit.AutoSize = true;
+            this.label_hmt_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_hmt_unit.Location = new System.Drawing.Point(207, 120);
+            this.label_hmt_unit.Name = "label_hmt_unit";
+            this.label_hmt_unit.Size = new System.Drawing.Size(29, 20);
+            this.label_hmt_unit.TabIndex = 7;
+            this.label_hmt_unit.Text = "m";
+            // ================================================================
+            // label_hpx_title
+            this.label_hpx_title.AutoSize = true;
+            this.label_hpx_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_hpx_title.Location = new System.Drawing.Point(21, 160);
+            this.label_hpx_title.Name = "label_hpx_title";
+            this.label_hpx_title.Size = new System.Drawing.Size(58, 20);
+            this.label_hpx_title.TabIndex = 13;
+            this.label_hpx_title.Text = "Hpx";
+            // nud_hpx
+            this.nud_hpx.Location = new System.Drawing.Point(87, 160);
+            this.nud_hpx.Name = "nud_hpx";
+            this.nud_hpx.Size = new System.Drawing.Size(107, 23);
+            this.nud_hpx.TabIndex = 6;
+            this.nud_hpx.Maximum = 9999999999;
+            this.nud_hpx.Minimum = 0;
+            this.nud_hpx.DecimalPlaces = 1;
+            this.nud_hpx.Increment = 0.1m;
+            this.nud_hpx.Value = new decimal(nud_hpx_default_value);
+            // label_hpx_unit
+            this.label_hpx_unit.AutoSize = true;
+            this.label_hpx_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_hpx_unit.Location = new System.Drawing.Point(207, 160);
+            this.label_hpx_unit.Name = "label_hpx_unit";
+            this.label_hpx_unit.Size = new System.Drawing.Size(29, 20);
+            this.label_hpx_unit.TabIndex = 7;
+            this.label_hpx_unit.Text = "m";
+
+            // ================================================================
+            // label_hbd_title
+            this.label_hbd_title.AutoSize = true;
+            this.label_hbd_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_hbd_title.Location = new System.Drawing.Point(21, 200);
+            this.label_hbd_title.Name = "label_hbd_title";
+            this.label_hbd_title.Size = new System.Drawing.Size(58, 20);
+            this.label_hbd_title.TabIndex = 13;
+            this.label_hbd_title.Text = "Hbd";
             // nud_hbd
-            // 
-            this.nud_hbd.Location = new System.Drawing.Point(87, 262);
+            this.nud_hbd.Location = new System.Drawing.Point(87, 200);
             this.nud_hbd.Name = "nud_hbd";
             this.nud_hbd.Size = new System.Drawing.Size(107, 23);
             this.nud_hbd.TabIndex = 5;
-            // 
-            // nud_hpx
-            // 
-            this.nud_hpx.Location = new System.Drawing.Point(87, 206);
-            this.nud_hpx.Name = "nud_hpx";
-            this.nud_hpx.Size = new System.Drawing.Size(107, 23);
-            this.nud_hpx.TabIndex = 4;
-            // 
-            // nud_hmt
-            // 
-            this.nud_hmt.Location = new System.Drawing.Point(87, 149);
-            this.nud_hmt.Name = "nud_hmt";
-            this.nud_hmt.Size = new System.Drawing.Size(107, 23);
-            this.nud_hmt.TabIndex = 3;
-            // 
-            // nud_dmax
-            // 
-            this.nud_dmax.Location = new System.Drawing.Point(87, 89);
-            this.nud_dmax.Name = "nud_dmax";
-            this.nud_dmax.Size = new System.Drawing.Size(107, 23);
-            this.nud_dmax.TabIndex = 2;
-            // 
-            // nud_dph
-            // 
-            this.nud_dph.Location = new System.Drawing.Point(87, 34);
-            this.nud_dph.Name = "nud_dph";
-            this.nud_dph.Size = new System.Drawing.Size(107, 23);
-            this.nud_dph.TabIndex = 1;
-            // 
-            // btn_ok
-            // 
-            this.btn_ok.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_ok.Location = new System.Drawing.Point(99, 359);
-            this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(61, 31);
-            this.btn_ok.TabIndex = 0;
-            this.btn_ok.Text = "OK";
-            this.btn_ok.UseVisualStyleBackColor = true;
+            this.nud_hbd.Maximum = 9999999999;
+            this.nud_hbd.Minimum = 0;
+            this.nud_hbd.DecimalPlaces = 1;
+            this.nud_hbd.Increment = 0.1m;
+            this.nud_hbd.Value = new decimal(nud_hbd_default_value);
+            // label_hbd_unit
+            this.label_hbd_unit.AutoSize = true;
+            this.label_hbd_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_hbd_unit.Location = new System.Drawing.Point(207, 200);
+            this.label_hbd_unit.Name = "label_hbd_unit";
+            this.label_hbd_unit.Size = new System.Drawing.Size(29, 20);
+            this.label_hbd_unit.TabIndex = 7;
+            this.label_hbd_unit.Text = "m";
 
-            ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_hbd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_hpx)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_hmt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dmax)).EndInit();
+            // ================================================================
+            // label_ha_title
+            this.label_ha_title.AutoSize = true;
+            this.label_ha_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_ha_title.Location = new System.Drawing.Point(21, 240);
+            this.label_ha_title.Name = "label_ha_title";
+            this.label_ha_title.Size = new System.Drawing.Size(58, 20);
+            this.label_ha_title.TabIndex = 13;
+            this.label_ha_title.Text = "Ha";
+            // nud_ha
+            this.nud_ha.Location = new System.Drawing.Point(87, 240);
+            this.nud_ha.Name = "nud_ha";
+            this.nud_ha.Size = new System.Drawing.Size(107, 23);
+            this.nud_ha.TabIndex = 4;
+            this.nud_ha.Maximum = 9999999999;
+            this.nud_ha.Minimum = 0;
+            this.nud_ha.DecimalPlaces = 1;
+            this.nud_ha.Increment = 0.1m;
+            this.nud_ha.Value = new decimal(nud_ha_default_value);
+            // label_ha_unit
+            this.label_ha_unit.AutoSize = true;
+            this.label_ha_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_ha_unit.Location = new System.Drawing.Point(207, 240);
+            this.label_ha_unit.Name = "label_ha_unit";
+            this.label_ha_unit.Size = new System.Drawing.Size(29, 20);
+            this.label_ha_unit.TabIndex = 7;
+            this.label_ha_unit.Text = "m";
+
             ((System.ComponentModel.ISupportInitialize)(this.nud_dph)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_dmax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_hmt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_hpx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_hbd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).EndInit();
         }
 
 
         private void initOutputTable()
         {
-            this.label17 = new System.Windows.Forms.Label();
-            this.lbl_result_ha2 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lbl_result_ha1 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label_first_result_title = new LabelCtm();
+            this.label_first_result_value = new LabelCtm();
+            this.label_first_result_unit = new LabelCtm();
+
+            this.label_second_result_title = new LabelCtm();
+            this.label_second_result_value = new LabelCtm();
+            this.label_second_result_unit = new LabelCtm();
+
             // 
             // gb_ouputTable
             // 
-            this.gb_ouputTable.Controls.Add(this.label17);
-            this.gb_ouputTable.Controls.Add(this.lbl_result_ha2);
-            this.gb_ouputTable.Controls.Add(this.label14);
-            this.gb_ouputTable.Controls.Add(this.label15);
-            this.gb_ouputTable.Controls.Add(this.lbl_result_ha1);
-            this.gb_ouputTable.Controls.Add(this.label8);
-            // 
+            this.gb_ouputTable.Controls.Add(this.label_first_result_title);
+            this.gb_ouputTable.Controls.Add(this.label_first_result_value);
+            this.gb_ouputTable.Controls.Add(this.label_first_result_unit);
+
+            this.gb_ouputTable.Controls.Add(this.label_second_result_title);
+            this.gb_ouputTable.Controls.Add(this.label_second_result_value);
+            this.gb_ouputTable.Controls.Add(this.label_second_result_unit);
+
+            // ================================================================
+            // label_first_result_title
+            this.label_first_result_title.AutoSize = true;
+            this.label_first_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_title.Location = new System.Drawing.Point(30, 50);
+            this.label_first_result_title.Name = "label_first_result_title";
+            this.label_first_result_title.Size = new System.Drawing.Size(180, 31);
+            this.label_first_result_title.TabIndex = 0;
+            this.label_first_result_title.Text = "Độ cao ăng ten tổng hợp Ha ";
+            // label_first_result_value
+            this.label_first_result_value.AutoSize = true;
+            this.label_first_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_value.ForeColor = System.Drawing.Color.Red;
+            this.label_first_result_value.Location = new System.Drawing.Point(230, 50);
+            this.label_first_result_value.Name = "label_first_result_value";
+            this.label_first_result_value.Size = new System.Drawing.Size(30, 31);
+            this.label_first_result_value.TabIndex = 1;
+            this.label_first_result_value.Text = "000000";
             // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(421, 96);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(35, 31);
-            this.label17.TabIndex = 5;
-            this.label17.Text = "m";
-            // 
-            // lbl_result_ha2
-            // 
-            this.lbl_result_ha2.AutoSize = true;
-            this.lbl_result_ha2.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_result_ha2.ForeColor = System.Drawing.Color.Red;
-            this.lbl_result_ha2.Location = new System.Drawing.Point(344, 96);
-            this.lbl_result_ha2.Name = "lbl_result_ha2";
-            this.lbl_result_ha2.Size = new System.Drawing.Size(66, 31);
-            this.lbl_result_ha2.TabIndex = 4;
-            this.lbl_result_ha2.Text = "1000";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(42, 96);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(279, 31);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Độ cao anten phải lắp ha";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(421, 47);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(35, 31);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "m";
-            // 
-            // lbl_result_ha1
-            // 
-            this.lbl_result_ha1.AutoSize = true;
-            this.lbl_result_ha1.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_result_ha1.ForeColor = System.Drawing.Color.Red;
-            this.lbl_result_ha1.Location = new System.Drawing.Point(344, 47);
-            this.lbl_result_ha1.Name = "lbl_result_ha1";
-            this.lbl_result_ha1.Size = new System.Drawing.Size(66, 31);
-            this.lbl_result_ha1.TabIndex = 1;
-            this.lbl_result_ha1.Text = "1000";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(42, 47);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(296, 31);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Độ cao anten tổng hợp Ha";
+            this.label_first_result_unit.AutoSize = true;
+            this.label_first_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_unit.Location = new System.Drawing.Point(300, 50);
+            this.label_first_result_unit.Name = "label_first_result_unit";
+            this.label_first_result_unit.Size = new System.Drawing.Size(10, 31);
+            this.label_first_result_unit.TabIndex = 2;
+            this.label_first_result_unit.Text = "m";
+
+            // ================================================================
+            // label_second_result_title
+            this.label_second_result_title.AutoSize = true;
+            this.label_second_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_title.Location = new System.Drawing.Point(30, 90);
+            this.label_second_result_title.Name = "label_second_result_title";
+            this.label_second_result_title.Size = new System.Drawing.Size(150, 31);
+            this.label_second_result_title.TabIndex = 3;
+            this.label_second_result_title.Text = "Độ cao ăng ten phải lắp ha  ";
+            // label_second_result_value
+            this.label_second_result_value.AutoSize = true;
+            this.label_second_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_value.ForeColor = System.Drawing.Color.Red;
+            this.label_second_result_value.Location = new System.Drawing.Point(230, 90);
+            this.label_second_result_value.Name = "label_second_result_value";
+            this.label_second_result_value.Size = new System.Drawing.Size(66, 31);
+            this.label_second_result_value.TabIndex = 4;
+            this.label_second_result_value.Text = "000000";
+            // label17
+            this.label_second_result_unit.AutoSize = true;
+            this.label_second_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_unit.Location = new System.Drawing.Point(300, 90);
+            this.label_second_result_unit.Name = "label_second_result_unit";
+            this.label_second_result_unit.Size = new System.Drawing.Size(10, 31);
+            this.label_second_result_unit.TabIndex = 2;
+            this.label_second_result_unit.Text = "m";
         }
-
-
-        private void initPicture()
+        private void btn_P_18M_Click(object sender, EventArgs e)
         {
-            //todo: draw picture
+            this.modOn = P_18M;
         }
 
-
-        private void btn_radar1_Click(object sender, EventArgs e)
+        private void btn_36D6M_1_1_Click(object sender, EventArgs e)
         {
-            btn_radar1.BackColor = Color.LightBlue;
-            btn_radar2.BackColor = Color.AliceBlue;
-            btn_radar3.BackColor = Color.AliceBlue;
+            this.modOn = R36D6M_1_1;
         }
 
-        private void btn_radar2_Click(object sender, EventArgs e)
+        private void btn_VRS_2DM_Click(object sender, EventArgs e)
         {
-            btn_radar1.BackColor = Color.AliceBlue;
-            btn_radar2.BackColor = Color.LightBlue;
-            btn_radar3.BackColor = Color.AliceBlue;
+            this.modOn = VRS_2DM;
         }
 
-        private void btn_radar3_Click(object sender, EventArgs e)
+        public override void btn_ok_click(object sender, EventArgs e)
         {
-            btn_radar1.BackColor = Color.AliceBlue;
-            btn_radar2.BackColor = Color.AliceBlue;
-            btn_radar3.BackColor = Color.LightBlue;
+            float dphValue = (float)Convert.ToDouble(nud_dph.Value)*1000;
+            float dmaxValue = (float)Convert.ToDouble(nud_dmax.Value)*1000;
+            float hmtValue = (float)Convert.ToDouble(nud_hmt.Value);
+            float hpxValue = (float)Convert.ToDouble(nud_hpx.Value);
+            float hbdValue = (float)Convert.ToDouble(nud_hbd.Value);
+            float haValue = (float)Convert.ToDouble(nud_ha.Value);
+            float deltaHValue = dphValue*dphValue/(2*1.33F*6370);
+            float result1 = 0F;
+            float result2 = 0F;
+
+            result1 = dphValue*modOn*(float)Math.Asin(dphValue/dmaxValue)/(360*(hmtValue-deltaHValue));
+            result2 = haValue + hpxValue - (hbdValue + hpxValue);
+
+            // set result value 1
+            label_first_result_value.Text = Math.Round(result1, 2) == 0 ? "0" : Math.Round(result1, 2).ToString();
+            if (Math.Round(result1, 2) > 0)
+                label_first_result_value.ForeColor = System.Drawing.Color.Green;
+            else
+                label_first_result_value.ForeColor = System.Drawing.Color.Red;
+            // set result value 2
+            label_second_result_value.Text = Math.Round(result2, 2) == 0 ? "0" : Math.Round(result2, 2).ToString();
+            if (Math.Round(result2, 2) > 0)
+                label_second_result_value.ForeColor = System.Drawing.Color.Green;
+            else
+                label_second_result_value.ForeColor = System.Drawing.Color.Red;
+            // ======================================================================================
+            this.gb_picture.Controls.Remove(this.pictureBox1);
+            // Dock the PictureBox to the form and set its background to white.
+            this.pictureBox1.Location = new Point(0, 0);
+            this.pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
+
+            this.pictureBox1.BackColor = groupBoxColor;
+            // Connect the Paint event of the PictureBox to the event handler method.
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
+            // Add the PictureBox control to the Form.
+            this.gb_picture.Controls.Add(this.pictureBox1);
+
         }
 
-        private Button btn_radar3;
-        private Button btn_radar2;
-        private Button btn_radar1;
-        private GroupBox gb_picture;
-        private GroupBox gb_ouputTable;
-        private GroupBox gb_inputTable;
-        private Button btn_ok;
-        private NumericUpDown nud_dph;
-        private NumericUpDown nud_ha;
-        private NumericUpDown nud_hbd;
-        private NumericUpDown nud_hpx;
-        private NumericUpDown nud_hmt;
-        private NumericUpDown nud_dmax;
-        private Label label13;
-        private Label label12;
-        private Label label11;
-        private Label label10;
-        private Label label9;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
-        private Label label17;
-        private Label lbl_result_ha2;
-        private Label label14;
-        private Label label15;
-        private Label lbl_result_ha1;
-        private Label label8;
+        private void drawGraph(object sender, PaintEventArgs e)
+        {
+            float haValue = (float)Convert.ToDouble(nud_dph.Value);
+            float lValue = (float)Convert.ToDouble(nud_dmax.Value);
+            float deltaHValue = (float)Convert.ToDouble(nud_hmt.Value);
+            float haBaseX = 150.0F;
+            float haBaseY = 50.0F;
+            float haOnPicMin = 20F;
+            float haOnPicMax = 150F;
+            float lOnPicMin = 300F;
+            float lOnPicMax = 700F;
+            float endLineY = 350F;
+            float deltaHOnPicMin = 20F;
+            float deltaHOnPicMax = 150F;
+
+            // ========================================================================================================
+            // draw begin line
+            Pen pen = new Pen(lineBlueColor, 2);
+            PointF point1 = new PointF(haBaseX - 50F, 50.0F);
+            PointF point2 = new PointF(haBaseX + 50F, 50.0F);
+            e.Graphics.DrawLine(pen, point1, point2);
+
+            // ========================================================================================================
+            // draw end line
+            pen = new Pen(lineBlueColor, 2);
+            PointF endLineBeginPoint = new PointF(50.0F, endLineY);
+            PointF endLineEndPoint = new PointF(750.0F, endLineY);
+            e.Graphics.DrawLine(pen, endLineBeginPoint, endLineEndPoint);
+
+            float haOnPic = haBaseY + haOnPicMin + haValue / hRotation;
+            if (haOnPic > haOnPicMax) haOnPic = haOnPicMax;
+
+            // ========================================================================================================
+            // draw ha line black
+            pen = new Pen(lineBlueColor, 2);
+            PointF haTopPoint = new PointF(haBaseX, haBaseY);
+            PointF haBotPoint = new PointF(haBaseX, haOnPic);
+            e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
+
+            // draw triangle
+            SolidBrush blueBrush = new SolidBrush(violetColor);
+            PointF trianglePoint1 = new PointF(haBaseX, haOnPic);
+            PointF trianglePoint3 = new PointF(haBaseX + 15F, haOnPic + 30F);
+            PointF trianglePoint2 = new PointF(haBaseX - 15F, haOnPic + 30F);
+            PointF[] triangleCurvePoints = { trianglePoint1, trianglePoint2, trianglePoint3 };
+            e.Graphics.FillPolygon(blueBrush, triangleCurvePoints);
+
+
+            // ========================================================================================================
+            // draw ha line white
+            pen = new Pen(Color.White, 2);
+            haTopPoint = new PointF(haBaseX - 20F, haBaseY);
+            haBotPoint = new PointF(haBaseX - 20F, 30F + haOnPic);
+            e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, haBaseY), new PointF(haBaseX - 25F, haBaseY + 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, haBaseY), new PointF(haBaseX - 15F, haBaseY + 5F));
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, 30F + haOnPic), new PointF(haBaseX - 25F, 25F + haOnPic));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, 30F + haOnPic), new PointF(haBaseX - 15F, 25F + haOnPic));
+            // draw text ha
+            string text1 = " ha";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
+                RectangleF rectF1 = new RectangleF(haBaseX - 60F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F : haTextY, 30, 20);
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
+            }
+            // ========================================================================================================
+            // draw Hpx line white
+            pen = new Pen(Color.White, 2);
+            PointF hpxTopPoint = new PointF(haBaseX - 75F, endLineY - 30F); // note
+            PointF hpxBotPoint = new PointF(haBaseX - 75F, endLineY); 
+            e.Graphics.DrawLine(pen, hpxTopPoint, hpxBotPoint);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY - 30F), new PointF(haBaseX - 75F + 5F, endLineY - 30F + 5F)); // note
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY - 30F), new PointF(haBaseX - 75F - 5F, endLineY - 30F + 5F)); //note
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY), new PointF(haBaseX - 75F + 5F, endLineY - 5F)); 
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY), new PointF(haBaseX - 75F - 5F, endLineY - 5F)); 
+            // draw text hpx
+            string textHpx = "Hpx";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
+                RectangleF rectF1 = new RectangleF(haBaseX - 75F - 45F, (endLineY - 30F + endLineY) / 2 - 10F, 40, 20); //note
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(textHpx, font1, Brushes.Black, rectF1);
+            }
+            // ========================================================================================================
+            // draw Hbd line white
+            pen = new Pen(Color.White, 2);
+            PointF hbdTopPoint = new PointF(haBaseX, haBaseY + haOnPic - 15F); // note
+            PointF hbdBotPoint = new PointF(haBaseX, endLineY - 30F); // note
+            e.Graphics.DrawLine(pen, hbdTopPoint, hbdBotPoint);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX, haBaseY + haOnPic - 15F), new PointF(haBaseX + 5F, haBaseY + haOnPic - 15F + 5F)); // note
+            e.Graphics.DrawLine(pen, new PointF(haBaseX, haBaseY + haOnPic - 15F), new PointF(haBaseX - 5F, haBaseY + haOnPic - 15F + 5F)); //note
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX, endLineY - 30F), new PointF(haBaseX + 5F, endLineY - 30F - 5F)); //note
+            e.Graphics.DrawLine(pen, new PointF(haBaseX, endLineY - 30F), new PointF(haBaseX - 5F, endLineY - 30F - 5F)); //note
+            // draw text hbd
+            string textHbd = "Hbd";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
+                RectangleF rectF1 = new RectangleF(haBaseX - 45F,(haBaseY + haOnPic - 15F + endLineY - 30F)/2 , 40, 20); //note
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(textHbd, font1, Brushes.Black, rectF1);
+            }
+            // ========================================================================================================
+            // draw horizontal line 
+            float lOnPic = haBaseX + lOnPicMin + lValue / lRotation;
+            if (lOnPic > lOnPicMax) lOnPic = lOnPicMax;
+            PointF lLineBeginPoint = new PointF(50F, endLineY - 30F); //note 
+            PointF lLineEndPoint = new PointF(750F, endLineY - 30F); // note
+            e.Graphics.DrawLine(pen, lLineBeginPoint, lLineEndPoint);
+
+            float deltaHOnPic = endLineY - deltaHOnPicMin * 2 - deltaHValue / hRotation;
+            if (deltaHOnPic < (endLineY - deltaHOnPicMax)) deltaHOnPic = endLineY - deltaHOnPicMax;
+
+            // ========================================================================================================
+            // draw curve
+            pen = new Pen(lineBlueColor, 1);
+            // Create points that define curve.
+            PointF curvePoint1 = new PointF(haBaseX - 75F, haBaseY + haOnPic + 50F);
+            PointF curvePoint2 = new PointF(haBaseX + 20F, haBaseY + haOnPic - 15F);
+            PointF curvePoint3 = new PointF(700F - 150F, endLineY - 50F);
+            PointF curvePoint4 = new PointF(750F, endLineY - 80F);
+            PointF[] curvePoints = { curvePoint1, curvePoint2, curvePoint3, curvePoint4 };
+            e.Graphics.DrawCurve(pen, curvePoints);
+
+            // ========================================================================================================
+            // draw line delta Ha
+            pen = new Pen(Color.White, 2);
+            PointF deltaHTopPoint = new PointF(haBaseX + 150F, 50.0F);
+            PointF detaHBotPoint = new PointF(haBaseX + 150F, endLineY - 30F); // note
+            e.Graphics.DrawLine(pen, deltaHTopPoint, detaHBotPoint);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, 50F), new PointF(haBaseX + 150F - 5F, 50F + 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, 50F), new PointF(haBaseX + 150F + 5F, 50F + 5F));
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - 30F - 2F), new PointF(haBaseX + 150F + 5F, endLineY - 30F - 7F)); //note
+            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - 30F  - 2F), new PointF(haBaseX + 150F - 5F, endLineY - 30F - 7F)); // note
+            //draw text delta Ha
+            string deltaHText = "Ha";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
+                RectangleF rectF1 = new RectangleF(haBaseX + 160F, deltaHOnPic - 20F, 30, 20);
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(deltaHText, font1, Brushes.Black, rectF1);
+            }
+
+        }
     }
 }

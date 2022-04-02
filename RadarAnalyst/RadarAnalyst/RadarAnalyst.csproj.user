@@ -4,6 +4,9 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UIComponent\DCDDTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="UIComponent\DLLTabPage.cs">
       <SubType>Component</SubType>
     </Compile>

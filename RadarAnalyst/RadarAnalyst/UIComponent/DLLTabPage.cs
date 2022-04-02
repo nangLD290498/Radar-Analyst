@@ -320,7 +320,7 @@ namespace RadarAnalyst.UIComponent
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
             // Add the PictureBox control to the Form.
             this.gb_picture.Controls.Add(this.pictureBox1);
-            
+
         }
 
         private void drawGraph(object sender, PaintEventArgs e)
@@ -353,7 +353,7 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawLine(pen, endLineBeginPoint, endLineEndPoint);
 
             float haOnPic = haBaseY + haOnPicMin + haValue / hRotation;
-            if(haOnPic > haOnPicMax) haOnPic = haOnPicMax;
+            if (haOnPic > haOnPicMax) haOnPic = haOnPicMax;
 
             // ========================================================================================================
             // draw ha line black
@@ -388,7 +388,7 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
-                RectangleF rectF1 = new RectangleF(haBaseX - 60F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F: haTextY, 30, 20);
+                RectangleF rectF1 = new RectangleF(haBaseX - 60F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F : haTextY, 30, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
@@ -419,7 +419,7 @@ namespace RadarAnalyst.UIComponent
             string lText = "  L";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(haBaseX + (lOnPic- haBaseX)/2 - 30/2, endLineY + 40F, 30, 20);
+                RectangleF rectF1 = new RectangleF(haBaseX + (lOnPic - haBaseX) / 2 - 30 / 2, endLineY + 40F, 30, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(lText, font1, Brushes.Black, rectF1);
