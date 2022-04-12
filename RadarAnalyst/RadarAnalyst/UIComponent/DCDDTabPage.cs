@@ -52,6 +52,7 @@ namespace RadarAnalyst.UIComponent
         private LabelCtm label_second_result_value;
         private LabelCtm label_second_result_unit;
 
+
         int pictureBoxHeight = 500;
         int pictureBoxWidth = 850;
 

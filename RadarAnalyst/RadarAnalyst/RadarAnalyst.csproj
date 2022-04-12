@@ -42,9 +42,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UIComponent\DLLTabPage.cs" />
-    <Compile Update="UIComponent\KTMPXTabPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="UIComponent\KTMPXTabPage.cs" />
     <Compile Update="UIComponent\DCDDTabPage.cs" />
   </ItemGroup>
 
