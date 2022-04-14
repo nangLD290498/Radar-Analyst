@@ -27,7 +27,6 @@ namespace RadarAnalyst.UIComponent
 
             this.SuspendLayout();
 
-            /*// Mapinfo
             MapInfo.MapInfoApplication mapinfo = new MapInfo.MapInfoApplication();
 
             // Get the handle to the whole MapInfo application.
@@ -50,7 +49,7 @@ namespace RadarAnalyst.UIComponent
             SetWindowLong(oldhandle, GWL_STYLE, (style & ~WS_CAPTION));
 
             //Maximize MapInfo so that it fits into our control
-            mapinfo.Do("Set Window 1011 Max");*/
+            mapinfo.Do("Set Window 1011 Max");
 
             this.ResumeLayout(false);
             this.PerformLayout();
