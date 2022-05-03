@@ -70,6 +70,8 @@ namespace RadarAnalyst.UIComponent
             this.Controls.Add(this.btn_P_18M);
 
             // btn_P_18M
+            this.btn_P_18M.is_active = true;
+            this.btn_P_18M.setBackColor(true);
             this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
             this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
@@ -269,18 +271,28 @@ namespace RadarAnalyst.UIComponent
         }
         private void btn_P_18M_Click(object sender, EventArgs e)
         {
-            //btn_P_18M.BackColor = Color.LightBlue;
-            //btn_VRS_2DM.BackColor = Color.AliceBlue;
-
+            //clearPictureBox(btn_P_18M);
+            btn_VRS_2DM.setBackColor(false); 
+            btn_P_18M.setBackColor(true);
             this.modOn = P_18M;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
         {
-            //btn_P_18M.BackColor = Color.AliceBlue;
-            //btn_VRS_2DM.BackColor = Color.LightBlue;
-
+            //clearPictureBox(btn_VRS_2DM);
+            btn_VRS_2DM.setBackColor(true);
+            btn_P_18M.setBackColor(false);
             this.modOn = VRS_2DM;
+        }
+
+        private void clearPictureBox(ButtonCtm clickedButton)
+        {
+
+            if (clickedButton.is_active == true)
+                return;
+            else
+                this.gb_picture.Controls.Remove(this.pictureBox1);
+
         }
 
         public override void btn_ok_click(object sender, EventArgs e)
@@ -309,6 +321,7 @@ namespace RadarAnalyst.UIComponent
             label_second_result_value.Text = deltaHValue >= delta_H_ttValue ? "Đạt yêu cầu" : "Không đạt yêu cầu";
 
             // ======================================================================================
+            this.pictureBox1.Controls.Clear();
             this.gb_picture.Controls.Remove(this.pictureBox1);
             // Dock the PictureBox to the form and set its background to white.
             //this.pictureBox1.Dock = DockStyle.Fill;
@@ -363,26 +376,28 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
 
             // draw triangle
-            SolidBrush blueBrush = new SolidBrush(violetColor);
-            PointF trianglePoint1 = new PointF(haBaseX, haOnPic);
-            PointF trianglePoint3 = new PointF(haBaseX + 15F, haOnPic + 30F);
-            PointF trianglePoint2 = new PointF(haBaseX - 15F, haOnPic + 30F);
-            PointF[] triangleCurvePoints = { trianglePoint1, trianglePoint2, trianglePoint3 };
-            e.Graphics.FillPolygon(blueBrush, triangleCurvePoints);
-
+            PictureBox radar = new PictureBox();
+            radar.Location = new Point((int)haBaseX - 21, (int)haOnPic  - 18);
+            radar.Size = new System.Drawing.Size(40, 48);
+            radar.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (this.modOn == P_18M)
+                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\P18M.png");
+            if (this.modOn == VRS_2DM)
+                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\VRS-2DM.png");
+            pictureBox1.Controls.Add(radar);
 
             // ========================================================================================================
             // draw ha line white
             pen = new Pen(Color.White, 2);
-            haTopPoint = new PointF(haBaseX - 20F, haBaseY);
-            haBotPoint = new PointF(haBaseX - 20F, 30F + haOnPic);
+            haTopPoint = new PointF(haBaseX - 25F, haBaseY);
+            haBotPoint = new PointF(haBaseX - 25F, 30F + haOnPic);
             e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
             // draw top arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, haBaseY), new PointF(haBaseX - 25F, haBaseY + 5F));
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, haBaseY), new PointF(haBaseX - 15F, haBaseY + 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, haBaseY), new PointF(haBaseX - 30F, haBaseY + 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, haBaseY), new PointF(haBaseX - 20F, haBaseY + 5F));
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, 30F + haOnPic), new PointF(haBaseX - 25F, 25F + haOnPic));
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, 30F + haOnPic), new PointF(haBaseX - 15F, 25F + haOnPic));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, 30F + haOnPic), new PointF(haBaseX - 30F, 25F + haOnPic));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, 30F + haOnPic), new PointF(haBaseX - 20F, 25F + haOnPic));
             // draw text ha
             string text1 = " ha";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))

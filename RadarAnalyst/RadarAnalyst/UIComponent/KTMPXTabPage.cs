@@ -63,6 +63,8 @@ namespace RadarAnalyst.UIComponent
             this.Controls.Add(this.btn_P_18M);
 
             // btn_P_18M
+            this.btn_P_18M.is_active = true;
+            this.btn_P_18M.setBackColor(true);
             this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
             this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
@@ -196,11 +198,23 @@ namespace RadarAnalyst.UIComponent
         private void btn_P_18M_Click(object sender, EventArgs e)
         {
             this.modOn = P_18M;
+            //clearPictureBox(btn_P_18M);
+            btn_VRS_2DM.setBackColor(false);
+            btn_P_18M.setBackColor(true);
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
         {
             this.modOn = VRS_2DM;
+            //clearPictureBox(btn_VRS_2DM);
+            btn_VRS_2DM.setBackColor(true);
+            btn_P_18M.setBackColor(false);
+        }
+
+        private void clearPictureBox(ButtonCtm clickedButton)
+        {
+            if(clickedButton.is_active == false)
+                this.gb_picture.Controls.Remove(this.pictureBox1);
         }
 
         public override void btn_ok_click(object sender, EventArgs e)
@@ -285,18 +299,22 @@ namespace RadarAnalyst.UIComponent
                 e.Graphics.DrawString(textRmax, font1, Brushes.Black, rectF1);
             }
             //draw traigle
-            PointF trianglePoint1 = new PointF(80F, 210F);
-            PointF trianglePoint3 = new PointF(trianglePoint1.X + 10F, trianglePoint1.Y + 20F);
-            PointF trianglePoint2 = new PointF(trianglePoint1.X - 10F, trianglePoint1.Y + 20F);
-            PointF[] triangleCurvePoints = { trianglePoint1, trianglePoint2, trianglePoint3 };
-            e.Graphics.DrawPolygon(pen, triangleCurvePoints);
+            PictureBox radar = new PictureBox();
+            radar.Location = new Point(50, 180);
+            radar.Size = new System.Drawing.Size(40,50);
+            radar.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (this.modOn == P_18M)
+                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\MPX_P18M.png");
+            if (this.modOn == VRS_2DM)
+                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\MPX_VRS-2DM.png");
+            pictureBox1.Controls.Add(radar);
             // eclipse 
             int l = (int)(1.5F * (rMaxOnpic - rMinOnpic));
             PictureBox pic = new PictureBox();
             pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
             pic.Size = new System.Drawing.Size(l, l/2);
             pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            pic.Image = Image.FromFile("C:\\Users\\ldnang\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\pic.jpg");
+            pic.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\pic.jpg");
             pictureBox1.Controls.Add(pic);
             // arrow Rmin ------------------------------------------------------
             PointF minTopPoint = new PointF(93, 250);
