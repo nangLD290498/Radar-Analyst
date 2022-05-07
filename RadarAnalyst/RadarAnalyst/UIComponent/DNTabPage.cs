@@ -312,12 +312,14 @@ namespace RadarAnalyst.UIComponent
             this.pictureBox1.Location = new Point(0, 0);
             this.pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
 
-            this.pictureBox1.BackColor = Color.White;
-            // Connect the Paint event of the PictureBox to the event handler method.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-            string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+            //string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-            this.pictureBox1.ImageLocation = path + "/Images/DoNghiengTrungBinh.jpg";
+            //this.pictureBox1.ImageLocation = path + "/Images/DoNghiengTrungBinh.jpg";
+
+            this.pictureBox1.BackColor = groupBoxColor;
+            // Connect the Paint event of the PictureBox to the event handler method.
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
             this.pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
             // Add the PictureBox control to the Form.
@@ -326,7 +328,109 @@ namespace RadarAnalyst.UIComponent
 
         private void drawGraph(object sender, PaintEventArgs e)
         {
-            
+            Color whiteColor = Color.White;
+            // draw x line
+            Pen pen = new Pen(whiteColor, 2);
+            PointF point1 = new PointF(60F, 20.0F);
+            PointF point2 = new PointF(60F, 380.0F);
+            e.Graphics.DrawLine(pen, point1, point2);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, new PointF(60F, 20.0F), new PointF(60F - 10F, 20.0F + 10F));
+            e.Graphics.DrawLine(pen, new PointF(60F - 1F, 20.0F), new PointF(60F - 1F + 10F, 20.0F + 10F));
+            // draw H text
+            string Htext = "H";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                RectangleF rectF1 = new RectangleF(25F, 20F, 15, 15);
+                SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(Htext, font1, Brushes.White, rectF1);
+            }
+            // draw vạch
+            float textUnit = 8;
+            for (int i = 2; i <= 10; i++)
+            {
+                float unitX = 30F;
+                point1 = new PointF(60F, i * unitX + 20F);
+                point2 = new PointF(55F, i * unitX + 20F);
+                e.Graphics.DrawLine(pen, point1, point2);
+
+                // draw text ha
+                string unitTextDisplay = (textUnit>0) ? textUnit.ToString() : (0 - textUnit).ToString();
+                using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+                {
+                    RectangleF rectF1 = new RectangleF(unitTextDisplay == "0" ? 25F : 35F, i * unitX + 10F, 15, 15);
+                    SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
+                    e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                    e.Graphics.DrawString((unitTextDisplay == "0") ? "O" : unitTextDisplay, font1, Brushes.White, rectF1);
+                }
+                textUnit -= 2;
+            }
+            for (int i = 7; i <= 10; i++)
+            {
+                float unitX = 30F;
+                point1 = new PointF(60F, i * unitX + 20F);
+                point2 = new PointF(50F, i * unitX + 20F);
+                e.Graphics.DrawLine(pen, point1, point2);
+
+                // draw text ha
+                using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+                {
+                    RectangleF rectF1 = new RectangleF(25F, i * unitX + 10F, 10, 15);
+                    SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
+                    e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                    e.Graphics.DrawString("-", font1, Brushes.White, rectF1);
+                }
+            }
+
+            // draw y line
+            pen = new Pen(whiteColor, 2);
+            point1 = new PointF(60F, 200.0F);
+            point2 = new PointF(750F, 200.0F);
+            e.Graphics.DrawLine(pen, point1, point2);
+            // draw right arrow
+            e.Graphics.DrawLine(pen, new PointF(750F, 200.0F), new PointF(750F - 10F, 200.0F - 10F));
+            e.Graphics.DrawLine(pen, new PointF(750F, 200.0F), new PointF(750F - 10F, 200.0F + 10F));
+            // draw vạch
+            float ytextUnit = 200;
+            for (int i = 1; i <= 7; i++)
+            {
+                float unitY = 80F;
+                point1 = new PointF(60F + i * unitY, 200F);
+                point2 = new PointF(60F + i * unitY, 210F);
+                e.Graphics.DrawLine(pen, point1, point2);
+
+                // draw text ha
+                string unitTextDisplay = ytextUnit.ToString();
+                float div = 15F;
+                if (ytextUnit >= 1000) div = 22F;
+                using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+                {
+                    RectangleF rectF1 = new RectangleF(60F - div + i * unitY, 215F, 45, 15);
+                    SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
+                    e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                    e.Graphics.DrawString(unitTextDisplay, font1, Brushes.White, rectF1);
+                }
+                ytextUnit += 200;
+            }
+
+            // draw curve
+            pen = new Pen(lineBlueColor, 2);
+            float oX = 60F;
+            float oY = 200F;
+            // Create points that define curve.
+            PointF curvePoint1 = new PointF(oX + (150F/200F) * 80F, oY - (0F/2F) * 30F);
+            PointF curvePoint2 = new PointF(oX + (250F/200F) * 80F, oY - (2F/2F) * 30F);
+            PointF curvePoint3 = new PointF(oX + (310F/200F) * 80F, oY - (1F/2F) * 30F);
+            PointF curvePoint4 = new PointF(oX + (420F/200F) * 80F, oY - (1F/2F) * 30F);
+            PointF curvePoint5 = new PointF(oX + (500F/200F) * 80F, oY - (-2F/2F) * 30F);
+            PointF curvePoint6 = new PointF(oX + (700F/200F) * 80F, oY - (-3F/2F) * 30F);
+            PointF[] curvePoints = { curvePoint1, curvePoint2, curvePoint3, curvePoint4, curvePoint5, curvePoint6,
+                new PointF(oX + (900F / 200F) * 80F, oY - (-2F / 2F) * 30F),
+                new PointF(oX + (1170F / 200F) * 80F, oY - (-4F / 2F) * 30F),
+                new PointF(oX + (1500F / 200F) * 80F, oY - (2F / 2F) * 30F)
+            };
+            e.Graphics.DrawLines(pen, curvePoints);
         }
     }
 }
