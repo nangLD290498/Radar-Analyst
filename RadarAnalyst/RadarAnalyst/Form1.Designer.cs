@@ -110,7 +110,7 @@
             // 
             this.smi_dn.Name = "smi_dn";
             this.smi_dn.Size = new System.Drawing.Size(172, 22);
-            this.smi_dn.Text = "ĐỘ NGHIÊNG";
+            this.smi_dn.Text = "ĐỘ NGHIÊNG TRUNG BÌNH";
             this.smi_dn.Click += new System.EventHandler(this.smi_dn_Click);
             // 
             // smi_mcdh
