@@ -55,7 +55,7 @@
             this.smi_help});
             this.ms_mainMenu.Location = new System.Drawing.Point(0, 0);
             this.ms_mainMenu.Name = "ms_mainMenu";
-            this.ms_mainMenu.Size = new System.Drawing.Size(1277, 24);
+            this.ms_mainMenu.Size = new System.Drawing.Size(1346, 24);
             this.ms_mainMenu.TabIndex = 0;
             this.ms_mainMenu.Text = "Main Menu";
             // 
@@ -142,34 +142,30 @@
             // 
             // tc_mainTap
             // 
-            this.tc_mainTap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tc_mainTap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tc_mainTap.Location = new System.Drawing.Point(12, 37);
+            this.tc_mainTap.Location = new System.Drawing.Point(0, 27);
             this.tc_mainTap.Name = "tc_mainTap";
             this.tc_mainTap.SelectedIndex = 0;
-            this.tc_mainTap.Size = new System.Drawing.Size(1500, 700);
+            this.tc_mainTap.Size = new System.Drawing.Size(1346, 666);
             this.tc_mainTap.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1500, 700);
+            this.ClientSize = new System.Drawing.Size(1346, 691);
             this.Controls.Add(this.tc_mainTap);
             this.Controls.Add(this.ms_mainMenu);
             this.MainMenuStrip = this.ms_mainMenu;
-            //this.MaximizeBox = true;
-            //this.MaximumSize = new System.Drawing.Size(1500, 700);
-            //this.MinimumSize = new System.Drawing.Size(1500, 700);
             this.Name = "Form1";
             this.Text = "Rada Analyst";
             this.ms_mainMenu.ResumeLayout(false);
             this.ms_mainMenu.PerformLayout();
             this.ResumeLayout(false);
-            addWelcomeTabPage();
             this.PerformLayout();
-
+            addWelcomeTabPage();
         }
 
         #endregion
@@ -189,5 +185,7 @@
 
         private TabControl tc_mainTap;
 
+        private const int WINDOW_WIDTH = 1375;
+        private const int WINDOW_HEIGHT = 675;
     }
 }

@@ -121,4 +121,22 @@
   <data name="radar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\radar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="36D6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\36D6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MPX_P18M" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPX_P18M.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MPX_VRS-2DM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPX_VRS-2DM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P18M" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18M.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pic.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRS-2DM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

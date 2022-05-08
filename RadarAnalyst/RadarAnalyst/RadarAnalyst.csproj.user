@@ -4,7 +4,22 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="UIComponent\Component1.cs">
+    <Compile Update="UIComponent\DCDDTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\DLLTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\Element\GroupBoxCtm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\Element\LabelCtm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\Element\ButtonCtm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\KTMPXTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UIComponent\KVCTDTabPage.cs">
