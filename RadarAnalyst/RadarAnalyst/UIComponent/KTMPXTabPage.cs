@@ -36,15 +36,16 @@ namespace RadarAnalyst.UIComponent
         int pictureBoxHeight = 500;
         int pictureBoxWidth = 850;
 
-        private const float nud_ha_default_value = 7.0F;
-        private float hRotation = 1.5F;
-        private float lRotation = 7.5F;
+        private const float nud_ha_default_value = 60.0F;
+        private float hRotation = 100F;
 
         private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
-        private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
-        private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
-        private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
 
+        static float minHaP18 = 50, maxHaP18 = 70;
+        static float minHaVrs2dm = 14, maxHaVrs2dm = 23;
+        float minHaOnPic = minHaP18 , maxHaOnPic = maxHaP18;
+
+        Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18M;
         public KTMPXTabPage(String tabCode, String text) : base(tabCode, text)
         {
             // create layout
@@ -201,6 +202,9 @@ namespace RadarAnalyst.UIComponent
             //clearPictureBox(btn_P_18M);
             btn_VRS_2DM.setBackColor(false);
             btn_P_18M.setBackColor(true);
+            minHaOnPic = minHaP18;
+            maxHaOnPic = maxHaP18;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18M;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
@@ -209,6 +213,9 @@ namespace RadarAnalyst.UIComponent
             //clearPictureBox(btn_VRS_2DM);
             btn_VRS_2DM.setBackColor(true);
             btn_P_18M.setBackColor(false);
+            minHaOnPic = minHaVrs2dm;
+            maxHaOnPic = maxHaVrs2dm;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_VRS_2DM;
         }
 
         private void clearPictureBox(ButtonCtm clickedButton)
@@ -224,16 +231,10 @@ namespace RadarAnalyst.UIComponent
             result2 = 23F * haValue * haValue / modOn;
             // set result value 1
             label_first_result_value.Text = Math.Round(result1, 2) == 0 ? "0" : Math.Round(result1, 2).ToString();
-            if (Math.Round(result1, 2) > 0)
-                label_first_result_value.ForeColor = System.Drawing.Color.Green;
-            else
-                label_first_result_value.ForeColor = System.Drawing.Color.Red;
+            label_first_result_value.ForeColor = System.Drawing.Color.Green;
             // set result value 2
             label_second_result_value.Text = Math.Round(result2, 2) == 0 ? "0" : Math.Round(result2, 2).ToString();
-            if (Math.Round(result2, 2) > 0)
-                label_second_result_value.ForeColor = System.Drawing.Color.Green;
-            else
-                label_second_result_value.ForeColor = System.Drawing.Color.Red;
+            label_second_result_value.ForeColor = System.Drawing.Color.Green;
             // ======================================================================================
             this.pictureBox1.Controls.Clear();
             this.gb_picture.Controls.Remove(this.pictureBox1);
@@ -253,13 +254,24 @@ namespace RadarAnalyst.UIComponent
         {
             float circlePointX = 650.0F;
             float circlePointY = 200.0F;
-            float rMinOnpic = result1 * 5;
-            float rMaxOnpic = result2 * 0.5F;
+            float haValue = (float)Convert.ToDouble(nud_ha.Value);
+            // R Min
+            float rMinOnpicValue = result1 * 5 / hRotation;
+            float rMinMin = (0.7F * minHaOnPic * minHaOnPic / modOn) * 5 / hRotation;
+            float rMinMax = (0.7F * maxHaOnPic * maxHaOnPic / modOn) * 5 / hRotation;
+            float rMinOnpic = (rMinOnpicValue > rMinMax) ? rMinMax : (rMinOnpicValue < rMinMin) ? rMinMin : rMinOnpicValue;
+            // Rmax 
+            float rMaxOnpicValue = result2 * 0.5F / hRotation;
+            float rMaxMin = (23F * minHaOnPic * minHaOnPic / modOn) * 0.5F / hRotation;
+            float rMaxMax = (23F * maxHaOnPic * maxHaOnPic / modOn) * 0.5F / hRotation;
+            float rMaxOnpic = (rMaxOnpicValue > rMaxMax) ? rMaxMax : (rMaxOnpicValue < rMaxMin) ? rMaxMin : rMaxOnpicValue;
+
             Pen pen = new Pen(Color.FromArgb(56, 93, 138), 2);
             //draw circles
             PointF centerPoint = new PointF(circlePointX, circlePointY);
             SolidBrush minBrush = new SolidBrush(groupBoxColor);
             SolidBrush maxBrush = new SolidBrush(Color.FromArgb(79,129,189));
+            
             e.Graphics.FillEllipse(maxBrush, circlePointX - rMaxOnpic / 2, circlePointY - rMaxOnpic / 2, rMaxOnpic, rMaxOnpic);
             e.Graphics.FillEllipse(minBrush, circlePointX - rMinOnpic/2, circlePointY - rMinOnpic/2, rMinOnpic, rMinOnpic);
             e.Graphics.DrawEllipse(pen, circlePointX - rMaxOnpic / 2, circlePointY - rMaxOnpic / 2, rMaxOnpic, rMaxOnpic);
@@ -303,10 +315,7 @@ namespace RadarAnalyst.UIComponent
             radar.Location = new Point(50, 180);
             radar.Size = new System.Drawing.Size(40,50);
             radar.SizeMode = PictureBoxSizeMode.StretchImage;
-            if (this.modOn == P_18M)
-                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\MPX_P18M.png");
-            if (this.modOn == VRS_2DM)
-                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\MPX_VRS-2DM.png");
+            radar.Image = radarImgBitmap;
             pictureBox1.Controls.Add(radar);
             // eclipse 
             int l = (int)(1.5F * (rMaxOnpic - rMinOnpic));
@@ -314,7 +323,7 @@ namespace RadarAnalyst.UIComponent
             pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
             pic.Size = new System.Drawing.Size(l, l/2);
             pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            pic.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\pic.jpg");
+            pic.Image = global::RadarAnalyst.Properties.Resources.pic;
             pictureBox1.Controls.Add(pic);
             // arrow Rmin ------------------------------------------------------
             PointF minTopPoint = new PointF(93, 250);

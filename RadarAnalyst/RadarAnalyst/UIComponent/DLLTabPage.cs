@@ -52,6 +52,8 @@ namespace RadarAnalyst.UIComponent
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
 
+        Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
+
         public DLLTabPage(String tabCode, String text) : base(tabCode, text)
         {
             // create layout
@@ -275,6 +277,7 @@ namespace RadarAnalyst.UIComponent
             btn_VRS_2DM.setBackColor(false); 
             btn_P_18M.setBackColor(true);
             this.modOn = P_18M;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
@@ -283,6 +286,7 @@ namespace RadarAnalyst.UIComponent
             btn_VRS_2DM.setBackColor(true);
             btn_P_18M.setBackColor(false);
             this.modOn = VRS_2DM;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.VRS_2DM;
         }
 
         private void clearPictureBox(ButtonCtm clickedButton)
@@ -380,10 +384,7 @@ namespace RadarAnalyst.UIComponent
             radar.Location = new Point((int)haBaseX - 21, (int)haOnPic  - 18);
             radar.Size = new System.Drawing.Size(40, 48);
             radar.SizeMode = PictureBoxSizeMode.StretchImage;
-            if (this.modOn == P_18M)
-                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\P18M.png");
-            if (this.modOn == VRS_2DM)
-                radar.Image = Image.FromFile("C:\\Users\\nangl\\OneDrive\\Desktop\\Radar-Analyst\\RadarAnalyst\\RadarAnalyst\\Resources\\VRS-2DM.png");
+            radar.Image = radarImgBitmap;
             pictureBox1.Controls.Add(radar);
 
             // ========================================================================================================
