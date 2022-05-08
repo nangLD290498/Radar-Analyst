@@ -70,6 +70,8 @@ namespace RadarAnalyst.UIComponent
             this.Controls.Add(this.btn_P_18M);
 
             // btn_P_18M
+            this.btn_P_18M.is_active = true;
+            this.btn_P_18M.setBackColor(true);
             this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
             this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
@@ -271,7 +273,8 @@ namespace RadarAnalyst.UIComponent
         {
             //btn_P_18M.BackColor = Color.LightBlue;
             //btn_VRS_2DM.BackColor = Color.AliceBlue;
-
+            btn_VRS_2DM.setBackColor(false);
+            btn_P_18M.setBackColor(true);
             this.modOn = P_18M;
         }
 
@@ -279,7 +282,8 @@ namespace RadarAnalyst.UIComponent
         {
             //btn_P_18M.BackColor = Color.AliceBlue;
             //btn_VRS_2DM.BackColor = Color.LightBlue;
-
+            btn_VRS_2DM.setBackColor(true);
+            btn_P_18M.setBackColor(false);
             this.modOn = VRS_2DM;
         }
 
