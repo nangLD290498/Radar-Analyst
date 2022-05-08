@@ -3,177 +3,119 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RadarAnalyst.UIComponent.ComponentI;
+using RadarAnalyst.UIComponent.Element;
 
 namespace RadarAnalyst.UIComponent
 {
-    public partial class KTMPXTabPage : TabPage
+    public partial class KTMPXTabPage : TabPageCI
     {
+        private const int lambdaValue = 2;
+        private const float P_18M = 2.0F;
+        private const float VRS_2DM = 0.2F;
+        private float modOn = P_18M;
 
-        public KTMPXTabPage(String tabCode, String text) : base(text)
+        private ButtonCtm btn_P_18M;
+        private ButtonCtm btn_VRS_2DM;
+
+        private LabelCtm label_ha_title;
+        private NumericUpDown nud_ha;
+        private LabelCtm label_ha_unit;
+
+        private LabelCtm label_first_result_title;
+        private LabelCtm label_first_result_value;
+        private LabelCtm label_first_result_unit;
+
+        private LabelCtm label_second_result_title;
+        private LabelCtm label_second_result_value;
+        private LabelCtm label_second_result_unit;
+
+        float result1 = 0F;
+        float result2 = 0F;
+
+        int pictureBoxHeight = 500;
+        int pictureBoxWidth = 850;
+
+        private const float nud_ha_default_value = 60.0F;
+        private float hRotation = 100F;
+
+        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+
+        static float minHaP18 = 50, maxHaP18 = 70;
+        static float minHaVrs2dm = 14, maxHaVrs2dm = 23;
+        float minHaOnPic = minHaP18 , maxHaOnPic = maxHaP18;
+
+        Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18M;
+        public KTMPXTabPage(String tabCode, String text) : base(tabCode, text)
         {
-            Console.WriteLine("Init KTMPX Tab Page");
-            this.Location = new System.Drawing.Point(4, 24);
-            this.Name = tabCode;
-            this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(1326, 633);
-            this.TabIndex = 0;
-            this.UseVisualStyleBackColor = true;
-            this.SuspendLayout();
             // create layout
-            initUI();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-        }
-        private void initUI()
-        {
-            // radar buttons
             initRadarButton();
-            // input
-            this.gb_inputTable = new System.Windows.Forms.GroupBox();
-            this.gb_inputTable.SuspendLayout();
-            this.Controls.Add(this.gb_inputTable);
-            this.gb_inputTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.gb_inputTable.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_inputTable.Location = new System.Drawing.Point(199, 197);
-            this.gb_inputTable.MaximumSize = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.MinimumSize = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.Name = "gb_inputTable";
-            this.gb_inputTable.Size = new System.Drawing.Size(253, 396);
-            this.gb_inputTable.TabIndex = 3;
-            this.gb_inputTable.TabStop = false;
-            this.gb_inputTable.Text = "BẢNG NHẬP SỐ LIỆU";
-            this.gb_inputTable.ResumeLayout(false);
-            this.gb_inputTable.PerformLayout();
-            initInputTable();
-            // output
-            this.gb_ouputTable = new System.Windows.Forms.GroupBox();
-            this.gb_ouputTable.SuspendLayout();
-            this.Controls.Add(this.gb_ouputTable);
-            this.gb_ouputTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_ouputTable.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_ouputTable.Location = new System.Drawing.Point(458, 9);
-            this.gb_ouputTable.MaximumSize = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.MinimumSize = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.Name = "gb_ouputTable";
-            this.gb_ouputTable.Size = new System.Drawing.Size(822, 172);
-            this.gb_ouputTable.TabIndex = 4;
-            this.gb_ouputTable.TabStop = false;
-            this.gb_ouputTable.Text = "KẾT QUẢ TÍNH TOÁN";
-            this.gb_ouputTable.ResumeLayout(false);
-            this.gb_ouputTable.PerformLayout();
-            initOutputTable();
-            //picture
-            this.gb_picture = new System.Windows.Forms.GroupBox();
-            this.Controls.Add(this.gb_picture);
-            this.gb_picture.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_picture.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.gb_picture.Location = new System.Drawing.Point(458, 197);
-            this.gb_picture.MaximumSize = new System.Drawing.Size(822, 396);
-            this.gb_picture.MinimumSize = new System.Drawing.Size(822, 396);
-            this.gb_picture.Name = "gb_picture";
-            this.gb_picture.Size = new System.Drawing.Size(822, 396);
-            this.gb_picture.TabIndex = 5;
-            this.gb_picture.TabStop = false;
-            initPicture();
-        }
 
+            initInputTable();
+
+            initOutputTable();
+        }
 
         private void initRadarButton()
         {
-            this.btn_radar2 = new System.Windows.Forms.Button();
-            this.btn_radar1 = new System.Windows.Forms.Button();
-            this.Controls.Add(this.btn_radar2);
-            this.Controls.Add(this.btn_radar1);
-            // 
-            // btn_radar2
-            // 
-            this.btn_radar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_radar2.BackColor = System.Drawing.Color.AliceBlue;
-            this.btn_radar2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_radar2.Location = new System.Drawing.Point(47, 286);
-            this.btn_radar2.MaximumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar2.MinimumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar2.Name = "btn_radar2";
-            this.btn_radar2.Size = new System.Drawing.Size(135, 83);
-            this.btn_radar2.TabIndex = 1;
-            this.btn_radar2.Text = "ĐÀI RA ĐA \n VRS-2DM";
-            this.btn_radar2.UseVisualStyleBackColor = false;
-            this.btn_radar2.Click += new System.EventHandler(this.btn_radar2_Click);
-            // 
-            // btn_radar1
-            // 
-            this.btn_radar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_radar1.BackColor = System.Drawing.Color.LightBlue;
-            this.btn_radar1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_radar1.Location = new System.Drawing.Point(47, 181);
-            this.btn_radar1.MaximumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar1.MinimumSize = new System.Drawing.Size(135, 83);
-            this.btn_radar1.Name = "btn_radar1";
-            this.btn_radar1.Size = new System.Drawing.Size(135, 83);
-            this.btn_radar1.TabIndex = 0;
-            this.btn_radar1.Text = "ĐÀI RA ĐA \n P-18 M";
-            this.btn_radar1.UseVisualStyleBackColor = false;
-            this.btn_radar1.Click += new System.EventHandler(this.btn_radar1_Click);
+            this.btn_VRS_2DM = new ButtonCtm("ĐÀI RA ĐA \n VRS-2DM");
+            this.btn_P_18M = new ButtonCtm("ĐÀI RA ĐA \n P-18 M");
+            this.Controls.Add(this.btn_VRS_2DM);
+            this.Controls.Add(this.btn_P_18M);
+
+            // btn_P_18M
+            this.btn_P_18M.is_active = true;
+            this.btn_P_18M.setBackColor(true);
+            this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
+            this.btn_P_18M.Name = "btn_P_18M";
+            this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
+            this.btn_P_18M.Click += new System.EventHandler(this.btn_P_18M_Click);
+
+            // btn_VRS_2DM
+            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 260);
+            this.btn_VRS_2DM.Name = "btn_VRS_2DM";
+            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 50);
+            this.btn_VRS_2DM.Click += new System.EventHandler(this.btn_VRS_2DM_Click);
         }
 
 
         private void initInputTable()
         {
-            this.label7 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.nud_ha = new System.Windows.Forms.NumericUpDown();
-            this.btn_ok = new System.Windows.Forms.Button();
-
-            ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).BeginInit();
-
+            this.label_ha_title = new LabelCtm();
+            this.label_ha_unit = new LabelCtm();
             // 
             // gb_inputTable
-            // 
-            this.gb_inputTable.Controls.Add(this.label7);
-            this.gb_inputTable.Controls.Add(this.label1);
+            this.gb_inputTable.Controls.Add(this.label_ha_title);
+            this.gb_inputTable.Controls.Add(this.label_ha_unit);
             this.gb_inputTable.Controls.Add(this.nud_ha);
-            this.gb_inputTable.Controls.Add(this.btn_ok);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(21, 37);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 20);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "ha    :";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(207, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 20);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "m";
-            // 
+
+            // label_ha_title
+            this.label_ha_title.AutoSize = true;
+            this.label_ha_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_ha_title.Location = new System.Drawing.Point(21, 40);
+            this.label_ha_title.Name = "label_ha_title";
+            this.label_ha_title.Size = new System.Drawing.Size(58, 20);
+            this.label_ha_title.TabIndex = 13;
+            this.label_ha_title.Text = "ha";
             // nud_ha
-            // 
-            this.nud_ha.Location = new System.Drawing.Point(87, 34);
-            this.nud_ha.Name = "nud_dph";
+            this.nud_ha.Location = new System.Drawing.Point(87, 40);
+            this.nud_ha.Name = "nud_ha";
             this.nud_ha.Size = new System.Drawing.Size(107, 23);
-            this.nud_ha.TabIndex = 1;
-            // 
-            // btn_ok
-            // 
-            this.btn_ok.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btn_ok.Location = new System.Drawing.Point(99, 359);
-            this.btn_ok.Name = "btn_ok";
-            this.btn_ok.Size = new System.Drawing.Size(61, 31);
-            this.btn_ok.TabIndex = 0;
-            this.btn_ok.Text = "OK";
-            this.btn_ok.UseVisualStyleBackColor = true;
+            this.nud_ha.TabIndex = 4;
+            this.nud_ha.Maximum = 9999999999;
+            this.nud_ha.Minimum = 0;
+            this.nud_ha.DecimalPlaces = 1;
+            this.nud_ha.Increment = 0.1m;
+            this.nud_ha.Value = new decimal(nud_ha_default_value);
+            // label_ha_unit
+            this.label_ha_unit.AutoSize = true;
+            this.label_ha_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_ha_unit.Location = new System.Drawing.Point(207, 40);
+            this.label_ha_unit.Name = "label_ha_unit";
+            this.label_ha_unit.Size = new System.Drawing.Size(29, 20);
+            this.label_ha_unit.TabIndex = 7;
+            this.label_ha_unit.Text = "m";
 
             ((System.ComponentModel.ISupportInitialize)(this.nud_ha)).EndInit();
         }
@@ -181,119 +123,254 @@ namespace RadarAnalyst.UIComponent
 
         private void initOutputTable()
         {
-            this.label17 = new System.Windows.Forms.Label();
-            this.lbl_result_rmax = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lbl_result_rmin = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label_first_result_title = new LabelCtm();
+            this.label_first_result_value = new LabelCtm();
+            this.label_first_result_unit = new LabelCtm();
+
+            this.label_second_result_title = new LabelCtm();
+            this.label_second_result_value = new LabelCtm();
+            this.label_second_result_unit = new LabelCtm();
+
             // 
             // gb_ouputTable
             // 
-            this.gb_ouputTable.Controls.Add(this.label17);
-            this.gb_ouputTable.Controls.Add(this.lbl_result_rmax);
-            this.gb_ouputTable.Controls.Add(this.label14);
-            this.gb_ouputTable.Controls.Add(this.label15);
-            this.gb_ouputTable.Controls.Add(this.lbl_result_rmin);
-            this.gb_ouputTable.Controls.Add(this.label8);
-            // 
+            this.gb_ouputTable.Controls.Add(this.label_first_result_title);
+            this.gb_ouputTable.Controls.Add(this.label_first_result_value);
+            this.gb_ouputTable.Controls.Add(this.label_first_result_unit);
+
+            this.gb_ouputTable.Controls.Add(this.label_second_result_title);
+            this.gb_ouputTable.Controls.Add(this.label_second_result_value);
+            this.gb_ouputTable.Controls.Add(this.label_second_result_unit);
+
+            // ================================================================
+            // label_first_result_title
+            this.label_first_result_title.AutoSize = true;
+            this.label_first_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_title.Location = new System.Drawing.Point(30, 50);
+            this.label_first_result_title.Name = "label_first_result_title";
+            this.label_first_result_title.Size = new System.Drawing.Size(180, 31);
+            this.label_first_result_title.TabIndex = 0;
+            this.label_first_result_title.Text = "Bán kính min MPX: Rmin ";
+            // label_first_result_value
+            this.label_first_result_value.AutoSize = true;
+            this.label_first_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_value.ForeColor = System.Drawing.Color.Red;
+            this.label_first_result_value.Location = new System.Drawing.Point(230, 50);
+            this.label_first_result_value.Name = "label_first_result_value";
+            this.label_first_result_value.Size = new System.Drawing.Size(30, 31);
+            this.label_first_result_value.TabIndex = 1;
+            this.label_first_result_value.Text = "000000";
             // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(421, 96);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(35, 31);
-            this.label17.TabIndex = 5;
-            this.label17.Text = "m";
-            // 
-            // lbl_result_rmax
-            // 
-            this.lbl_result_rmax.AutoSize = true;
-            this.lbl_result_rmax.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_result_rmax.ForeColor = System.Drawing.Color.Red;
-            this.lbl_result_rmax.Location = new System.Drawing.Point(344, 96);
-            this.lbl_result_rmax.Name = "lbl_result_rmax";
-            this.lbl_result_rmax.Size = new System.Drawing.Size(66, 31);
-            this.lbl_result_rmax.TabIndex = 4;
-            this.lbl_result_rmax.Text = "1000";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(42, 96);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(279, 31);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Bán kính max MPX: Rmax";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label15.Location = new System.Drawing.Point(421, 47);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(35, 31);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "m";
-            // 
-            // lbl_result_rmin
-            // 
-            this.lbl_result_rmin.AutoSize = true;
-            this.lbl_result_rmin.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_result_rmin.ForeColor = System.Drawing.Color.Red;
-            this.lbl_result_rmin.Location = new System.Drawing.Point(344, 47);
-            this.lbl_result_rmin.Name = "lbl_result_rmin";
-            this.lbl_result_rmin.Size = new System.Drawing.Size(66, 31);
-            this.lbl_result_rmin.TabIndex = 1;
-            this.lbl_result_rmin.Text = "1000";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(42, 47);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(296, 31);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Bán kính min MPX: Rmin";
+            this.label_first_result_unit.AutoSize = true;
+            this.label_first_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_first_result_unit.Location = new System.Drawing.Point(300, 50);
+            this.label_first_result_unit.Name = "label_first_result_unit";
+            this.label_first_result_unit.Size = new System.Drawing.Size(10, 31);
+            this.label_first_result_unit.TabIndex = 2;
+            this.label_first_result_unit.Text = "m";
+
+            // ================================================================
+            // label_second_result_title
+            this.label_second_result_title.AutoSize = true;
+            this.label_second_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_title.Location = new System.Drawing.Point(30, 90);
+            this.label_second_result_title.Name = "label_second_result_title";
+            this.label_second_result_title.Size = new System.Drawing.Size(150, 31);
+            this.label_second_result_title.TabIndex = 3;
+            this.label_second_result_title.Text = "Bán kinh max MPX: Rmax  ";
+            // label_second_result_value
+            this.label_second_result_value.AutoSize = true;
+            this.label_second_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_value.ForeColor = System.Drawing.Color.Red;
+            this.label_second_result_value.Location = new System.Drawing.Point(230, 90);
+            this.label_second_result_value.Name = "label_second_result_value";
+            this.label_second_result_value.Size = new System.Drawing.Size(66, 31);
+            this.label_second_result_value.TabIndex = 4;
+            this.label_second_result_value.Text = "000000";
+            // label17
+            this.label_second_result_unit.AutoSize = true;
+            this.label_second_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_second_result_unit.Location = new System.Drawing.Point(300, 90);
+            this.label_second_result_unit.Name = "label_second_result_unit";
+            this.label_second_result_unit.Size = new System.Drawing.Size(10, 31);
+            this.label_second_result_unit.TabIndex = 2;
+            this.label_second_result_unit.Text = "m";
         }
-
-
-        private void initPicture()
+        private void btn_P_18M_Click(object sender, EventArgs e)
         {
-            //todo: draw picture
+            this.modOn = P_18M;
+            //clearPictureBox(btn_P_18M);
+            btn_VRS_2DM.setBackColor(false);
+            btn_P_18M.setBackColor(true);
+            minHaOnPic = minHaP18;
+            maxHaOnPic = maxHaP18;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18M;
         }
 
-
-        private void btn_radar1_Click(object sender, EventArgs e)
+        private void btn_VRS_2DM_Click(object sender, EventArgs e)
         {
-            btn_radar1.BackColor = Color.LightBlue;
-            btn_radar2.BackColor = Color.AliceBlue;
+            this.modOn = VRS_2DM;
+            //clearPictureBox(btn_VRS_2DM);
+            btn_VRS_2DM.setBackColor(true);
+            btn_P_18M.setBackColor(false);
+            minHaOnPic = minHaVrs2dm;
+            maxHaOnPic = maxHaVrs2dm;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_VRS_2DM;
         }
 
-        private void btn_radar2_Click(object sender, EventArgs e)
+        private void clearPictureBox(ButtonCtm clickedButton)
         {
-            btn_radar1.BackColor = Color.AliceBlue;
-            btn_radar2.BackColor = Color.LightBlue;
+            if(clickedButton.is_active == false)
+                this.gb_picture.Controls.Remove(this.pictureBox1);
         }
 
-        private Button btn_radar2;
-        private Button btn_radar1;
-        private GroupBox gb_picture;
-        private GroupBox gb_ouputTable;
-        private GroupBox gb_inputTable;
-        private Button btn_ok;
-        private NumericUpDown nud_ha;
-        private Label label7;
-        private Label label1;
-        private Label label17;
-        private Label lbl_result_rmax;
-        private Label label14;
-        private Label label15;
-        private Label lbl_result_rmin;
-        private Label label8;
+        public override void btn_ok_click(object sender, EventArgs e)
+        {
+            float haValue = (float)Convert.ToDouble(nud_ha.Value);
+            result1 = 0.7F * haValue * haValue / modOn;
+            result2 = 23F * haValue * haValue / modOn;
+            // set result value 1
+            label_first_result_value.Text = Math.Round(result1, 2) == 0 ? "0" : Math.Round(result1, 2).ToString();
+            label_first_result_value.ForeColor = System.Drawing.Color.Green;
+            // set result value 2
+            label_second_result_value.Text = Math.Round(result2, 2) == 0 ? "0" : Math.Round(result2, 2).ToString();
+            label_second_result_value.ForeColor = System.Drawing.Color.Green;
+            // ======================================================================================
+            this.pictureBox1.Controls.Clear();
+            this.gb_picture.Controls.Remove(this.pictureBox1);
+            // Dock the PictureBox to the form and set its background to white.
+            this.pictureBox1.Location = new Point(0, 0);
+            this.pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
 
+            this.pictureBox1.BackColor = groupBoxColor;
+            // Connect the Paint event of the PictureBox to the event handler method.
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
+            // Add the PictureBox control to the Form.
+            this.gb_picture.Controls.Add(this.pictureBox1);
+            
+        }
+
+        private void drawGraph(object sender, PaintEventArgs e)
+        {
+            float circlePointX = 650.0F;
+            float circlePointY = 200.0F;
+            float haValue = (float)Convert.ToDouble(nud_ha.Value);
+            // R Min
+            float rMinOnpicValue = result1 * 5 / hRotation;
+            float rMinMin = (0.7F * minHaOnPic * minHaOnPic / modOn) * 5 / hRotation;
+            float rMinMax = (0.7F * maxHaOnPic * maxHaOnPic / modOn) * 5 / hRotation;
+            float rMinOnpic = (rMinOnpicValue > rMinMax) ? rMinMax : (rMinOnpicValue < rMinMin) ? rMinMin : rMinOnpicValue;
+            // Rmax 
+            float rMaxOnpicValue = result2 * 0.5F / hRotation;
+            float rMaxMin = (23F * minHaOnPic * minHaOnPic / modOn) * 0.5F / hRotation;
+            float rMaxMax = (23F * maxHaOnPic * maxHaOnPic / modOn) * 0.5F / hRotation;
+            float rMaxOnpic = (rMaxOnpicValue > rMaxMax) ? rMaxMax : (rMaxOnpicValue < rMaxMin) ? rMaxMin : rMaxOnpicValue;
+
+            Pen pen = new Pen(Color.FromArgb(56, 93, 138), 2);
+            //draw circles
+            PointF centerPoint = new PointF(circlePointX, circlePointY);
+            SolidBrush minBrush = new SolidBrush(groupBoxColor);
+            SolidBrush maxBrush = new SolidBrush(Color.FromArgb(79,129,189));
+            
+            e.Graphics.FillEllipse(maxBrush, circlePointX - rMaxOnpic / 2, circlePointY - rMaxOnpic / 2, rMaxOnpic, rMaxOnpic);
+            e.Graphics.FillEllipse(minBrush, circlePointX - rMinOnpic/2, circlePointY - rMinOnpic/2, rMinOnpic, rMinOnpic);
+            e.Graphics.DrawEllipse(pen, circlePointX - rMaxOnpic / 2, circlePointY - rMaxOnpic / 2, rMaxOnpic, rMaxOnpic);
+            e.Graphics.DrawEllipse(pen, circlePointX - rMinOnpic / 2, circlePointY - rMinOnpic / 2, rMinOnpic, rMinOnpic);
+            // draw Rmin line white
+            pen = new Pen(Color.White, 2);
+            PointF rminTopPoint = centerPoint;
+            PointF rminBotPoint = new PointF(centerPoint.X - rMinOnpic/2, centerPoint.Y);
+            e.Graphics.DrawLine(pen, rminTopPoint, rminBotPoint);
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, new PointF(centerPoint.X - rMinOnpic/2, centerPoint.Y), new PointF(centerPoint.X - rMinOnpic/2 + 5F, centerPoint.Y - 5F));
+            e.Graphics.DrawLine(pen, new PointF(centerPoint.X - rMinOnpic/2, centerPoint.Y), new PointF(centerPoint.X - rMinOnpic/2 + 5F, centerPoint.Y + 5F));
+            // draw text
+            string textRmin = "Rmin";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                RectangleF rectF1 = new RectangleF(centerPoint.X - rMinOnpic/4, centerPoint.Y + 5F, 50, 20); //note
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(textRmin, font1, Brushes.Black, rectF1);
+            }
+            // draw Rmax line white
+            pen = new Pen(Color.White, 2);
+            PointF rmaxTopPoint = centerPoint;
+            PointF rmaxBotPoint = new PointF(centerPoint.X, centerPoint.Y - rMaxOnpic/2);
+            e.Graphics.DrawLine(pen, rmaxTopPoint, rmaxBotPoint);
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, new PointF(centerPoint.X , centerPoint.Y - rMaxOnpic / 2), new PointF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 2 + 5F));
+            e.Graphics.DrawLine(pen, new PointF(centerPoint.X , centerPoint.Y - rMaxOnpic / 2), new PointF(centerPoint.X -  5F, centerPoint.Y - rMaxOnpic / 2 + 5F));
+            // draw text
+            string textRmax = "Rmax";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                RectangleF rectF1 = new RectangleF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 4, 50, 20); 
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(textRmax, font1, Brushes.Black, rectF1);
+            }
+            //draw traigle
+            PictureBox radar = new PictureBox();
+            radar.Location = new Point(50, 180);
+            radar.Size = new System.Drawing.Size(40,50);
+            radar.SizeMode = PictureBoxSizeMode.StretchImage;
+            radar.Image = radarImgBitmap;
+            pictureBox1.Controls.Add(radar);
+            // eclipse 
+            int l = (int)(1.5F * (rMaxOnpic - rMinOnpic));
+            PictureBox pic = new PictureBox();
+            pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
+            pic.Size = new System.Drawing.Size(l, l/2);
+            pic.SizeMode = PictureBoxSizeMode.StretchImage;
+            pic.Image = global::RadarAnalyst.Properties.Resources.pic;
+            pictureBox1.Controls.Add(pic);
+            // arrow Rmin ------------------------------------------------------
+            PointF minTopPoint = new PointF(93, 250);
+            PointF minBotPoint = new PointF(minTopPoint.X + rMinOnpic - 20, 250);
+            e.Graphics.DrawLine(pen, minTopPoint, minBotPoint);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, minTopPoint, new PointF(minTopPoint.X + 5, minTopPoint.Y - 5F));
+            e.Graphics.DrawLine(pen, minTopPoint, new PointF(minTopPoint.X + 5, minTopPoint.Y + 5F));
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, minBotPoint, new PointF(minBotPoint.X - 5F, minBotPoint.Y - 5F));
+            e.Graphics.DrawLine(pen, minBotPoint, new PointF(minBotPoint.X - 5F , minBotPoint.Y + 5F));
+            // draw text ha
+            string text1 = "Rmin";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                
+                RectangleF rectF1 = new RectangleF(30, 240, 50, 20);
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
+            }
+            // arrow Rmax ------------------------------------------------------
+            PointF maxTopPoint = new PointF(93, 280);
+            PointF maxBotPoint = new PointF(maxTopPoint.X + rMinOnpic + l/2 -20, 280);
+            e.Graphics.DrawLine(pen, maxTopPoint, maxBotPoint);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, maxTopPoint, new PointF(maxTopPoint.X + 5, maxTopPoint.Y - 5F));
+            e.Graphics.DrawLine(pen, maxTopPoint, new PointF(maxTopPoint.X + 5, maxTopPoint.Y + 5F));
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, maxBotPoint, new PointF(maxBotPoint.X - 5F, maxBotPoint.Y - 5F));
+            e.Graphics.DrawLine(pen, maxBotPoint, new PointF(maxBotPoint.X - 5F, maxBotPoint.Y + 5F));
+            // draw text ha
+            string text2 = "Rmax";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+
+                RectangleF rectF1 = new RectangleF(30, 270, 50, 20);
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(text2, font1, Brushes.Black, rectF1);
+            }
+            // draw eclipse
+            Pen eclipsePen = new Pen(Color.FromArgb(192, 80, 77), 2);
+            Brush eclipseBrush  = new SolidBrush(Color.FromArgb(198, 217, 241));
+            e.Graphics.FillEllipse(eclipseBrush, minBotPoint.X + 2, minBotPoint.Y - 5, l/2 , 15);
+            e.Graphics.DrawEllipse(eclipsePen, minBotPoint.X + 2, minBotPoint.Y - 5 , l/2 , 15);
+
+        }
     }
 }

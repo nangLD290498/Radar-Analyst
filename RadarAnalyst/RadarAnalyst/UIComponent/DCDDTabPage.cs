@@ -14,8 +14,8 @@ namespace RadarAnalyst.UIComponent
         float result2 = 0F;
         private const int lambdaValue = 2;
         private const float P_18M = 2.0F;
-        private const float R36D6M_1_1 = 0.2F;
-        private const float VRS_2DM = 0.1F;
+        private const float R36D6M_1_1 = 0.1F;
+        private const float VRS_2DM = 0.2F;
         private float modOn = P_18M;
 
         private ButtonCtm btn_P_18M;
@@ -56,16 +56,15 @@ namespace RadarAnalyst.UIComponent
         private const float nud_dph_default_value = 150.0F;
         private const float nud_dmax_default_value = 300.0F;
         private const float nud_hmt_default_value = 4000.0F;
-        private const float nud_hpx_default_value = 30.0F;
-        private const float nud_hbd_default_value = 150.0F;
-        private const float nud_ha_default_value = 5.0F;
+        private const float nud_hpx_default_value = 80.0F;
+        private const float nud_hbd_default_value = 350.0F;
         private float hRotation = 1.5F;
-        private float lRotation = 7.5F;
 
         private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
         private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
-        private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
-        private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
+
+        Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
+        private LabelCtm label_error;
 
         public DCDDTabPage(String tabCode, String text) : base(tabCode, text)
         {
@@ -81,12 +80,14 @@ namespace RadarAnalyst.UIComponent
         {
             this.btn_VRS_2DM = new ButtonCtm("ĐÀI RA ĐA \n VRS-2DM");
             this.btn_P_18M = new ButtonCtm("ĐÀI RA ĐA \n P-18 M");
-            this.btn_36D6M_1_1= new ButtonCtm("ĐÀI RA ĐA \n 36D6M-1-1");
+            this.btn_36D6M_1_1 = new ButtonCtm("ĐÀI RA ĐA \n 36D6M-1-1");
             this.Controls.Add(this.btn_VRS_2DM);
             this.Controls.Add(this.btn_36D6M_1_1);
             this.Controls.Add(this.btn_P_18M);
 
             // btn_P_18M
+            this.btn_P_18M.is_active = true;
+            this.btn_P_18M.setBackColor(true);
             this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
             this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
@@ -372,29 +373,47 @@ namespace RadarAnalyst.UIComponent
         private void btn_P_18M_Click(object sender, EventArgs e)
         {
             this.modOn = P_18M;
+            //clearPictureBox(btn_P_18M);
+            btn_VRS_2DM.setBackColor(false);
+            btn_P_18M.setBackColor(true);
+            btn_36D6M_1_1.setBackColor(false);
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
         }
 
         private void btn_36D6M_1_1_Click(object sender, EventArgs e)
         {
             this.modOn = R36D6M_1_1;
+            //clearPictureBox(btn_36D6M_1_1);
+            btn_VRS_2DM.setBackColor(false);
+            btn_P_18M.setBackColor(false);
+            btn_36D6M_1_1.setBackColor(true);
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources._36D6;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
         {
             this.modOn = VRS_2DM;
+            //clearPictureBox(btn_VRS_2DM);
+            btn_VRS_2DM.setBackColor(true);
+            btn_P_18M.setBackColor(false);
+            btn_36D6M_1_1.setBackColor(false);
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.VRS_2DM;
         }
 
         public override void btn_ok_click(object sender, EventArgs e)
         {
-            float dphValue = (float)Convert.ToDouble(nud_dph.Value)*1000;
-            float dmaxValue = (float)Convert.ToDouble(nud_dmax.Value)*1000;
+            float dphValue = (float)Convert.ToDouble(nud_dph.Value) * 1000;
+            float dmaxValue = (float)Convert.ToDouble(nud_dmax.Value) * 1000;
             float hmtValue = (float)Convert.ToDouble(nud_hmt.Value);
             float hpxValue = (float)Convert.ToDouble(nud_hpx.Value);
             float hbdValue = (float)Convert.ToDouble(nud_hbd.Value);
+            float haValue = (float)Convert.ToDouble(nud_ha.Value);
             float deltaHValue = dphValue*dphValue/(2*1.33F*6370);
+            float result1 = 0F;
+            float result2 = 0F;
 
             result1 = dphValue*modOn*(float)Math.Asin(dphValue/dmaxValue)/(360*(hmtValue-deltaHValue));
-            result2 = result1 + hpxValue - hbdValue;
+            result2 = haValue + hpxValue - (hbdValue + hpxValue);
 
             // set result value 1
             label_first_result_value.Text = Math.Round(result1, 2) == 0 ? "0" : Math.Round(result1, 2).ToString();
@@ -408,8 +427,17 @@ namespace RadarAnalyst.UIComponent
                 label_second_result_value.ForeColor = System.Drawing.Color.Green;
             else
                 label_second_result_value.ForeColor = System.Drawing.Color.Red;
-            // ======================================================================================
+            //=======================================================================================
+            this.pictureBox1.Controls.Clear();
             this.gb_picture.Controls.Remove(this.pictureBox1);
+            bool isValid = true;
+            //if (result1 <= 0 || result2 <= 0 || result1 < result2) isValid = false;
+            if (!isValid) {
+                showError();
+                this.gb_picture.Controls.Add(this.label_error);
+                return;
+            }
+            // ======================================================================================
             // Dock the PictureBox to the form and set its background to white.
             this.pictureBox1.Location = new Point(0, 0);
             this.pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
@@ -422,33 +450,27 @@ namespace RadarAnalyst.UIComponent
 
         }
 
+        private void clearPictureBox(ButtonCtm clickedButton)
+        {
+            if (clickedButton.is_active == false)
+                this.gb_picture.Controls.Remove(this.pictureBox1);
+        }
+
+
         private void drawGraph(object sender, PaintEventArgs e)
         {
-            //hpx
-            float hpxValue = (float)Convert.ToDouble(nud_hpx.Value)* 0.5F;
-            float hpxOnPicMin = 15F;
-            float hpxOnPicMax = 100F;
-            float hpxOnPic = (hpxValue > hpxOnPicMax) ? hpxOnPicMax : (hpxValue < hpxOnPicMin) ? hpxOnPicMin : hpxValue;
-            //hdd
-            float hddValue = (float)Convert.ToDouble(nud_hbd.Value) * 0.5F;
-            float hddOnPicMin = 150F;
-            float hddOnPicMax = 200F;
-            float hddOnPic = (hddValue > hddOnPicMax) ? hddOnPicMax : (hddValue < hddOnPicMin) ? hddOnPicMin : hddValue;
-            //ha
-            float haValue = result2;
-            float haOnPicMin = 150F;
-            float haOnPicMax = 200F;
-            float haOnPic = (haValue > haOnPicMax) ? haOnPicMax : (haValue < haOnPicMin) ? haOnPicMin : haValue;
-
-            float haBaseX = 200.0F;
+            float haValue = (float)Convert.ToDouble(nud_dph.Value);
+            float lValue = (float)Convert.ToDouble(nud_dmax.Value);
+            float deltaHValue = (float)Convert.ToDouble(nud_hmt.Value);
+            float haBaseX = 150.0F;
             float haBaseY = 50.0F;
             float endLineY = 350F;
 
             // ========================================================================================================
             // draw begin line
             Pen pen = new Pen(lineBlueColor, 2);
-            PointF point1 = new PointF(haBaseX - 50F, endLineY- haOnPic - hddOnPic);
-            PointF point2 = new PointF(haBaseX + 50F, endLineY - haOnPic - hddOnPic);
+            PointF point1 = new PointF(haBaseX - 50F, 50.0F);
+            PointF point2 = new PointF(haBaseX + 50F, 50.0F);
             e.Graphics.DrawLine(pen, point1, point2);
 
             // ========================================================================================================
@@ -461,6 +483,15 @@ namespace RadarAnalyst.UIComponent
             if (haOnPic > haOnPicMax) haOnPic = haOnPicMax;
 
             // ========================================================================================================
+            // draw triangle
+            PictureBox radar = new PictureBox();
+            radar.Location = new Point((int) haBaseX -21, (int) (endLineY - hddOnPic - 52F));
+            radar.Size = new System.Drawing.Size(40, 50);
+            radar.SizeMode = PictureBoxSizeMode.StretchImage;
+            radar.Image = radarImgBitmap;
+            pictureBox1.Controls.Add(radar);
+
+            // ========================================================================================================
             // draw ha line black
             pen = new Pen(lineBlueColor, 2);
             PointF haTopPoint = new PointF(haBaseX, endLineY - haOnPic - hddOnPic);
@@ -469,9 +500,9 @@ namespace RadarAnalyst.UIComponent
 
             // draw triangle
             SolidBrush blueBrush = new SolidBrush(violetColor);
-            PointF trianglePoint1 = new PointF(haBaseX, endLineY - hddOnPic - 30F);
-            PointF trianglePoint3 = new PointF(haBaseX + 15F, endLineY - hddOnPic);
-            PointF trianglePoint2 = new PointF(haBaseX - 15F, endLineY - hddOnPic);
+            PointF trianglePoint1 = new PointF(haBaseX, haOnPic);
+            PointF trianglePoint3 = new PointF(haBaseX + 15F, haOnPic + 30F);
+            PointF trianglePoint2 = new PointF(haBaseX - 15F, haOnPic + 30F);
             PointF[] triangleCurvePoints = { trianglePoint1, trianglePoint2, trianglePoint3 };
             e.Graphics.FillPolygon(blueBrush, triangleCurvePoints);
 
@@ -479,21 +510,21 @@ namespace RadarAnalyst.UIComponent
             // ========================================================================================================
             // draw ha line white
             pen = new Pen(Color.White, 2);
-            haTopPoint = new PointF(haBaseX - 20F, endLineY - haOnPic - hddOnPic);
-            haBotPoint = new PointF(haBaseX - 20F, endLineY - hddOnPic);
+            haTopPoint = new PointF(haBaseX - 20F, haBaseY);
+            haBotPoint = new PointF(haBaseX - 20F, 30F + haOnPic);
             e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
             // draw top arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX - 25F, endLineY - haOnPic - hddOnPic + 5F));
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX - 15F, endLineY - haOnPic - hddOnPic + 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, haBaseY), new PointF(haBaseX - 25F, haBaseY + 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, haBaseY), new PointF(haBaseX - 15F, haBaseY + 5F));
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, endLineY - hddOnPic), new PointF(haBaseX - 25F, endLineY - hddOnPic - 5F));
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, endLineY - hddOnPic), new PointF(haBaseX - 15F, endLineY - hddOnPic - 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, 30F + haOnPic), new PointF(haBaseX - 25F, 25F + haOnPic));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 20F, 30F + haOnPic), new PointF(haBaseX - 15F, 25F + haOnPic));
             // draw text ha
             string text1 = " ha";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
-                RectangleF rectF1 = new RectangleF(haBaseX - 60F, (endLineY - haOnPic - hddOnPic + endLineY - hddOnPic)/2, 30, 20);
+                RectangleF rectF1 = new RectangleF(haBaseX - 60F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F : haTextY, 30, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
@@ -501,15 +532,15 @@ namespace RadarAnalyst.UIComponent
             // ========================================================================================================
             // draw Hpx line white
             pen = new Pen(Color.White, 2);
-            PointF hpxTopPoint = new PointF(haBaseX - 75F, endLineY - hpxOnPic); // nang
+            PointF hpxTopPoint = new PointF(haBaseX - 75F, endLineY - 30F); // note
             PointF hpxBotPoint = new PointF(haBaseX - 75F, endLineY); 
             e.Graphics.DrawLine(pen, hpxTopPoint, hpxBotPoint);
             // draw top arrow
             e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY - hpxOnPic), new PointF(haBaseX - 75F + 5F, endLineY - hpxOnPic + 5F)); // nang
             e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY - hpxOnPic), new PointF(haBaseX - 75F - 5F, endLineY - hpxOnPic + 5F)); //nang
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY), new PointF(haBaseX - 75F + 5F, endLineY - 5F)); 
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY), new PointF(haBaseX - 75F - 5F, endLineY - 5F)); 
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY), new PointF(haBaseX - 75F + 5F, endLineY - 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 75F, endLineY), new PointF(haBaseX - 75F - 5F, endLineY - 5F));
             // draw text hpx
             string textHpx = "Hpx";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
@@ -535,7 +566,8 @@ namespace RadarAnalyst.UIComponent
             string textHbd = "Hbd";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(haBaseX - 45F,(endLineY - hddOnPic + endLineY - hpxOnPic)/2 , 40, 20); //note
+                float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
+                RectangleF rectF1 = new RectangleF(haBaseX - 45F,(haBaseY + haOnPic - 15F + endLineY - 30F)/2 , 40, 20); //note
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(textHbd, font1, Brushes.Black, rectF1);
@@ -550,11 +582,11 @@ namespace RadarAnalyst.UIComponent
             // draw curve
             pen = new Pen(lineBlueColor, 1);
             // Create points that define curve.
-            PointF curvePoint1 = new PointF(haBaseX - 150F, endLineY - hddOnPic + 20F);
-            PointF curvePoint2 = new PointF(haBaseX + 40F, endLineY - hddOnPic + 5F);
-            PointF curvePoint3 = new PointF(700F - 200F, endLineY - hpxOnPic - 15F);
-            PointF curvePoint5 = new PointF(750F, endLineY - hpxOnPic - 25F);
-            PointF[] curvePoints = {curvePoint1, curvePoint2, curvePoint3, curvePoint5 };
+            PointF curvePoint1 = new PointF(haBaseX - 75F, haBaseY + haOnPic + 50F);
+            PointF curvePoint2 = new PointF(haBaseX + 20F, haBaseY + haOnPic - 15F);
+            PointF curvePoint3 = new PointF(700F - 150F, endLineY - 50F);
+            PointF curvePoint4 = new PointF(750F, endLineY - 80F);
+            PointF[] curvePoints = { curvePoint1, curvePoint2, curvePoint3, curvePoint4 };
             e.Graphics.DrawCurve(pen, curvePoints);
 
             // ========================================================================================================
@@ -567,19 +599,31 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX + 150F - 5F, endLineY - haOnPic - hddOnPic + 5F));
             e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX + 150F + 5F, endLineY - haOnPic - hddOnPic + 5F));
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - hpxOnPic - 2F), new PointF(haBaseX + 150F + 5F, endLineY - hpxOnPic - 7F)); //note
-            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - hpxOnPic  - 2F), new PointF(haBaseX + 150F - 5F, endLineY - hpxOnPic - 7F)); // note
+            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - 30F - 2F), new PointF(haBaseX + 150F + 5F, endLineY - 30F - 7F)); //note
+            e.Graphics.DrawLine(pen, new PointF(haBaseX + 150F, endLineY - 30F  - 2F), new PointF(haBaseX + 150F - 5F, endLineY - 30F - 7F)); // note
             //draw text delta Ha
             string deltaHText = "Ha";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
-                RectangleF rectF1 = new RectangleF(haBaseX + 160F, (endLineY - haOnPic - hddOnPic + endLineY - hpxOnPic - 2F) /2, 30, 20);
+                RectangleF rectF1 = new RectangleF(haBaseX + 160F, deltaHOnPic - 20F, 30, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(deltaHText, font1, Brushes.Black, rectF1);
             }
 
         }
-    }
+
+        private void showError()
+        {
+            this.label_error = new LabelCtm();
+            this.label_error.AutoSize = true;
+            this.label_error.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_error.Location = new System.Drawing.Point(340, 150);
+            this.label_error.Name = "label_dph_title";
+            this.label_error.Size = new System.Drawing.Size(58, 20);
+            this.label_error.TabIndex = 13;
+            this.label_error.Text = "Không thể hiển thị !";
+        }
+     }
 }

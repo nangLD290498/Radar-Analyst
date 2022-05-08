@@ -27,6 +27,7 @@ namespace RadarAnalyst.UIComponent
 
             this.SuspendLayout();
 
+            // Mapinfo
             MapInfo.MapInfoApplication mapinfo = new MapInfo.MapInfoApplication();
 
             // Get the handle to the whole MapInfo application.

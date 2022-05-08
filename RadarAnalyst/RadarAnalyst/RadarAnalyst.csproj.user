@@ -19,6 +19,9 @@
     <Compile Update="UIComponent\Element\ButtonCtm.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="UIComponent\KTMPXTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="UIComponent\KVCTDTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
