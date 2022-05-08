@@ -21,7 +21,7 @@ namespace RadarAnalyst.UIComponent.ComponentI
         {
             Console.WriteLine("Init KTMPX Tab Page");
             this.Location = new System.Drawing.Point(4, 24);
-            this.Name = tabCode;
+            this.Name = tabCode.ToUpper();
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Size = new System.Drawing.Size(1326, 633);
             this.TabIndex = 0;

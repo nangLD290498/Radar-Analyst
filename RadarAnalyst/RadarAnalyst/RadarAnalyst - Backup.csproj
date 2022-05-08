@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <COMReference Include="MapInfo">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>1d42ec60-7b28-11ce-b83d-00aa002c4f58</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="UIComponent\ComponentI\TabPageCI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\PVPHMPTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\GCKTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\MCDHTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\DNTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\DLLTabPage.cs" />
+    <Compile Update="UIComponent\KTMPXTabPage.cs" />
+    <Compile Update="UIComponent\DCDDTabPage.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

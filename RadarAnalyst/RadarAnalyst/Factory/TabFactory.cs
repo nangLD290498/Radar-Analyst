@@ -18,28 +18,28 @@ namespace RadarAnalyst.Factory
             switch (tabCode)
             {
                 case Util.Constant.KVCTD:
-                    tabPage = new UIComponent.KVCTDTabPage(tabCode, Util.Constant.KVCTD_TEXT);
+                    tabPage = new UIComponent.KVCTDTabPage(tabCode, Util.Constant.KVCTD_TEXT.ToUpper());
                     break;
                 case Util.Constant.DCDD:
-                    tabPage = new UIComponent.DCDDTabPage(tabCode, Util.Constant.DCDD_TEXT);
+                    tabPage = new UIComponent.DCDDTabPage(tabCode, Util.Constant.DCDD_TEXT.ToUpper());
                     break;
                 case Util.Constant.KTMPX:
-                    tabPage = new UIComponent.KTMPXTabPage(tabCode, Util.Constant.KTMPX_TEXT);
+                    tabPage = new UIComponent.KTMPXTabPage(tabCode, Util.Constant.KTMPX_TEXT.ToUpper());
                     break;
                 case Util.Constant.DLL:
-                    tabPage = new UIComponent.DLLTabPage(tabCode, Util.Constant.DLL_TEXT);
+                    tabPage = new UIComponent.DLLTabPage(tabCode, Util.Constant.DLL_TEXT.ToUpper());
                     break;
                 case Util.Constant.DN:
-                    tabPage = new UIComponent.DNTabPage(tabCode, Util.Constant.DN_TEXT);
+                    tabPage = new UIComponent.DNTabPage(tabCode, Util.Constant.DN_TEXT.ToUpper());
                     break;
                 case Util.Constant.MCDH:
-                    tabPage = new UIComponent.MCDHTabPage(tabCode, Util.Constant.MCDH_TEXT);
+                    tabPage = new UIComponent.MCDHTabPage(tabCode, Util.Constant.MCDH_TEXT.ToUpper());
                     break;
                 case Util.Constant.GCK:
-                    tabPage = new UIComponent.GCKTabPage(tabCode, Util.Constant.GCK_TEXT);
+                    tabPage = new UIComponent.GCKTabPage(tabCode, Util.Constant.GCK_TEXT.ToUpper());
                     break;
                 case Util.Constant.PVPHMP:
-                    tabPage = new UIComponent.PVPHMPTabPage(tabCode, Util.Constant.PVPHMP_TEXT);
+                    tabPage = new UIComponent.PVPHMPTabPage(tabCode, Util.Constant.PVPHMP_TEXT.ToUpper());
                     break;
                 default:
                     tabPage = new TabPage();

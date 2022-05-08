@@ -429,7 +429,8 @@ namespace RadarAnalyst.UIComponent
             this.gb_picture.Controls.Remove(this.pictureBox1);
             bool isValid = true;
             //if (result1 <= 0 || result2 <= 0 || result1 < result2) isValid = false;
-            if (!isValid) {
+            if (!isValid)
+            {
                 showError();
                 this.gb_picture.Controls.Add(this.label_error);
                 return;
@@ -468,7 +469,7 @@ namespace RadarAnalyst.UIComponent
             float hddOnPic = (hddValue > hddOnPicMax) ? hddOnPicMax : (hddValue < hddOnPicMin) ? hddOnPicMin : hddValue;
             //ha
             float haValue = result2;
-            float haOnPicMin = 70F; 
+            float haOnPicMin = 70F;
             float haOnPicMax = 120F;
             float haOnPic = (haValue > haOnPicMax) ? haOnPicMax : (haValue < haOnPicMin) ? haOnPicMin : haValue;
 
@@ -495,7 +496,7 @@ namespace RadarAnalyst.UIComponent
             // ========================================================================================================
             // draw triangle
             PictureBox radar = new PictureBox();
-            radar.Location = new Point((int) haBaseX -21, (int) (endLineY - hddOnPic - 52F));
+            radar.Location = new Point((int)haBaseX - 21, (int)(endLineY - hddOnPic - 52F));
             radar.Size = new System.Drawing.Size(40, 50);
             radar.SizeMode = PictureBoxSizeMode.StretchImage;
             radar.Image = radarImgBitmap;
@@ -516,7 +517,7 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX - 30F, endLineY - haOnPic - hddOnPic + 5F));
             e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX - 20F, endLineY - haOnPic - hddOnPic + 5F));
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - hddOnPic - 3 ), new PointF(haBaseX - 30F, endLineY - hddOnPic - 3 - 5F));
+            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - hddOnPic - 3), new PointF(haBaseX - 30F, endLineY - hddOnPic - 3 - 5F));
             e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - hddOnPic - 3), new PointF(haBaseX - 20F, endLineY - hddOnPic - 3 - 5F));
             // draw text ha
             string text1 = " ha";
@@ -623,5 +624,5 @@ namespace RadarAnalyst.UIComponent
             this.label_error.TabIndex = 13;
             this.label_error.Text = "Không thể hiển thị !";
         }
-     }
+    }
 }

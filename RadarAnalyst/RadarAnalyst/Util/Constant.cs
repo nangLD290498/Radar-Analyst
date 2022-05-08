@@ -26,7 +26,7 @@ namespace RadarAnalyst.Util
 
         // độ nghiêng
         public const string DN = "DN";
-        public const string DN_TEXT = "độ nghiêng";
+        public const string DN_TEXT = "độ nghiêng trung bình";
 
         // mặt cắt địa hình
         public const string MCDH = "MCDH";
