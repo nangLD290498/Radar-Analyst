@@ -68,13 +68,13 @@ namespace RadarAnalyst.UIComponent
             this.btn_P_18M.setBackColor(true);
             this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
-            this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
+            this.btn_P_18M.Size = new System.Drawing.Size(135, 70);
             this.btn_P_18M.Click += new System.EventHandler(this.btn_P_18M_Click);
 
             // btn_VRS_2DM
-            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 260);
+            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 280);
             this.btn_VRS_2DM.Name = "btn_VRS_2DM";
-            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 50);
+            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 70);
             this.btn_VRS_2DM.Click += new System.EventHandler(this.btn_VRS_2DM_Click);
         }
 
@@ -155,7 +155,7 @@ namespace RadarAnalyst.UIComponent
             this.label_first_result_value.AutoSize = true;
             this.label_first_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_first_result_value.ForeColor = System.Drawing.Color.Red;
-            this.label_first_result_value.Location = new System.Drawing.Point(230, 50);
+            this.label_first_result_value.Location = new System.Drawing.Point(290, 50);
             this.label_first_result_value.Name = "label_first_result_value";
             this.label_first_result_value.Size = new System.Drawing.Size(30, 31);
             this.label_first_result_value.TabIndex = 1;
@@ -163,7 +163,7 @@ namespace RadarAnalyst.UIComponent
             // label17
             this.label_first_result_unit.AutoSize = true;
             this.label_first_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_first_result_unit.Location = new System.Drawing.Point(300, 50);
+            this.label_first_result_unit.Location = new System.Drawing.Point(390, 50);
             this.label_first_result_unit.Name = "label_first_result_unit";
             this.label_first_result_unit.Size = new System.Drawing.Size(10, 31);
             this.label_first_result_unit.TabIndex = 2;
@@ -182,7 +182,7 @@ namespace RadarAnalyst.UIComponent
             this.label_second_result_value.AutoSize = true;
             this.label_second_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_second_result_value.ForeColor = System.Drawing.Color.Red;
-            this.label_second_result_value.Location = new System.Drawing.Point(230, 90);
+            this.label_second_result_value.Location = new System.Drawing.Point(290, 90);
             this.label_second_result_value.Name = "label_second_result_value";
             this.label_second_result_value.Size = new System.Drawing.Size(66, 31);
             this.label_second_result_value.TabIndex = 4;
@@ -190,7 +190,7 @@ namespace RadarAnalyst.UIComponent
             // label17
             this.label_second_result_unit.AutoSize = true;
             this.label_second_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_second_result_unit.Location = new System.Drawing.Point(300, 90);
+            this.label_second_result_unit.Location = new System.Drawing.Point(390, 90);
             this.label_second_result_unit.Name = "label_second_result_unit";
             this.label_second_result_unit.Size = new System.Drawing.Size(10, 31);
             this.label_second_result_unit.TabIndex = 2;
@@ -288,7 +288,7 @@ namespace RadarAnalyst.UIComponent
             string textRmin = "Rmin";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(centerPoint.X - rMinOnpic/4, centerPoint.Y + 5F, 50, 20); //note
+                RectangleF rectF1 = new RectangleF(centerPoint.X - rMinOnpic/4, centerPoint.Y + 5F, 65, 20); //note
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(textRmin, font1, Brushes.Black, rectF1);
@@ -305,7 +305,7 @@ namespace RadarAnalyst.UIComponent
             string textRmax = "Rmax";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 4, 50, 20); 
+                RectangleF rectF1 = new RectangleF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 4, 65, 20); 
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(textRmax, font1, Brushes.Black, rectF1);
@@ -340,7 +340,7 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 
-                RectangleF rectF1 = new RectangleF(30, 240, 50, 20);
+                RectangleF rectF1 = new RectangleF(15, 240, 65, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
@@ -360,7 +360,7 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
 
-                RectangleF rectF1 = new RectangleF(30, 270, 50, 20);
+                RectangleF rectF1 = new RectangleF(15, 270, 65, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(text2, font1, Brushes.Black, rectF1);
