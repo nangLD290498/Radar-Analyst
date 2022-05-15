@@ -404,7 +404,7 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
-                RectangleF rectF1 = new RectangleF(haBaseX - 70F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F : haTextY, 10, 20);
+                RectangleF rectF1 = new RectangleF(haBaseX - 70F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F : haTextY, 40, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
