@@ -5,11 +5,15 @@ using System.Text;
 using System.Web;
 using RadarAnalyst.UIComponent.ComponentI;
 using RadarAnalyst.UIComponent.Element;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RadarAnalyst.UIComponent
 {
     public partial class GCKTabPage : TabPageCII
     {
+        int pictureBoxHeight = 500;
+        int pictureBoxWidth = 850;
+        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
 
         private ButtonCtm btn_P_18M;
         private ButtonCtm btn_VRS_2DM;
@@ -29,6 +33,8 @@ namespace RadarAnalyst.UIComponent
         private TextBox tb_note_1;
         private TextBox tb_note_2;
         private TextBox tb_note_3;
+
+        private Chart c_polar;
 
         public GCKTabPage(String tabCode, String text) : base(tabCode, text)
         {
@@ -219,12 +225,58 @@ namespace RadarAnalyst.UIComponent
 
         public override void btn_ok_click(object sender, EventArgs e)
         {
+            // ======================================================================================
+            this.pictureBox1.Controls.Clear();
+            this.gb_picture.Controls.Remove(this.pictureBox1);
+            // Dock the PictureBox to the form and set its background to white.
+            //this.pictureBox1.Dock = DockStyle.Fill;
+
+            //this.c_polar.Location = new System.Drawing.Point(0, 0);
+            //this.c_polar.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
+
+            ////this.c_polar.BackColor = groupBoxColor;
+            // Connect the Paint event of the PictureBox to the event handler method.
+            //this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
+            //drawGraph();
+            // Add the PictureBox control to the Form.
+            //c_polar = new Chart();
+            //((System.ComponentModel.ISupportInitialize)(this.c_polar)).BeginInit();
+            drawGraph();
             
         }
 
-        private void drawGraph(object sender, PaintEventArgs e)
+        private void drawGraph()
         {
-            
+
+            Chart chart = new Chart();
+            Series series = new Series();
+            ChartArea chartArea1 = new ChartArea();
+            chartArea1.Name = "ChartArea1";
+            chart.ChartAreas.Add(chartArea1);
+            series.BorderWidth = 2;
+            series.BorderDashStyle = ChartDashStyle.Solid;
+            series.ChartType = SeriesChartType.Line;
+            series.Color = Color.Green;
+            List<double> values = new List<double>();
+            values.Add(12);
+            values.Add(15);
+            values.Add(16);
+            values.Add(13);
+            for (int i = 0; i < values.Count; i++)
+            {
+                series.Points.AddXY(i, values[i]);
+            }
+            chart.BorderlineColor = Color.Red;
+            chart.BorderlineWidth = 1;
+            chart.Series.Add(series);
+            chart.Titles.Add("chart");
+            chart.Invalidate();
+            chart.Palette = ChartColorPalette.Fire;
+            chartArea1.AxisY.Minimum = values.Min();
+            chartArea1.AxisY.Maximum = values.Max();
+            this.gb_picture.Controls.Add(chart);
+
+
         }
     }
 }
