@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using RadarAnalyst.UIComponent.ComponentI;
 using RadarAnalyst.UIComponent.Element;
 using Uno.UI.Xaml.Controls;
+using RadarAnalyst.UIComponent.Class;
 
 namespace RadarAnalyst.UIComponent
 {
@@ -19,42 +20,27 @@ namespace RadarAnalyst.UIComponent
 
         private ButtonCtm btn_P_18M;
         private ButtonCtm btn_VRS_2DM;
+        private ButtonCtm btn_save;
 
         private LabelCtm label_beta_title;
         private NumericUpDown nud_beta;
         private LabelCtm label_D_title;
 
         private LabelCtm label_delta_h_title;
-        //private NumericUpDown nud_d;
-        private LabelCtm label_l_unit;
 
-        private LabelCtm label_delta_H_tt_title;
-        //private NumericUpDown nud_delta_h;
-        private LabelCtm label_delta_H_tt_unit;
-
-        private LabelCtm label_first_result_title;
-        private LabelCtm label_first_result_value;
-        private LabelCtm label_first_result_unit;
-
-        private LabelCtm label_second_result_title;
-        private LabelCtm label_second_result_value;
-
-        int pictureBoxHeight = 390;
+        int pictureBoxHeight = 600;
         int pictureBoxWidth = 830;
 
         private const float nud_beta_default_value = 7.5F;
-        private const float nud_d_default_value = 1000.0F;
-        private const float nud_delta_h_default_value = 5.0F;
-        private float hRotation = 1.5F;
-        private float lRotation = 7.5F;
 
         private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
         private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
 
-        private List<NumericUpDown> nudDCollection = new List<NumericUpDown>();
-        private List<NumericUpDown> nudDeltaHCollection = new List<NumericUpDown>();
+        private List<NudPair> nudPairCollection = new List<NudPair>();
+
+        Random rnd = new Random();
 
         public MCDHTabPage(String tabCode, String text) : base(tabCode, text)
         {
@@ -64,6 +50,13 @@ namespace RadarAnalyst.UIComponent
             initInputTable();
 
             initOutputTable();
+
+            this.Controls.Remove(this.gb_ouputTable);
+
+            this.gb_picture.Location = new System.Drawing.Point(458, 50);
+            this.gb_picture.MaximumSize = new System.Drawing.Size(822, 545);
+            this.gb_picture.MinimumSize = new System.Drawing.Size(822, 545);
+            this.gb_picture.Size = new System.Drawing.Size(822, 545);
         }
 
         private void initRadarButton()
@@ -146,30 +139,13 @@ namespace RadarAnalyst.UIComponent
             this.nud_beta.Value = new decimal(nud_beta_default_value);
             ((System.ComponentModel.ISupportInitialize)(this.nud_beta)).EndInit();
 
-            //ScrollBar hSBar = new ScrollBar();
-            //hSBar.Orientation = Orientation.Horizontal;
-            //hSBar.HorizontalAlignment = HorizontalAlignment.Left;
-            //hSBar.Width = 250;
-            //hSBar.Height = 30;
-            //hSBar.Background = new SolidColorBrush(Colors.LightSalmon);
-            //hSBar.Minimum = 1;
-            //hSBar.Maximum = 240;
-            //hSBar.Value = 50;
-            //LayoutRoot.Children.Add(hSBar);
-
-            //ScrollViewer viewer = new();
-            //viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-
             Panel panel = new Panel();
             panel.AutoScroll = true;
-            //panel.HorizontalScroll = true;
-            //panel.SetAutoScrollMargin(0, 222);
-            //panel.BackColor = Color.AliceBlue;
             panel.Height = 250;
             panel.Width = 175;
             panel.Location = new System.Drawing.Point(80, 80);
 
-            for (int i = 0; i< 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 NumericUpDown nud_d = new System.Windows.Forms.NumericUpDown();
                 NumericUpDown nud_delta_h = new System.Windows.Forms.NumericUpDown();
@@ -182,30 +158,28 @@ namespace RadarAnalyst.UIComponent
                 nud_d.Name = "nud_d";
                 nud_d.Size = new System.Drawing.Size(70, 30);
                 nud_d.TabIndex = 6;
-                nud_d.Maximum = 9999999999;
+                nud_d.Maximum = 9999999;
                 nud_d.Minimum = 0;
                 nud_d.DecimalPlaces = 1;
                 nud_d.Increment = 0.1m;
-                nud_d.Value = new decimal(0);
+                nud_d.Value = new decimal(rnd.Next(1, 200));
 
                 // nud_delta_h
                 nud_delta_h.Location = new System.Drawing.Point(80, 0 + i * 30);
                 nud_delta_h.Name = "nud_delta_h";
                 nud_delta_h.Size = new System.Drawing.Size(70, 30);
                 nud_delta_h.TabIndex = 6;
-                nud_delta_h.Maximum = 9999999999;
-                nud_delta_h.Minimum = 0;
+                nud_delta_h.Maximum = 9999999;
+                nud_delta_h.Minimum = -9999999;
                 nud_delta_h.DecimalPlaces = 1;
                 nud_delta_h.Increment = 0.1m;
-                nud_delta_h.Value = new decimal(0);
+                nud_delta_h.Value = new decimal(rnd.Next(-20, 20));
 
                 panel.Controls.Add(nud_d);
                 panel.Controls.Add(nud_delta_h);
-                //this.gb_inputTable.Controls.Add(nud_d);
-                //this.gb_inputTable.Controls.Add(nud_delta_h);
 
-                this.nudDCollection.Add(nud_d);
-                this.nudDeltaHCollection.Add(nud_delta_h);
+                NudPair nudPair = new NudPair(nud_d, nud_delta_h);
+                this.nudPairCollection.Add(nudPair);
 
                 ((System.ComponentModel.ISupportInitialize)(nud_d)).EndInit();
                 ((System.ComponentModel.ISupportInitialize)(nud_delta_h)).EndInit();
@@ -217,73 +191,10 @@ namespace RadarAnalyst.UIComponent
 
         private void initOutputTable()
         {
-            this.label_first_result_title = new LabelCtm();
-            this.label_first_result_value = new LabelCtm();
-            this.label_first_result_unit = new LabelCtm();
 
-            //this.label_second_result_title = new LabelCtm();
-            //this.label_second_result_value = new LabelCtm();
-
-            // 
-            // gb_ouputTable
-            // 
-            this.gb_ouputTable.Controls.Add(this.label_first_result_title);
-            this.gb_ouputTable.Controls.Add(this.label_first_result_value);
-            this.gb_ouputTable.Controls.Add(this.label_first_result_unit);
-
-            //this.gb_ouputTable.Controls.Add(this.label_second_result_title);
-            //this.gb_ouputTable.Controls.Add(this.label_second_result_value);
-
-            // ================================================================
-            // label_first_result_title
-            this.label_first_result_title.AutoSize = true;
-            this.label_first_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_first_result_title.Location = new System.Drawing.Point(30, 50);
-            this.label_first_result_title.Name = "label_first_result_title";
-            this.label_first_result_title.Size = new System.Drawing.Size(180, 31);
-            this.label_first_result_title.TabIndex = 0;
-            this.label_first_result_title.Text = "Độ nghiêng trung bình: ";
-            // label_first_result_value
-            this.label_first_result_value.AutoSize = true;
-            this.label_first_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_first_result_value.ForeColor = System.Drawing.Color.Red;
-            this.label_first_result_value.Location = new System.Drawing.Point(270, 50);
-            this.label_first_result_value.Name = "label_first_result_value";
-            this.label_first_result_value.Size = new System.Drawing.Size(30, 31);
-            this.label_first_result_value.TabIndex = 1;
-            this.label_first_result_value.Text = "";
-            // label17
-            this.label_first_result_unit.AutoSize = true;
-            this.label_first_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_first_result_unit.Location = new System.Drawing.Point(380, 50);
-            this.label_first_result_unit.Name = "label_first_result_unit";
-            this.label_first_result_unit.Size = new System.Drawing.Size(10, 31);
-            this.label_first_result_unit.TabIndex = 2;
-            this.label_first_result_unit.Text = "độ";
-
-            //// ================================================================
-            //// label_second_result_title
-            //this.label_second_result_title.AutoSize = true;
-            //this.label_second_result_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            //this.label_second_result_title.Location = new System.Drawing.Point(30, 90);
-            //this.label_second_result_title.Name = "label_second_result_title";
-            //this.label_second_result_title.Size = new System.Drawing.Size(150, 31);
-            //this.label_second_result_title.TabIndex = 3;
-            //this.label_second_result_title.Text = "Đánh giá";
-            //// label_second_result_value
-            //this.label_second_result_value.AutoSize = true;
-            //this.label_second_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            //this.label_second_result_value.ForeColor = System.Drawing.Color.Red;
-            //this.label_second_result_value.Location = new System.Drawing.Point(120, 90);
-            //this.label_second_result_value.Name = "label_second_result_value";
-            //this.label_second_result_value.Size = new System.Drawing.Size(66, 31);
-            //this.label_second_result_value.TabIndex = 4;
-            //this.label_second_result_value.Text = "Đạt/Không đạt";
         }
         private void btn_P_18M_Click(object sender, EventArgs e)
         {
-            //btn_P_18M.BackColor = Color.LightBlue;
-            //btn_VRS_2DM.BackColor = Color.AliceBlue;
             btn_VRS_2DM.setBackColor(false);
             btn_P_18M.setBackColor(true);
             this.modOn = P_18M;
@@ -291,8 +202,6 @@ namespace RadarAnalyst.UIComponent
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
         {
-            //btn_P_18M.BackColor = Color.AliceBlue;
-            //btn_VRS_2DM.BackColor = Color.LightBlue;
             btn_VRS_2DM.setBackColor(true);
             btn_P_18M.setBackColor(false);
             this.modOn = VRS_2DM;
@@ -300,70 +209,139 @@ namespace RadarAnalyst.UIComponent
 
         public override void btn_ok_click(object sender, EventArgs e)
         {
-            //            float haValue = (float)Convert.ToDouble(nud_beta.Value);
-            //            float lValue = (float)Convert.ToDouble(nud_d.Value);
-            //            float delta_H_ttValue = (float)Convert.ToDouble(nud_delta_h.Value);
-            //            float deltaHValue = 0F;
-
-            //            switch (this.modOn)
-            //            {
-            //                case P_18M:
-            //                    deltaHValue = 3440 - (haValue * delta_H_ttValue) / lValue;
-            //                    break;
-            //                case VRS_2DM:
-            //                    deltaHValue = 3440 - (haValue * delta_H_ttValue) / lValue;
-            //                    break;
-            //                default:
-            //                    break;
-            //            }
-
-            //            // set result value 1
-            //            label_first_result_value.Text = Math.Round(deltaHValue, 2).ToString();
-
             // ======================================================================================
             this.gb_picture.Controls.Remove(this.pictureBox1);
             // Dock the PictureBox to the form and set its background to white.
-            //this.pictureBox1.Dock = DockStyle.Fill;
             this.pictureBox1.Location = new Point(0, 0);
             this.pictureBox1.Size = new System.Drawing.Size(pictureBoxWidth, pictureBoxHeight);
-
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            //string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-            //this.pictureBox1.ImageLocation = path + "/Images/DoNghiengTrungBinh.jpg";
 
             this.pictureBox1.BackColor = groupBoxColor;
             // Connect the Paint event of the PictureBox to the event handler method.
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
             this.pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
+            // btn_save
+            this.btn_save = new ButtonCtm("Save");
+            this.gb_picture.Controls.Add(this.btn_save);
+            this.btn_save.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btn_save.Location = new System.Drawing.Point(710, 500);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(50, 31);
+            this.btn_save.TabIndex = 0;
+            this.btn_save.Text = "Lưu đồ thị";
+            this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_click);
+
             // Add the PictureBox control to the Form.
             this.gb_picture.Controls.Add(this.pictureBox1);
         }
 
+        public void btn_save_click(object sender, EventArgs e)
+        {
+            float x = (float)Convert.ToDouble(this.nud_beta.Value);
+            String betaValue = x.ToString();
+            //String filename = betaValue + "-" + DateTime.Now.ToString("ddMMyyyy-hhmmss") + ".png";
+            String filename = betaValue + "°" + ".png";
+            string path = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName + "/Images/" + filename;
+
+            using (Bitmap bmp = new Bitmap(pictureBox1.ClientSize.Width,
+                               pictureBox1.ClientSize.Height - 50))
+            {
+                pictureBox1.DrawToBitmap(bmp, pictureBox1.ClientRectangle);
+                bmp.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+            }
+
+            MessageBox.Show("Đã lưu đồ thị: " + path);
+        }
+
         private void drawGraph(object sender, PaintEventArgs e)
+        {
+            drawOy(e, groupBoxColor);
+            drawOx(e, groupBoxColor);
+            drawCurve(e, lineBlueColor, this);
+        }
+
+        private static void drawCurve(PaintEventArgs e, Color lineBlueColor, MCDHTabPage _this)
+        {
+            // draw curve
+            Pen pen = new Pen(lineBlueColor, 2);
+            float oX = 60F;
+            float oY = 290.0F;
+
+            //Sort numeric-up-down-pair list
+            _this.nudPairCollection.Sort((p, q) => p.getNudD().Value.CompareTo(q.getNudD().Value));
+
+            // Create points that define curve.
+            List<PointF> curvePointsList = new List<PointF>();
+            curvePointsList.Add(new PointF(oX, oY));
+            for (int idx = 0; idx < _this.nudPairCollection.Count; idx++)
+            {
+                NudPair nudPair = _this.nudPairCollection[idx];
+
+                NumericUpDown numericUpDownD = nudPair.getNudD();
+                float x = (float)Convert.ToDouble(numericUpDownD.Value);
+
+                NumericUpDown numericUpDownH = nudPair.getNudDeltaH();
+                float y = (float)Convert.ToDouble(numericUpDownH.Value);
+
+                // sum delta H if exist pre numeric up down
+                NudPair preNudPair = null;
+                float preY = 0;
+                if (idx > 0)
+                {
+                    preNudPair = _this.nudPairCollection[idx - 1];
+                    NumericUpDown preNumericUpDownH = preNudPair.getNudDeltaH();
+                    preY = (float)Convert.ToDouble(preNumericUpDownH.Value);
+                    y = y + preY;
+                }
+
+                if (x == 0 && y == 0)
+                    continue;
+
+                float pointX = oX + (x / 10) * 35F;
+                float pointY = oY - (y / 5) * 30F;
+                curvePointsList.Add(new PointF(pointX, pointY));
+
+                // draw dash line ha
+                float[] dashValues = { 3, 3, 3, 3 };
+                Pen dashPen = new Pen(Color.White, 1);
+                dashPen.DashPattern = dashValues;
+                e.Graphics.DrawLine(dashPen, new PointF(oX, pointY), new PointF(pointX, pointY));
+                e.Graphics.DrawLine(dashPen, new PointF(pointX, oY), new PointF(pointX, pointY));
+            }
+
+            PointF[] curvePoints = curvePointsList.ToArray();
+
+            e.Graphics.DrawLines(pen, curvePoints);
+        }
+
+        private static void drawOy(PaintEventArgs e, Color groupBoxColor)
         {
             Color whiteColor = Color.White;
             // draw x line
             Pen pen = new Pen(whiteColor, 2);
-            PointF point1 = new PointF(60F, 20.0F);
-            PointF point2 = new PointF(60F, 380.0F);
+            float topY = 50.0F;
+            PointF point1 = new PointF(60F, topY);
+            PointF point2 = new PointF(60F, 500.0F);
             e.Graphics.DrawLine(pen, point1, point2);
             // draw top arrow
-            e.Graphics.DrawLine(pen, new PointF(60F, 20.0F), new PointF(60F - 10F, 20.0F + 10F));
-            e.Graphics.DrawLine(pen, new PointF(60F - 1F, 20.0F), new PointF(60F - 1F + 10F, 20.0F + 10F));
+            e.Graphics.DrawLine(pen, new PointF(60F, topY), new PointF(60F - 10F, topY + 10F));
+            e.Graphics.DrawLine(pen, new PointF(60F - 1F, topY), new PointF(60F - 1F + 10F, topY + 10F));
             // draw H text
-            string Htext = "H";
+            string Htext = "H (m)";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(25F, 20F, 15, 15);
+                RectangleF rectF1 = new RectangleF(0F, topY, 50, 15);
                 SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(Htext, font1, Brushes.White, rectF1);
             }
+
             // draw vạch
-            float textUnit = 8;
-            for (int i = 2; i <= 10; i++)
+            float textUnit = 30;
+            int numberOfVach = 12;
+            int startIndex = 3;
+            for (int i = startIndex; i <= startIndex + numberOfVach; i++)
             {
                 float unitX = 30F;
                 point1 = new PointF(60F, i * unitX + 20F);
@@ -374,14 +352,14 @@ namespace RadarAnalyst.UIComponent
                 string unitTextDisplay = (textUnit > 0) ? textUnit.ToString() : (0 - textUnit).ToString();
                 using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
                 {
-                    RectangleF rectF1 = new RectangleF(unitTextDisplay == "0" ? 25F : 35F, i * unitX + 10F, 15, 15);
+                    RectangleF rectF1 = new RectangleF(unitTextDisplay == "0" ? 25F : 25F, i * unitX + 10F, 25, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                     e.Graphics.DrawString((unitTextDisplay == "0") ? "O" : unitTextDisplay, font1, Brushes.White, rectF1);
                 }
-                textUnit -= 2;
+                textUnit -= 5;
             }
-            for (int i = 7; i <= 10; i++)
+            for (int i = startIndex + numberOfVach / 2 + 1; i <= startIndex + numberOfVach; i++)
             {
                 float unitX = 30F;
                 point1 = new PointF(60F, i * unitX + 20F);
@@ -391,28 +369,33 @@ namespace RadarAnalyst.UIComponent
                 // draw text ha
                 using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
                 {
-                    RectangleF rectF1 = new RectangleF(25F, i * unitX + 10F, 10, 15);
+                    RectangleF rectF1 = new RectangleF(15F, i * unitX + 10F, 10, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                     e.Graphics.DrawString("-", font1, Brushes.White, rectF1);
                 }
             }
+        }
 
+        private static void drawOx(PaintEventArgs e, Color groupBoxColor)
+        {
+            float oyPosition = 290.0F;
+            Color whiteColor = Color.White;
             // draw y line
-            pen = new Pen(whiteColor, 2);
-            point1 = new PointF(60F, 200.0F);
-            point2 = new PointF(750F, 200.0F);
+            Pen pen = new Pen(whiteColor, 2);
+            PointF point1 = new PointF(60F, oyPosition);
+            PointF point2 = new PointF(800F, oyPosition);
             e.Graphics.DrawLine(pen, point1, point2);
             // draw right arrow
-            e.Graphics.DrawLine(pen, new PointF(750F, 200.0F), new PointF(750F - 10F, 200.0F - 10F));
-            e.Graphics.DrawLine(pen, new PointF(750F, 200.0F), new PointF(750F - 10F, 200.0F + 10F));
+            e.Graphics.DrawLine(pen, new PointF(800F, oyPosition), new PointF(800F - 10F, oyPosition - 10F));
+            e.Graphics.DrawLine(pen, new PointF(800F, oyPosition), new PointF(800F - 10F, oyPosition + 10F));
             // draw vạch
-            float ytextUnit = 200;
-            for (int i = 1; i <= 7; i++)
+            float ytextUnit = 10;
+            for (int i = 1; i <= 20; i++)
             {
-                float unitY = 80F;
-                point1 = new PointF(60F + i * unitY, 200F);
-                point2 = new PointF(60F + i * unitY, 210F);
+                float unitY = 35F;
+                point1 = new PointF(60F + i * unitY, oyPosition);
+                point2 = new PointF(60F + i * unitY, oyPosition + 10F);
                 e.Graphics.DrawLine(pen, point1, point2);
 
                 // draw text ha
@@ -421,45 +404,23 @@ namespace RadarAnalyst.UIComponent
                 if (ytextUnit >= 1000) div = 22F;
                 using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
                 {
-                    RectangleF rectF1 = new RectangleF(60F - div + i * unitY, 215F, 45, 15);
+                    RectangleF rectF1 = new RectangleF(60F - div + i * unitY, oyPosition + 15F, 45, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                     e.Graphics.DrawString(unitTextDisplay, font1, Brushes.White, rectF1);
                 }
-                ytextUnit += 200;
+                ytextUnit += 10;
             }
 
-            // draw curve
-            pen = new Pen(lineBlueColor, 2);
-            float oX = 60F;
-            float oY = 200F;
-            // Create points that define curve.
-            List<PointF> curvePointsList = new List<PointF>();
-            for (int idx = 0; idx < this.nudDCollection.Count; idx++)
+            // draw D text
+            string Htext = "D (km)";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                NumericUpDown numericUpDownD = this.nudDCollection[idx];
-                float x = (float) Convert.ToDouble(numericUpDownD.Value);
-
-                NumericUpDown numericUpDownH = this.nudDeltaHCollection[idx];
-                float y = (float)Convert.ToDouble(numericUpDownH.Value);
-
-                curvePointsList.Add(new PointF(oX + (x * 150F / 200F) * 80F, oY - (y * 0F / 2F) * 30F));
+                RectangleF rectF1 = new RectangleF(770F, oyPosition - 30F, 60, 15);
+                SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(Htext, font1, Brushes.White, rectF1);
             }
-
-            PointF[] curvePoints = curvePointsList.ToArray();
-
-            //PointF curvePoint1 = new PointF(oX + (150F / 200F) * 80F, oY - (0F / 2F) * 30F);
-            //PointF curvePoint2 = new PointF(oX + (250F / 200F) * 80F, oY - (2F / 2F) * 30F);
-            //PointF curvePoint3 = new PointF(oX + (310F / 200F) * 80F, oY - (1F / 2F) * 30F);
-            //PointF curvePoint4 = new PointF(oX + (420F / 200F) * 80F, oY - (1F / 2F) * 30F);
-            //PointF curvePoint5 = new PointF(oX + (500F / 200F) * 80F, oY - (-2F / 2F) * 30F);
-            //PointF curvePoint6 = new PointF(oX + (700F / 200F) * 80F, oY - (-3F / 2F) * 30F);
-            //PointF[] curvePoints = { curvePoint1, curvePoint2, curvePoint3, curvePoint4, curvePoint5, curvePoint6,
-            //    new PointF(oX + (900F / 200F) * 80F, oY - (-2F / 2F) * 30F),
-            //    new PointF(oX + (1170F / 200F) * 80F, oY - (-4F / 2F) * 30F),
-            //    new PointF(oX + (1500F / 200F) * 80F, oY - (2F / 2F) * 30F)
-            //};
-            e.Graphics.DrawLines(pen, curvePoints);
         }
     }
 }
