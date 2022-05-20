@@ -28,8 +28,9 @@ namespace RadarAnalyst.UIComponent
 
         private LabelCtm label_note_title;
 
-        int pictureBoxHeight = 600;
-        int pictureBoxWidth = 830;
+        static int pictureBoxHeight = 600;
+        static int pictureBoxWidth = 830;
+        PointF centerCoordinates = new PointF(pictureBoxWidth / 2, pictureBoxHeight / 2 - 20F);
 
         private const float nud_beta_default_value = 7.5F;
 
@@ -183,7 +184,7 @@ namespace RadarAnalyst.UIComponent
                 panel.Controls.Add(nud_alpha);
                 panel.Controls.Add(tb_note);
 
-                GCKNudPair GCKNudPair = new GCKNudPair(nud_beta, nud_alpha);
+                GCKNudPair GCKNudPair = new GCKNudPair(nud_beta, nud_alpha, tb_note);
                 this.nudPairCollection.Add(GCKNudPair);
 
                 ((System.ComponentModel.ISupportInitialize)(nud_beta)).EndInit();
@@ -214,6 +215,24 @@ namespace RadarAnalyst.UIComponent
 
         public override void btn_ok_click(object sender, EventArgs e)
         {
+            List<PointF> curvePointsList = getCurvePointList(this, centerCoordinates);
+            for (int idx = 0; idx < this.nudPairCollection.Count; idx++)
+            {
+                GCKNudPair GCKNudPair = this.nudPairCollection[idx];
+
+                PointF endPoint = GCKNudPair.getPoint();
+
+                System.Windows.Forms.Button c1 = new System.Windows.Forms.Button();
+                c1.Location = new Point((int)endPoint.X - 5, (int)endPoint.Y - 2);
+                c1.Size = new Size(10, 10);
+                c1.BackColor = Color.White;
+                this.gb_picture.Controls.Add(c1);
+
+                ToolTip toolTip1 = new ToolTip();
+                toolTip1.ShowAlways = true;
+                toolTip1.SetToolTip(c1, GCKNudPair.getTbNote().Text);
+            }
+
             // ======================================================================================
             this.gb_picture.Controls.Remove(this.pictureBox1);
             // Dock the PictureBox to the form and set its background to white.
@@ -261,8 +280,6 @@ namespace RadarAnalyst.UIComponent
 
         private void drawGraph(object sender, PaintEventArgs e)
         {
-            PointF centerCoordinates = new PointF(pictureBoxWidth / 2, pictureBoxHeight / 2 - 20F);
-
             drawCoordinateAxis(e, centerCoordinates);
 
             drawCurve(e, lineBlueColor, this, centerCoordinates);
@@ -272,7 +289,7 @@ namespace RadarAnalyst.UIComponent
         {
             // draw curve
             Pen pen = new Pen(Color.Red, 2);
-            SolidBrush brush = new SolidBrush(Color.Red);
+            SolidBrush brush = new SolidBrush(Color.White);
             float oX = 60F;
             float oY = 290.0F;
             
@@ -280,9 +297,19 @@ namespace RadarAnalyst.UIComponent
             _this.nudPairCollection.Sort((p, q) => p.getNudBeta().Value.CompareTo(q.getNudBeta().Value));
 
             // Create points that define curve.
+            List<PointF> curvePointsList = getCurvePointList(_this, centerCoordinates);
+
+            curvePointsList.Add(curvePointsList.First());
+
+            PointF[] curvePoints = curvePointsList.ToArray();
+
+            e.Graphics.DrawLines(pen, curvePoints);
+        }
+
+        private static List<PointF> getCurvePointList(GCKTabPage _this, PointF centerCoordinates)
+        {
             List<PointF> curvePointsList = new List<PointF>();
             for (int idx = 0; idx < _this.nudPairCollection.Count; idx++)
-            //for (int idx = 0; idx < 1; idx++)
             {
                 GCKNudPair GCKNudPair = _this.nudPairCollection[idx];
 
@@ -300,12 +327,13 @@ namespace RadarAnalyst.UIComponent
 
                 PointF endPoint = endPointRotation(centerCoordinates.X, centerCoordinates.Y, radiusX, angle);
 
+                GCKNudPair.setPoint(endPoint);
+                _this.nudPairCollection[idx] = GCKNudPair;
+
                 curvePointsList.Add(endPoint);
             }
 
-            PointF[] curvePoints = curvePointsList.ToArray();
-
-            e.Graphics.DrawLines(pen, curvePoints);
+            return curvePointsList;
         }
 
         private static void drawCoordinateAxis(PaintEventArgs e, PointF centerCoordinates)
@@ -414,5 +442,11 @@ namespace RadarAnalyst.UIComponent
             g.DrawEllipse(pen, centerX - radius, centerY - radius,
                           radius + radius, radius + radius);
         }
+
+        //ToolTip tip = new ToolTip();
+        //private void textBox_MouseMove(object sender, MouseEventArgs e, )
+        //{
+        //    tip.SetToolTip(textBox3, "Tooltip text"); // you can change the first parameter (textbox3) on any control you wanna focus
+        //}
     }
 }

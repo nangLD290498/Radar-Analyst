@@ -10,11 +10,25 @@ namespace RadarAnalyst.UIComponent.Class
     {
         private NumericUpDown nud_beta { get; set; }
         private NumericUpDown nud_alpha { get; set; }
+        private TextBox tb_note { get; set; }
 
-        public GCKNudPair(NumericUpDown nudBeta, NumericUpDown nudAlpha)
+        private PointF point { get; set; }
+
+        public GCKNudPair(NumericUpDown nudBeta, NumericUpDown nudAlpha, TextBox tbNote)
         {
             nud_beta = nudBeta;
             nud_alpha = nudAlpha;
+            tb_note = tbNote;
+        }
+
+        public void setPoint(PointF point)
+        {
+            this.point = point;
+        }
+
+        public PointF getPoint()
+        {
+            return this.point;
         }
 
         public NumericUpDown getNudBeta()
@@ -25,6 +39,10 @@ namespace RadarAnalyst.UIComponent.Class
         public NumericUpDown getNudAlpha()
         {
             return nud_alpha;
+        }
+        public TextBox getTbNote()
+        {
+            return tb_note;
         }
     }
 }
