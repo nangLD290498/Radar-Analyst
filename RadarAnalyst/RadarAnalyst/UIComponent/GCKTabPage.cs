@@ -316,11 +316,13 @@ namespace RadarAnalyst.UIComponent
             Pen boldPen = new Pen(whiteColor, 2);
             float radius = getRadius(centerCoordinates);
 
-            // draw line
+            //draw line
             for (int angle = 10; angle <= 360; angle += 10)
             {
                 drawLine(e, centerCoordinates, angle, radius);
             }
+
+            e.Graphics.DrawLine(boldPen, new PointF(centerCoordinates.X - radius, centerCoordinates.Y), new PointF(centerCoordinates.X + radius, centerCoordinates.Y));
 
             // draw circle
             drawCircle(e.Graphics, boldPen, centerCoordinates.X, centerCoordinates.Y, radius);
@@ -369,7 +371,7 @@ namespace RadarAnalyst.UIComponent
             float endX = centerCoordinates.X + radius;   // <------------|
             float endY = centerCoordinates.Y;   // <-define these
 
-            //g.DrawLine(pen, new PointF(startX, startY), new PointF(endX, endY)); //this is the original line
+            //g.DrawLine(boldPen, new PointF(startX - radius, startY), new PointF(endX, endY)); //this is the original line
 
             PointF endPoint = endPointRotation(startX, startY, radius, angle);
 
