@@ -318,16 +318,17 @@ namespace RadarAnalyst.UIComponent
             radar.Image = radarImgBitmap;
             pictureBox1.Controls.Add(radar);
             // eclipse 
-            int l = (int)(1.5F * (rMaxOnpic - rMinOnpic));
+            float l = (1.5F * (rMaxOnpic - rMinOnpic));
             PictureBox pic = new PictureBox();
-            pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
-            pic.Size = new System.Drawing.Size(l, l/2);
+            //pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
+            pic.Location = new Point(90 , 232 - 120);
+            pic.Size = new System.Drawing.Size((int)(l*1.2), 120);
             pic.SizeMode = PictureBoxSizeMode.StretchImage;
             pic.Image = global::RadarAnalyst.Properties.Resources.pic;
             pictureBox1.Controls.Add(pic);
             // arrow Rmin ------------------------------------------------------
             PointF minTopPoint = new PointF(93, 250);
-            PointF minBotPoint = new PointF(minTopPoint.X + rMinOnpic - 20, 250);
+            PointF minBotPoint = new PointF(93 + rMinOnpic/2 - 10, 250);
             e.Graphics.DrawLine(pen, minTopPoint, minBotPoint);
             // draw top arrow
             e.Graphics.DrawLine(pen, minTopPoint, new PointF(minTopPoint.X + 5, minTopPoint.Y - 5F));
@@ -347,7 +348,7 @@ namespace RadarAnalyst.UIComponent
             }
             // arrow Rmax ------------------------------------------------------
             PointF maxTopPoint = new PointF(93, 280);
-            PointF maxBotPoint = new PointF(maxTopPoint.X + rMinOnpic + l/2 -20, 280);
+            PointF maxBotPoint = new PointF(minBotPoint.X + l/2 + 12, 280);
             e.Graphics.DrawLine(pen, maxTopPoint, maxBotPoint);
             // draw top arrow
             e.Graphics.DrawLine(pen, maxTopPoint, new PointF(maxTopPoint.X + 5, maxTopPoint.Y - 5F));
@@ -368,8 +369,8 @@ namespace RadarAnalyst.UIComponent
             // draw eclipse
             Pen eclipsePen = new Pen(Color.FromArgb(192, 80, 77), 2);
             Brush eclipseBrush  = new SolidBrush(Color.FromArgb(198, 217, 241));
-            e.Graphics.FillEllipse(eclipseBrush, minBotPoint.X + 2, minBotPoint.Y - 5, l/2 , 15);
-            e.Graphics.DrawEllipse(eclipsePen, minBotPoint.X + 2, minBotPoint.Y - 5 , l/2 , 15);
+            e.Graphics.FillEllipse(eclipseBrush, minBotPoint.X + 2, minBotPoint.Y - 5, l/2 + 10 , 15);
+            e.Graphics.DrawEllipse(eclipsePen, minBotPoint.X + 2, minBotPoint.Y - 5 , l/2 + 10, 15);
 
         }
     }

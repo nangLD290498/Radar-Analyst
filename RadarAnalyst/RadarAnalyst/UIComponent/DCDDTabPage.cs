@@ -16,7 +16,7 @@ namespace RadarAnalyst.UIComponent
         private const int lambdaValue = 2;
         private const float P_18M = 2.0F;
         private const float R36D6M_1_1 = 0.1F;
-        private const float VRS_2DM = 0.2F;
+        private const float VRS_2DM = 0.35F;
         private float modOn = P_18M;
 
         private ButtonCtm btn_P_18M;
@@ -408,7 +408,7 @@ namespace RadarAnalyst.UIComponent
             float hmtValue = (float)Convert.ToDouble(nud_hmt.Value);
             float hpxValue = (float)Convert.ToDouble(nud_hpx.Value);
             float hbdValue = (float)Convert.ToDouble(nud_hbd.Value);
-            float deltaHValue = dphValue * dphValue / (2 * 1.33F * 6370);
+            float deltaHValue = dphValue * dphValue / (2 * 1.33F * 6370000);
 
             result1 = dphValue * modOn * (float)Math.Asin(dphValue / dmaxValue) / (360 * (hmtValue - deltaHValue));
             result2 = result1 + hpxValue - hbdValue;

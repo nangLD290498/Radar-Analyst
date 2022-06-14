@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using RadarAnalyst.UIComponent.ComponentI;
 using RadarAnalyst.UIComponent.Element;
-using Uno.UI.Xaml.Controls;
 using RadarAnalyst.UIComponent.Class;
 
 namespace RadarAnalyst.UIComponent
@@ -215,6 +214,7 @@ namespace RadarAnalyst.UIComponent
 
         public override void btn_ok_click(object sender, EventArgs e)
         {
+            this.gb_picture.Controls.Clear();
             List<PointF> curvePointsList = getCurvePointList(this, centerCoordinates);
             for (int idx = 0; idx < this.nudPairCollection.Count; idx++)
             {
@@ -234,6 +234,7 @@ namespace RadarAnalyst.UIComponent
             }
 
             // ======================================================================================
+            
             this.gb_picture.Controls.Remove(this.pictureBox1);
             // Dock the PictureBox to the form and set its background to white.
             this.pictureBox1.Location = new Point(0, 0);
