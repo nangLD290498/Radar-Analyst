@@ -410,7 +410,7 @@ namespace RadarAnalyst.UIComponent
             float hbdValue = (float)Convert.ToDouble(nud_hbd.Value);
             float deltaHValue = dphValue * dphValue / (2 * 1.33F * 6370000);
 
-            result1 = dphValue * modOn * (float)Math.Asin(dphValue / dmaxValue) / (360 * (hmtValue - deltaHValue));
+            result1 = dphValue * modOn * (float)Math.Asin(dphValue / dmaxValue) / ( 2* (float)Math.PI * (hmtValue - deltaHValue));
             result2 = result1 + hpxValue - hbdValue;
 
             // set result value 1
