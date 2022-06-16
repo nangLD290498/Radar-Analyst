@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RadarAnalyst.UIComponent.ComponentI;
 using RadarAnalyst.UIComponent.Element;
 
+
 namespace RadarAnalyst.UIComponent
 {
     public partial class DCDDTabPage : TabPageCI
@@ -15,7 +16,7 @@ namespace RadarAnalyst.UIComponent
         private const int lambdaValue = 2;
         private const float P_18M = 2.0F;
         private const float R36D6M_1_1 = 0.1F;
-        private const float VRS_2DM = 0.2F;
+        private const float VRS_2DM = 0.35F;
         private float modOn = P_18M;
 
         private ButtonCtm btn_P_18M;
@@ -90,19 +91,19 @@ namespace RadarAnalyst.UIComponent
             this.btn_P_18M.setBackColor(true);
             this.btn_P_18M.Location = new System.Drawing.Point(47, 200);
             this.btn_P_18M.Name = "btn_P_18M";
-            this.btn_P_18M.Size = new System.Drawing.Size(135, 50);
+            this.btn_P_18M.Size = new System.Drawing.Size(135, 70);
             this.btn_P_18M.Click += new System.EventHandler(this.btn_P_18M_Click);
 
             // btn_36D6M_1_1
-            this.btn_36D6M_1_1.Location = new System.Drawing.Point(47, 260);
+            this.btn_36D6M_1_1.Location = new System.Drawing.Point(47, 280);
             this.btn_36D6M_1_1.Name = "btn_36D6M_1_1";
-            this.btn_36D6M_1_1.Size = new System.Drawing.Size(135, 50);
+            this.btn_36D6M_1_1.Size = new System.Drawing.Size(135, 70);
             this.btn_36D6M_1_1.Click += new System.EventHandler(this.btn_36D6M_1_1_Click);
 
             // btn_VRS_2DM
-            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 320);
+            this.btn_VRS_2DM.Location = new System.Drawing.Point(47, 360);
             this.btn_VRS_2DM.Name = "btn_VRS_2DM";
-            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 50);
+            this.btn_VRS_2DM.Size = new System.Drawing.Size(135, 70);
             this.btn_VRS_2DM.Click += new System.EventHandler(this.btn_VRS_2DM_Click);
         }
 
@@ -329,7 +330,7 @@ namespace RadarAnalyst.UIComponent
             this.label_first_result_value.AutoSize = true;
             this.label_first_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_first_result_value.ForeColor = System.Drawing.Color.Red;
-            this.label_first_result_value.Location = new System.Drawing.Point(230, 50);
+            this.label_first_result_value.Location = new System.Drawing.Point(290, 50);
             this.label_first_result_value.Name = "label_first_result_value";
             this.label_first_result_value.Size = new System.Drawing.Size(30, 31);
             this.label_first_result_value.TabIndex = 1;
@@ -337,7 +338,7 @@ namespace RadarAnalyst.UIComponent
             // label17
             this.label_first_result_unit.AutoSize = true;
             this.label_first_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_first_result_unit.Location = new System.Drawing.Point(300, 50);
+            this.label_first_result_unit.Location = new System.Drawing.Point(390, 50);
             this.label_first_result_unit.Name = "label_first_result_unit";
             this.label_first_result_unit.Size = new System.Drawing.Size(10, 31);
             this.label_first_result_unit.TabIndex = 2;
@@ -356,7 +357,7 @@ namespace RadarAnalyst.UIComponent
             this.label_second_result_value.AutoSize = true;
             this.label_second_result_value.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_second_result_value.ForeColor = System.Drawing.Color.Red;
-            this.label_second_result_value.Location = new System.Drawing.Point(230, 90);
+            this.label_second_result_value.Location = new System.Drawing.Point(290, 90);
             this.label_second_result_value.Name = "label_second_result_value";
             this.label_second_result_value.Size = new System.Drawing.Size(66, 31);
             this.label_second_result_value.TabIndex = 4;
@@ -364,7 +365,7 @@ namespace RadarAnalyst.UIComponent
             // label17
             this.label_second_result_unit.AutoSize = true;
             this.label_second_result_unit.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_second_result_unit.Location = new System.Drawing.Point(300, 90);
+            this.label_second_result_unit.Location = new System.Drawing.Point(390, 90);
             this.label_second_result_unit.Name = "label_second_result_unit";
             this.label_second_result_unit.Size = new System.Drawing.Size(10, 31);
             this.label_second_result_unit.TabIndex = 2;
@@ -407,9 +408,9 @@ namespace RadarAnalyst.UIComponent
             float hmtValue = (float)Convert.ToDouble(nud_hmt.Value);
             float hpxValue = (float)Convert.ToDouble(nud_hpx.Value);
             float hbdValue = (float)Convert.ToDouble(nud_hbd.Value);
-            float deltaHValue = dphValue * dphValue / (2 * 1.33F * 6370);
+            float deltaHValue = dphValue * dphValue / (2 * 1.33F * 6370000);
 
-            result1 = dphValue * modOn * (float)Math.Asin(dphValue / dmaxValue) / (360 * (hmtValue - deltaHValue));
+            result1 = dphValue * modOn * (float)Math.Asin(dphValue / dmaxValue) / ( 2* (float)Math.PI * (hmtValue - deltaHValue));
             result2 = result1 + hpxValue - hbdValue;
 
             // set result value 1
@@ -471,7 +472,8 @@ namespace RadarAnalyst.UIComponent
             float haValue = result2;
             float haOnPicMin = 70F;
             float haOnPicMax = 120F;
-            float haOnPic = (haValue > haOnPicMax) ? haOnPicMax : (haValue < haOnPicMin) ? haOnPicMin : haValue;
+            float haOnPic = 45F;
+            //float haOnPic = (haValue > haOnPicMax) ? haOnPicMax : (haValue < haOnPicMin) ? haOnPicMin : haValue;
 
             float haBaseX = 200.0F;
             float haBaseY = 50.0F;
@@ -479,10 +481,13 @@ namespace RadarAnalyst.UIComponent
 
             // ========================================================================================================
             // draw begin line
+            float[] dashValues = { 3, 3, 3, 3 };
+            Pen dashPen = new Pen(Color.White, 2);
+            dashPen.DashPattern = dashValues;
             Pen pen = new Pen(lineBlueColor, 2);
             PointF point1 = new PointF(haBaseX - 50F, endLineY - haOnPic - hddOnPic);
-            PointF point2 = new PointF(haBaseX + 50F, endLineY - haOnPic - hddOnPic);
-            e.Graphics.DrawLine(pen, point1, point2);
+            PointF point2 = new PointF(haBaseX + 170F, endLineY - haOnPic - hddOnPic);
+            e.Graphics.DrawLine(dashPen, point1, point2);
 
             // ========================================================================================================
             // draw end line
@@ -507,24 +512,23 @@ namespace RadarAnalyst.UIComponent
             pen = new Pen(lineBlueColor, 2);
             PointF haTopPoint = new PointF(haBaseX, endLineY - haOnPic - hddOnPic);
             PointF haBotPoint = new PointF(haBaseX, endLineY - hddOnPic - 28F);
-            e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
             // draw ha line white
             pen = new Pen(Color.White, 2);
-            haTopPoint = new PointF(haBaseX - 25F, endLineY - haOnPic - hddOnPic);
-            haBotPoint = new PointF(haBaseX - 25F, endLineY - hddOnPic - 3);
+            haTopPoint = new PointF(haBaseX - 45F, endLineY - haOnPic - hddOnPic);
+            haBotPoint = new PointF(haBaseX - 45F, endLineY - hddOnPic - 3);
             e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
             // draw top arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX - 30F, endLineY - haOnPic - hddOnPic + 5F));
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - haOnPic - hddOnPic), new PointF(haBaseX - 20F, endLineY - haOnPic - hddOnPic + 5F));
+            e.Graphics.DrawLine(pen, haTopPoint, new PointF(haTopPoint.X + 5F, haTopPoint.Y + 5F));
+            e.Graphics.DrawLine(pen, haTopPoint, new PointF(haTopPoint.X - 5F, haTopPoint.Y + 5F));
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - hddOnPic - 3), new PointF(haBaseX - 30F, endLineY - hddOnPic - 3 - 5F));
-            e.Graphics.DrawLine(pen, new PointF(haBaseX - 25F, endLineY - hddOnPic - 3), new PointF(haBaseX - 20F, endLineY - hddOnPic - 3 - 5F));
+            e.Graphics.DrawLine(pen, haBotPoint, new PointF(haBotPoint.X + 5F, haBotPoint.Y - 5F));
+            e.Graphics.DrawLine(pen, haBotPoint, new PointF(haBotPoint.X - 5F, haBotPoint.Y - 5F));
             // draw text ha
-            string text1 = " ha";
+            string text1 = "ha";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
-                RectangleF rectF1 = new RectangleF(haBaseX - 60F, (endLineY - haOnPic - hddOnPic + endLineY - hddOnPic) / 2, 30, 20);
+                RectangleF rectF1 = new RectangleF(haBaseX - 90F, (endLineY - haOnPic - hddOnPic + endLineY - hddOnPic) / 2, 40, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
@@ -545,7 +549,7 @@ namespace RadarAnalyst.UIComponent
             string textHpx = "Hpx";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(haBaseX - 75F - 45F, (endLineY - hpxOnPic + endLineY) / 2 - 10F, 40, 20); //note
+                RectangleF rectF1 = new RectangleF(haBaseX - 75F - 55F, (endLineY - hpxOnPic + endLineY) / 2 - 10F, 50, 20); //note
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(textHpx, font1, Brushes.Black, rectF1);
@@ -557,23 +561,48 @@ namespace RadarAnalyst.UIComponent
             PointF hbdBotPoint = new PointF(haBaseX, endLineY - hpxOnPic); // nang
             e.Graphics.DrawLine(pen, hbdTopPoint, hbdBotPoint);
             // draw top arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX, endLineY - hddOnPic), new PointF(haBaseX + 5F, endLineY - hddOnPic + 5F)); // note
-            e.Graphics.DrawLine(pen, new PointF(haBaseX, endLineY - hddOnPic), new PointF(haBaseX - 5F, endLineY - hddOnPic + 5F)); //note
+            e.Graphics.DrawLine(pen, hbdTopPoint, new PointF(hbdTopPoint.X + 5F, hbdTopPoint.Y + 5F)); // note
+            e.Graphics.DrawLine(pen, hbdTopPoint, new PointF(hbdTopPoint.X - 5F, hbdTopPoint.Y + 5F)); //note
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(haBaseX, endLineY - hpxOnPic), new PointF(haBaseX + 5F, endLineY - hpxOnPic - 5F)); //note
-            e.Graphics.DrawLine(pen, new PointF(haBaseX, endLineY - hpxOnPic), new PointF(haBaseX - 5F, endLineY - hpxOnPic - 5F)); //note
+            e.Graphics.DrawLine(pen, hbdBotPoint, new PointF(hbdBotPoint.X + 5F, hbdBotPoint.Y - 5F)); //note
+            e.Graphics.DrawLine(pen, hbdBotPoint, new PointF(hbdBotPoint.X - 5F, hbdBotPoint.Y - 5F)); //note
             // draw text hbd
             string textHbd = "Hbd";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(haBaseX - 45F, (endLineY - hddOnPic + endLineY - hpxOnPic) / 2, 40, 20); //note
+                RectangleF rectF1 = new RectangleF(haBaseX - 55F, (hbdTopPoint.Y + hbdBotPoint.Y) / 2, 50, 20); //note
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(textHbd, font1, Brushes.Black, rectF1);
             }
             // ========================================================================================================
+            // draw Hdd line white
+            pen = new Pen(Color.White, 2);
+            PointF hddTopPoint = new PointF(haBaseX - 140, endLineY - hddOnPic); // nang
+            PointF hddBotPoint = new PointF(haBaseX - 140, endLineY); // nang
+            e.Graphics.DrawLine(pen, hddTopPoint, hddBotPoint);
+            // draw top arrow
+            e.Graphics.DrawLine(pen, hddTopPoint, new PointF(hddTopPoint.X + 5F, hddTopPoint.Y + 5F)); // note
+            e.Graphics.DrawLine(pen, hddTopPoint, new PointF(hddTopPoint.X - 5F, hddTopPoint.Y + 5F)); //note
+            // draw bot arrow
+            e.Graphics.DrawLine(pen, hddBotPoint, new PointF(hddBotPoint.X + 5F, hddBotPoint.Y - 5F)); //note
+            e.Graphics.DrawLine(pen, hddBotPoint, new PointF(hddBotPoint.X - 5F, hddBotPoint.Y - 5F)); //note
+            // draw text hbd
+            string textHdd = "Hđđ";
+            using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+            {
+                RectangleF rectF1 = new RectangleF(hddTopPoint.X - 55F, (hddTopPoint.Y + hddBotPoint.Y) / 2, 50, 20); //note
+                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
+                e.Graphics.DrawString(textHdd, font1, Brushes.Black, rectF1);
+            }
+            // ========================================================================================================
+            // draw dash line
+            // draw dash line ha
+            e.Graphics.DrawLine(dashPen, hbdTopPoint, new PointF(hddTopPoint.X - 10, hddTopPoint.Y));
+            // ========================================================================================================
             // draw horizontal line 
-            PointF beginPoint = new PointF(50F, endLineY - hpxOnPic); // nang
+            PointF beginPoint = new PointF(100F, endLineY - hpxOnPic); // nang
             PointF endPoint = new PointF(750F, endLineY - hpxOnPic); // nang
             e.Graphics.DrawLine(pen, beginPoint, endPoint);
 
@@ -581,7 +610,7 @@ namespace RadarAnalyst.UIComponent
             // draw curve
             pen = new Pen(lineBlueColor, 1);
             // Create points that define curve.
-            PointF curvePoint1 = new PointF(haBaseX - 150F, endLineY - hddOnPic + 20F);
+            PointF curvePoint1 = new PointF(haBaseX - 100F, endLineY - hddOnPic + 20F);
             PointF curvePoint2 = new PointF(haBaseX + 40F, endLineY - hddOnPic + 5F);
             PointF curvePoint3 = new PointF(700F - 200F, endLineY - hpxOnPic - 15F);
             PointF curvePoint5 = new PointF(750F, endLineY - hpxOnPic - 25F);
@@ -605,7 +634,7 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
-                RectangleF rectF1 = new RectangleF(haBaseX + 160F, (endLineY - haOnPic - hddOnPic + endLineY - hpxOnPic - 2F) / 2, 30, 20);
+                RectangleF rectF1 = new RectangleF(haBaseX + 160F, (endLineY - haOnPic - hddOnPic + endLineY - hpxOnPic - 2F) / 2, 40, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(deltaHText, font1, Brushes.Black, rectF1);
