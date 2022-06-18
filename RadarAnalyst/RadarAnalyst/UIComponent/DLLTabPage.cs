@@ -357,10 +357,13 @@ namespace RadarAnalyst.UIComponent
 
             // ========================================================================================================
             // draw begin line
+            float[] dashValues = { 3, 3, 3, 3 };
+            Pen dashPen = new Pen(Color.White, 2);
+            dashPen.DashPattern = dashValues;
             Pen pen = new Pen(lineBlueColor, 2);
             PointF point1 = new PointF(haBaseX - 50F, 50.0F);
             PointF point2 = new PointF(haBaseX + 50F, 50.0F);
-            e.Graphics.DrawLine(pen, point1, point2);
+            e.Graphics.DrawLine(dashPen, point1, point2);
 
             // ========================================================================================================
             // draw end line
@@ -377,7 +380,7 @@ namespace RadarAnalyst.UIComponent
             pen = new Pen(lineBlueColor, 2);
             PointF haTopPoint = new PointF(haBaseX, haBaseY);
             PointF haBotPoint = new PointF(haBaseX, haOnPic);
-            e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
+            //e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
 
             // draw triangle
             PictureBox radar = new PictureBox();
@@ -409,11 +412,7 @@ namespace RadarAnalyst.UIComponent
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
             }
-
             // draw dash line ha
-            float[] dashValues = { 3, 3, 3, 3 };
-            Pen dashPen = new Pen(Color.White, 2);
-            dashPen.DashPattern = dashValues;
             e.Graphics.DrawLine(dashPen, new PointF(haBaseX, haBaseY + haOnPic - 15F), new PointF(haBaseX, endLineY + 50F));
 
 

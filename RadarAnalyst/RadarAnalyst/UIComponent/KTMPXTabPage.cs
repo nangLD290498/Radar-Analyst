@@ -43,7 +43,7 @@ namespace RadarAnalyst.UIComponent
 
         static float minHaP18 = 50, maxHaP18 = 70;
         static float minHaVrs2dm = 14, maxHaVrs2dm = 23;
-        float minHaOnPic = minHaP18 , maxHaOnPic = maxHaP18;
+        float minHaOnPic = minHaP18, maxHaOnPic = maxHaP18;
 
         Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18M;
         public KTMPXTabPage(String tabCode, String text) : base(tabCode, text)
@@ -220,7 +220,7 @@ namespace RadarAnalyst.UIComponent
 
         private void clearPictureBox(ButtonCtm clickedButton)
         {
-            if(clickedButton.is_active == false)
+            if (clickedButton.is_active == false)
                 this.gb_picture.Controls.Remove(this.pictureBox1);
         }
 
@@ -247,7 +247,7 @@ namespace RadarAnalyst.UIComponent
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.drawGraph);
             // Add the PictureBox control to the Form.
             this.gb_picture.Controls.Add(this.pictureBox1);
-            
+
         }
 
         private void drawGraph(object sender, PaintEventArgs e)
@@ -270,25 +270,26 @@ namespace RadarAnalyst.UIComponent
             //draw circles
             PointF centerPoint = new PointF(circlePointX, circlePointY);
             SolidBrush minBrush = new SolidBrush(groupBoxColor);
-            SolidBrush maxBrush = new SolidBrush(Color.FromArgb(79,129,189));
-            
-            e.Graphics.FillEllipse(maxBrush, circlePointX - rMaxOnpic / 2, circlePointY - rMaxOnpic / 2, rMaxOnpic, rMaxOnpic);
-            e.Graphics.FillEllipse(minBrush, circlePointX - rMinOnpic/2, circlePointY - rMinOnpic/2, rMinOnpic, rMinOnpic);
-            e.Graphics.DrawEllipse(pen, circlePointX - rMaxOnpic / 2, circlePointY - rMaxOnpic / 2, rMaxOnpic, rMaxOnpic);
-            e.Graphics.DrawEllipse(pen, circlePointX - rMinOnpic / 2, circlePointY - rMinOnpic / 2, rMinOnpic, rMinOnpic);
+            SolidBrush maxBrush = new SolidBrush(Color.FromArgb(79, 129, 189));
+
+            int deltaR = 20;
+            e.Graphics.FillEllipse(maxBrush, circlePointX - (rMaxOnpic + deltaR) / 2, circlePointY - (rMaxOnpic + deltaR) / 2, rMaxOnpic + deltaR, rMaxOnpic + deltaR);
+            e.Graphics.FillEllipse(minBrush, circlePointX - (rMinOnpic - deltaR) / 2, circlePointY - (rMinOnpic - deltaR) / 2, rMinOnpic - deltaR, rMinOnpic - deltaR);
+            e.Graphics.DrawEllipse(pen, circlePointX - (rMaxOnpic + deltaR) / 2, circlePointY - (rMaxOnpic + deltaR) / 2, rMaxOnpic + deltaR, rMaxOnpic + deltaR);
+            e.Graphics.DrawEllipse(pen, circlePointX - (rMinOnpic - deltaR) / 2, circlePointY - (rMinOnpic - deltaR) / 2, rMinOnpic - deltaR, rMinOnpic - deltaR);
             // draw Rmin line white
             pen = new Pen(Color.White, 2);
             PointF rminTopPoint = centerPoint;
-            PointF rminBotPoint = new PointF(centerPoint.X - rMinOnpic/2, centerPoint.Y);
+            PointF rminBotPoint = new PointF(centerPoint.X - (rMinOnpic - deltaR) / 2, centerPoint.Y);
             e.Graphics.DrawLine(pen, rminTopPoint, rminBotPoint);
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(centerPoint.X - rMinOnpic/2, centerPoint.Y), new PointF(centerPoint.X - rMinOnpic/2 + 5F, centerPoint.Y - 5F));
-            e.Graphics.DrawLine(pen, new PointF(centerPoint.X - rMinOnpic/2, centerPoint.Y), new PointF(centerPoint.X - rMinOnpic/2 + 5F, centerPoint.Y + 5F));
+            e.Graphics.DrawLine(pen, rminBotPoint, new PointF(rminBotPoint.X + 5F, rminBotPoint.Y - 5F));
+            e.Graphics.DrawLine(pen, rminBotPoint, new PointF(rminBotPoint.X + 5F, rminBotPoint.Y + 5F));
             // draw text
             string textRmin = "Rmin";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(centerPoint.X - rMinOnpic/4, centerPoint.Y + 5F, 65, 20); //note
+                RectangleF rectF1 = new RectangleF(centerPoint.X - rMinOnpic / 4, centerPoint.Y + 5F, 65, 20); //note
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(textRmin, font1, Brushes.Black, rectF1);
@@ -296,16 +297,16 @@ namespace RadarAnalyst.UIComponent
             // draw Rmax line white
             pen = new Pen(Color.White, 2);
             PointF rmaxTopPoint = centerPoint;
-            PointF rmaxBotPoint = new PointF(centerPoint.X, centerPoint.Y - rMaxOnpic/2);
+            PointF rmaxBotPoint = new PointF(centerPoint.X, centerPoint.Y - (rMaxOnpic + deltaR) / 2);
             e.Graphics.DrawLine(pen, rmaxTopPoint, rmaxBotPoint);
             // draw bot arrow
-            e.Graphics.DrawLine(pen, new PointF(centerPoint.X , centerPoint.Y - rMaxOnpic / 2), new PointF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 2 + 5F));
-            e.Graphics.DrawLine(pen, new PointF(centerPoint.X , centerPoint.Y - rMaxOnpic / 2), new PointF(centerPoint.X -  5F, centerPoint.Y - rMaxOnpic / 2 + 5F));
+            e.Graphics.DrawLine(pen, rmaxBotPoint, new PointF(rmaxBotPoint.X + 5F, rmaxBotPoint.Y + 5F));
+            e.Graphics.DrawLine(pen, rmaxBotPoint, new PointF(rmaxBotPoint.X - 5F, rmaxBotPoint.Y + 5F));
             // draw text
             string textRmax = "Rmax";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                RectangleF rectF1 = new RectangleF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 4, 65, 20); 
+                RectangleF rectF1 = new RectangleF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 4, 65, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                 e.Graphics.DrawString(textRmax, font1, Brushes.Black, rectF1);
@@ -313,33 +314,34 @@ namespace RadarAnalyst.UIComponent
             //draw traigle
             PictureBox radar = new PictureBox();
             radar.Location = new Point(50, 180);
-            radar.Size = new System.Drawing.Size(40,50);
+            radar.Size = new System.Drawing.Size(40, 50);
             radar.SizeMode = PictureBoxSizeMode.StretchImage;
             radar.Image = radarImgBitmap;
             pictureBox1.Controls.Add(radar);
             // eclipse 
-            int l = (int)(1.5F * (rMaxOnpic - rMinOnpic));
+            float l = (1.5F * (rMaxOnpic - rMinOnpic));
             PictureBox pic = new PictureBox();
-            pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
-            pic.Size = new System.Drawing.Size(l, l/2);
+            //pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
+            pic.Location = new Point(90, 232 - 120);
+            pic.Size = new System.Drawing.Size((int)(l * 1.2), 120);
             pic.SizeMode = PictureBoxSizeMode.StretchImage;
             pic.Image = global::RadarAnalyst.Properties.Resources.pic;
             pictureBox1.Controls.Add(pic);
             // arrow Rmin ------------------------------------------------------
             PointF minTopPoint = new PointF(93, 250);
-            PointF minBotPoint = new PointF(minTopPoint.X + rMinOnpic - 20, 250);
+            PointF minBotPoint = new PointF(93 + rMinOnpic / 2 - 10, 250);
             e.Graphics.DrawLine(pen, minTopPoint, minBotPoint);
             // draw top arrow
             e.Graphics.DrawLine(pen, minTopPoint, new PointF(minTopPoint.X + 5, minTopPoint.Y - 5F));
             e.Graphics.DrawLine(pen, minTopPoint, new PointF(minTopPoint.X + 5, minTopPoint.Y + 5F));
             // draw bot arrow
             e.Graphics.DrawLine(pen, minBotPoint, new PointF(minBotPoint.X - 5F, minBotPoint.Y - 5F));
-            e.Graphics.DrawLine(pen, minBotPoint, new PointF(minBotPoint.X - 5F , minBotPoint.Y + 5F));
+            e.Graphics.DrawLine(pen, minBotPoint, new PointF(minBotPoint.X - 5F, minBotPoint.Y + 5F));
             // draw text ha
             string text1 = "Rmin";
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
-                
+
                 RectangleF rectF1 = new RectangleF(15, 240, 65, 20);
                 SolidBrush whiteBrush = new SolidBrush(Color.White);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
@@ -347,7 +349,7 @@ namespace RadarAnalyst.UIComponent
             }
             // arrow Rmax ------------------------------------------------------
             PointF maxTopPoint = new PointF(93, 280);
-            PointF maxBotPoint = new PointF(maxTopPoint.X + rMinOnpic + l/2 -20, 280);
+            PointF maxBotPoint = new PointF(minBotPoint.X + l / 2 + 12, 280);
             e.Graphics.DrawLine(pen, maxTopPoint, maxBotPoint);
             // draw top arrow
             e.Graphics.DrawLine(pen, maxTopPoint, new PointF(maxTopPoint.X + 5, maxTopPoint.Y - 5F));
@@ -367,9 +369,9 @@ namespace RadarAnalyst.UIComponent
             }
             // draw eclipse
             Pen eclipsePen = new Pen(Color.FromArgb(192, 80, 77), 2);
-            Brush eclipseBrush  = new SolidBrush(Color.FromArgb(198, 217, 241));
-            e.Graphics.FillEllipse(eclipseBrush, minBotPoint.X + 2, minBotPoint.Y - 5, l/2 , 15);
-            e.Graphics.DrawEllipse(eclipsePen, minBotPoint.X + 2, minBotPoint.Y - 5 , l/2 , 15);
+            Brush eclipseBrush = new SolidBrush(Color.FromArgb(198, 217, 241));
+            e.Graphics.FillEllipse(eclipseBrush, minBotPoint.X + 2, minBotPoint.Y - 5, l / 2 + 10, 15);
+            e.Graphics.DrawEllipse(eclipsePen, minBotPoint.X + 2, minBotPoint.Y - 5, l / 2 + 10, 15);
 
         }
     }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using RadarAnalyst.UIComponent.ComponentI;
 using RadarAnalyst.UIComponent.Element;
-using Uno.UI.Xaml.Controls;
 using RadarAnalyst.UIComponent.Class;
 
 namespace RadarAnalyst.UIComponent
@@ -158,7 +157,7 @@ namespace RadarAnalyst.UIComponent
                 nud_d.Name = "nud_d";
                 nud_d.Size = new System.Drawing.Size(70, 30);
                 nud_d.TabIndex = 6;
-                nud_d.Maximum = 9999999;
+                nud_d.Maximum = 200;
                 nud_d.Minimum = 0;
                 nud_d.DecimalPlaces = 1;
                 nud_d.Increment = 0.1m;
