@@ -118,25 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="radar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\radar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="P18M-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18M-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="36D6-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\36D6-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRS-2DM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="36D6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\36D6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MPX_P18M" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MPX_P18M.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="P18M-LINE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18M-LINE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="radar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\radar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MPX_VRS-2DM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MPX_VRS-2DM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="P18M" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\P18M.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="36D6-TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\36D6-TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRS-2DM-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DM-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="36D6-LINE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\36D6-LINE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pic.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="VRS-2DM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\VRS-2DM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="VRS-2DM-LINE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DM-LINE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P18M" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18M.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P18M-TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18M-TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRS-2DM-TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DM-TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MPX_P18M" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPX_P18M.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rabar_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rabar_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

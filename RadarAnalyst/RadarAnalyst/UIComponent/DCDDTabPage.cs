@@ -57,14 +57,17 @@ namespace RadarAnalyst.UIComponent
         private const float nud_dph_default_value = 150.0F;
         private const float nud_dmax_default_value = 300.0F;
         private const float nud_hmt_default_value = 4000.0F;
-        private const float nud_hpx_default_value = 80.0F;
-        private const float nud_hbd_default_value = 350.0F;
+        private const float nud_hpx_default_value = 90F;
+        private const float nud_hbd_default_value = 10.0F;
         private float hRotation = 1.5F;
 
         private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
         private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
 
-        Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
+        //Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
+        Bitmap radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.P18M_TOP;
+        Bitmap radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.P18M_BODY;
+        Bitmap radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18M_LINE;
         private LabelCtm label_error;
 
         public DCDDTabPage(String tabCode, String text) : base(tabCode, text)
@@ -378,7 +381,10 @@ namespace RadarAnalyst.UIComponent
             btn_VRS_2DM.setBackColor(false);
             btn_P_18M.setBackColor(true);
             btn_36D6M_1_1.setBackColor(false);
-            radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
+            //radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
+            radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.P18M_TOP;
+            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.P18M_BODY;
+            radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18M_LINE;
         }
 
         private void btn_36D6M_1_1_Click(object sender, EventArgs e)
@@ -388,7 +394,11 @@ namespace RadarAnalyst.UIComponent
             btn_VRS_2DM.setBackColor(false);
             btn_P_18M.setBackColor(false);
             btn_36D6M_1_1.setBackColor(true);
-            radarImgBitmap = global::RadarAnalyst.Properties.Resources._36D6;
+            //radarImgBitmap = global::RadarAnalyst.Properties.Resources._36D6;
+            radarImgBitmap_top = global::RadarAnalyst.Properties.Resources._36D6_TOP;
+            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources._36D6_BODY;
+            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources._36D6_BODY;
+            radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18M_LINE;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
@@ -398,7 +408,10 @@ namespace RadarAnalyst.UIComponent
             btn_VRS_2DM.setBackColor(true);
             btn_P_18M.setBackColor(false);
             btn_36D6M_1_1.setBackColor(false);
-            radarImgBitmap = global::RadarAnalyst.Properties.Resources.VRS_2DM;
+            //radarImgBitmap = global::RadarAnalyst.Properties.Resources.VRS_2DM;
+            radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.VRS_2DM_TOP;
+            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.VRS_2DM_BODY;
+            radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18M_LINE;
         }
 
         public override void btn_ok_click(object sender, EventArgs e)
@@ -427,10 +440,18 @@ namespace RadarAnalyst.UIComponent
                 label_second_result_value.ForeColor = System.Drawing.Color.Red;
             //=======================================================================================
             this.pictureBox1.Controls.Clear();
+            //this.label_error.Controls.Clear();
             this.gb_picture.Controls.Remove(this.pictureBox1);
+            this.gb_picture.Controls.Remove(this.label_error);
             bool isValid = true;
             //if (result1 <= 0 || result2 <= 0 || result1 < result2) isValid = false;
             if (!isValid)
+            {
+                showError();
+                this.gb_picture.Controls.Add(this.label_error);
+                return;
+            }
+            if(float.IsNaN(result1) || float.IsNaN(result2))
             {
                 showError();
                 this.gb_picture.Controls.Add(this.label_error);
@@ -472,8 +493,8 @@ namespace RadarAnalyst.UIComponent
             float haValue = result2;
             float haOnPicMin = 70F;
             float haOnPicMax = 120F;
-            float haOnPic = 45F;
-            //float haOnPic = (haValue > haOnPicMax) ? haOnPicMax : (haValue < haOnPicMin) ? haOnPicMin : haValue;
+            //float haOnPic = 45F;
+            float haOnPic = (haValue > haOnPicMax) ? haOnPicMax : (haValue < haOnPicMin) ? haOnPicMin : haValue;
 
             float haBaseX = 200.0F;
             float haBaseY = 50.0F;
@@ -487,8 +508,17 @@ namespace RadarAnalyst.UIComponent
             Pen pen = new Pen(lineBlueColor, 2);
             PointF point1 = new PointF(haBaseX - 50F, endLineY - haOnPic - hddOnPic);
             PointF point2 = new PointF(haBaseX + 170F, endLineY - haOnPic - hddOnPic);
+            //MessageBox.Show(point1.Y + "||" + point2.Y);
             e.Graphics.DrawLine(dashPen, point1, point2);
 
+            // ========================================================================================================
+            // draw radar top
+            PictureBox radar_top = new PictureBox();
+            radar_top.Location = new Point((int)haBaseX - 27, (int) point1.Y - 8);
+            radar_top.Size = new System.Drawing.Size(50, 20);
+            radar_top.SizeMode = PictureBoxSizeMode.StretchImage;
+            radar_top.Image = radarImgBitmap_top;
+            pictureBox1.Controls.Add(radar_top);
             // ========================================================================================================
             // draw end line
             pen = new Pen(lineBlueColor, 2);
@@ -500,18 +530,26 @@ namespace RadarAnalyst.UIComponent
 
             // ========================================================================================================
             // draw triangle
-            PictureBox radar = new PictureBox();
-            radar.Location = new Point((int)haBaseX - 21, (int)(endLineY - hddOnPic - 52F));
-            radar.Size = new System.Drawing.Size(40, 50);
-            radar.SizeMode = PictureBoxSizeMode.StretchImage;
-            radar.Image = radarImgBitmap;
-            pictureBox1.Controls.Add(radar);
+            PictureBox radar_body = new PictureBox();
+            radar_body.Location = new Point((int)haBaseX - 21, (int)(endLineY - hddOnPic - 42F));
+            radar_body.Size = new System.Drawing.Size(40, 40);
+            radar_body.SizeMode = PictureBoxSizeMode.StretchImage;
+            radar_body.Image = radarImgBitmap_body;
+            pictureBox1.Controls.Add(radar_body);
 
             // ========================================================================================================
             // draw ha line black
-            pen = new Pen(lineBlueColor, 2);
-            PointF haTopPoint = new PointF(haBaseX, endLineY - haOnPic - hddOnPic);
-            PointF haBotPoint = new PointF(haBaseX, endLineY - hddOnPic - 28F);
+            pen = new Pen(lineBlueColor, 2.5F);
+            PointF haTopPoint = new PointF(haBaseX - 0.8F, endLineY - haOnPic - hddOnPic);
+            PointF haBotPoint = new PointF(haBaseX-0.8F, endLineY - hddOnPic - 40F);
+            // ========================================================================================================
+            // draw radar line
+            PictureBox radar_line = new PictureBox();
+            radar_line.Location = new Point((int)haBaseX - 26, (int)point1.Y + 12);
+            radar_line.Size = new System.Drawing.Size(50, (int)(endLineY - hddOnPic - 42F) - ((int)point1.Y +12));
+            radar_line.SizeMode = PictureBoxSizeMode.StretchImage;
+            radar_line.Image = radarImgBitmap_line;
+            pictureBox1.Controls.Add(radar_line);
             // draw ha line white
             pen = new Pen(Color.White, 2);
             haTopPoint = new PointF(haBaseX - 45F, endLineY - haOnPic - hddOnPic);

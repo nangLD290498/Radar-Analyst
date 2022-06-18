@@ -33,11 +33,12 @@
             // pictureBox1
             // 
             pictureBox1.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom);
-            pictureBox1.Image = global::RadarAnalyst.Properties.Resources.radar;
-            pictureBox1.Location = new System.Drawing.Point((tc_mainTap.Width) / 5, 210);
+            pictureBox1.Image = global::RadarAnalyst.Properties.Resources.rabar_background;
+            pictureBox1.Location = new System.Drawing.Point((tc_mainTap.Width) / 6, 150);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(796, 350);
+            pictureBox1.Size = new System.Drawing.Size(796, 400);
             pictureBox1.TabIndex = 1;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabStop = false;
             // 
             // lbl_appName
@@ -46,11 +47,11 @@
             lbl_appName.AutoSize = true;
             lbl_appName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             lbl_appName.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            lbl_appName.Location = new System.Drawing.Point((tc_mainTap.Width) / 5, 50);
+            lbl_appName.Location = new System.Drawing.Point((tc_mainTap.Width) / 6, 50);
             lbl_appName.Name = "lbl_appName";
             lbl_appName.Size = new System.Drawing.Size(796, 76);
             lbl_appName.TabIndex = 0;
-            lbl_appName.Text = "PHAN MEM \r\nTINH TOAN CAC THAM SO TRAN DIA RA DA PHONG KHONG";
+            lbl_appName.Text = "PHẦN MỀM \r\nTÍNH TOÁN CÁC THAM SỐ TRẬN ĐỊA RA ĐA PHÒNG KHÔNG";
             lbl_appName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             tp_welcome.ResumeLayout(false);
             tp_welcome.PerformLayout();
