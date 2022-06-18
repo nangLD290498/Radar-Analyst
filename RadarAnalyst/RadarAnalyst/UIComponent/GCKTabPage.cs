@@ -145,7 +145,7 @@ namespace RadarAnalyst.UIComponent
             panel.Width = 250;
             panel.Location = new System.Drawing.Point(0, 80);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 30; i++)
             {
                 NumericUpDown nud_beta = new System.Windows.Forms.NumericUpDown();
                 NumericUpDown nud_alpha = new System.Windows.Forms.NumericUpDown();
@@ -414,9 +414,9 @@ namespace RadarAnalyst.UIComponent
 
                 // draw angle text
                 string Htext = angle.ToString();
-                float xRotation = (angle == 360 || angle == 180) ? -20F : (angle < 180 ? Math.Abs(90 - angle) / 90 * 1F : - (Math.Abs(270 - angle) / 90 * 1F + 30F));
-                float yRotation = (angle == 90 || angle == 270) ? -10F : ((angle > 90 && angle < 270) ? 0 : -20F);
-                using (Font font1 = new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point))
+                float xRotation = (angle == 360 || angle == 180) ? -10F : (angle < 180 ? Math.Abs(90 - angle) / 90 * 3F : - (Math.Abs(270 - angle) / 90 * 1F + 25F));
+                float yRotation = (angle == 90 || angle == 270) ? -5F : ((angle > 90 && angle < 270) ? 0 : -15F);
+                using (Font font1 = new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point))
                 {
                     RectangleF rectF1 = new RectangleF(startX + xChange + xRotation, startY + yChange + yRotation, 40, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
