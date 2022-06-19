@@ -420,12 +420,12 @@ namespace RadarAnalyst.UIComponent
                     case 2: 
                         startPoint = nudPairStart.getPointH2(); 
                         endPointRadius = nudPairEnd.getRadiusH2();
-                        penColor = Color.Yellow;
+                        penColor = Color.Green;
                         break;
                     default: 
                         startPoint = nudPairStart.getPointH3();
                         endPointRadius = nudPairEnd.getRadiusH3();
-                        penColor = Color.Red;
+                        penColor = Color.Green;
                         break;
                 }
                 curvePointsList.Add(startPoint);
