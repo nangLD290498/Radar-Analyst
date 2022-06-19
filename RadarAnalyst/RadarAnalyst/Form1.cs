@@ -96,43 +96,81 @@
         private void smi_kvctd_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.KVCTD);
+            clearTabPageColor();
+            smi_vtddrd.BackColor = Color.Aquamarine;
         }
 
         private void smi_dcdd_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.DCDD);
+            clearTabPageColor();
+            smi_vtddrd.BackColor = Color.Aquamarine;
         }
 
         private void smi_ktmpx_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.KTMPX);
+            clearTabPageColor();
+            smi_mpx.BackColor = Color.Aquamarine;
         }
 
         private void smi_dll_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.DLL);
+            clearTabPageColor();
+            smi_mpx.BackColor = Color.Aquamarine;
         }
 
         private void smi_dn_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.DN);
+            clearTabPageColor();
+            smi_mpx.BackColor = Color.Aquamarine;
         }
 
         private void smi_mcdh_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.MCDH);
+            clearTabPageColor();
+            smi_mcdh.BackColor = Color.Aquamarine;
         }
 
         private void smi_gck_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.GCK);
+            clearTabPageColor();
+            smi_gck.BackColor = Color.Aquamarine;
         }
 
         private void smi_pvphmp_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.PVPHMP);
+            clearTabPageColor();
+            smi_pvphmp.BackColor = Color.Aquamarine;
         }
 
+        private void smi_vtddrd_CheckedChanged(object sender, EventArgs e)
+        {
+                smi_vtddrd.BackColor = Color.Blue;
+        }
 
+        private void smi_vtddrd_CheckStateChanged(object sender, EventArgs e)
+        {
+                smi_vtddrd.BackColor = Color.Blue;
+        }
+
+        private void smi_vtddrd_Click(object sender, EventArgs e)
+        {
+       
+        }
+
+        public void clearTabPageColor()
+        {
+            smi_vtddrd.BackColor = Color.White;
+            smi_mpx.BackColor = Color.White;
+            smi_mcdh.BackColor = Color.White;
+            smi_gck.BackColor = Color.White;
+            smi_pvphmp.BackColor = Color.White;
+        }
     }
 }

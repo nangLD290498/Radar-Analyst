@@ -61,12 +61,16 @@
             // 
             // smi_vtddrd
             // 
+            this.smi_vtddrd.BackColor = System.Drawing.Color.White;
             this.smi_vtddrd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.smi_kvctd,
             this.smi_dcdd});
             this.smi_vtddrd.Name = "smi_vtddrd";
             this.smi_vtddrd.Size = new System.Drawing.Size(129, 20);
             this.smi_vtddrd.Text = "VỊ TRÍ ĐẶT ĐÀI RADA";
+            this.smi_vtddrd.CheckedChanged += new System.EventHandler(this.smi_vtddrd_CheckedChanged);
+            this.smi_vtddrd.CheckStateChanged += new System.EventHandler(this.smi_vtddrd_CheckStateChanged);
+            this.smi_vtddrd.Click += new System.EventHandler(this.smi_vtddrd_Click);
             // 
             // smi_kvctd
             // 
@@ -84,6 +88,7 @@
             // 
             // smi_mpx
             // 
+            this.smi_mpx.BackColor = System.Drawing.Color.White;
             this.smi_mpx.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.smi_ktmpx,
             this.smi_dll,
@@ -95,26 +100,27 @@
             // smi_ktmpx
             // 
             this.smi_ktmpx.Name = "smi_ktmpx";
-            this.smi_ktmpx.Size = new System.Drawing.Size(172, 22);
+            this.smi_ktmpx.Size = new System.Drawing.Size(218, 22);
             this.smi_ktmpx.Text = "KÍCH THƯỚC MPX";
             this.smi_ktmpx.Click += new System.EventHandler(this.smi_ktmpx_Click);
             // 
             // smi_dll
             // 
             this.smi_dll.Name = "smi_dll";
-            this.smi_dll.Size = new System.Drawing.Size(172, 22);
+            this.smi_dll.Size = new System.Drawing.Size(218, 22);
             this.smi_dll.Text = "ĐỘ LỒI LÕM";
             this.smi_dll.Click += new System.EventHandler(this.smi_dll_Click);
             // 
             // smi_dn
             // 
             this.smi_dn.Name = "smi_dn";
-            this.smi_dn.Size = new System.Drawing.Size(172, 22);
+            this.smi_dn.Size = new System.Drawing.Size(218, 22);
             this.smi_dn.Text = "ĐỘ NGHIÊNG TRUNG BÌNH";
             this.smi_dn.Click += new System.EventHandler(this.smi_dn_Click);
             // 
             // smi_mcdh
             // 
+            this.smi_mcdh.BackColor = System.Drawing.Color.White;
             this.smi_mcdh.Name = "smi_mcdh";
             this.smi_mcdh.Size = new System.Drawing.Size(124, 20);
             this.smi_mcdh.Text = "MẶT CẮT ĐỊA HÌNH";
@@ -122,6 +128,7 @@
             // 
             // smi_gck
             // 
+            this.smi_gck.BackColor = System.Drawing.Color.White;
             this.smi_gck.Name = "smi_gck";
             this.smi_gck.Size = new System.Drawing.Size(111, 20);
             this.smi_gck.Text = "GÓC CHE KHUẤT";
@@ -129,6 +136,7 @@
             // 
             // smi_pvphmp
             // 
+            this.smi_pvphmp.BackColor = System.Drawing.Color.White;
             this.smi_pvphmp.Name = "smi_pvphmp";
             this.smi_pvphmp.Size = new System.Drawing.Size(150, 20);
             this.smi_pvphmp.Text = "PHẠM VI PHÁT HIỆN MP";
@@ -136,6 +144,7 @@
             // 
             // smi_help
             // 
+            this.smi_help.BackColor = System.Drawing.Color.White;
             this.smi_help.Name = "smi_help";
             this.smi_help.Size = new System.Drawing.Size(47, 20);
             this.smi_help.Text = "HELP";

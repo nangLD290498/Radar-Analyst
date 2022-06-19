@@ -11,9 +11,8 @@ namespace RadarAnalyst.UIComponent
 {
     public partial class DCDDTabPage : TabPageCI
     {
-        float result1 = 0F;
+        float result1 = 0F; //
         float result2 = 0F;
-        private const int lambdaValue = 2;
         private const float P_18M = 2.0F;
         private const float R36D6M_1_1 = 0.1F;
         private const float VRS_2DM = 0.35F;
