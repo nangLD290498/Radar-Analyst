@@ -56,8 +56,15 @@ namespace RadarAnalyst.UIComponent
 
             // input table
             this.gb_inputTable.Location = new System.Drawing.Point(47, 197);
-            this.gb_inputTable.MaximumSize = new System.Drawing.Size(400, 396);
+            this.gb_inputTable.MaximumSize = new System.Drawing.Size(400 * 2, 396 * 2);
             this.gb_inputTable.MinimumSize = new System.Drawing.Size(400, 396);
+            this.gb_inputTable.Size = new System.Drawing.Size(400, 396);
+
+            // input table
+            this.gb_ouputTable.Location = new System.Drawing.Point(458, 9);
+            this.gb_ouputTable.MaximumSize = new System.Drawing.Size(822 * 2, 172 * 2);
+            this.gb_ouputTable.MinimumSize = new System.Drawing.Size(822, 172);
+            this.gb_ouputTable.Size = new System.Drawing.Size(822, 172);
 
             // picture output
             this.gb_picture.Location = new System.Drawing.Point(458, 50);
@@ -114,7 +121,7 @@ namespace RadarAnalyst.UIComponent
             // header
 
             this.label_stt_title.AutoSize = true;
-            this.label_stt_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_stt_title.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_stt_title.Location = new System.Drawing.Point(0, 50);
             this.label_stt_title.Name = "label_stt_title";
             this.label_stt_title.Size = new System.Drawing.Size(20, 40);
@@ -125,7 +132,7 @@ namespace RadarAnalyst.UIComponent
 
 
             this.label_beta_title.AutoSize = true;
-            this.label_beta_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_beta_title.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_beta_title.Location = new System.Drawing.Point(40, 50);
             this.label_beta_title.Name = "label_beta_title";
             this.label_beta_title.Size = new System.Drawing.Size(60, 20);
@@ -135,7 +142,7 @@ namespace RadarAnalyst.UIComponent
             this.label_beta_title.Text = "β";
 
             this.label_alpha_title.AutoSize = true;
-            this.label_alpha_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_alpha_title.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_alpha_title.Location = new System.Drawing.Point(100, 50);
             this.label_alpha_title.Name = "label_alpha_title";
             this.label_alpha_title.Size = new System.Drawing.Size(60, 20);
@@ -145,15 +152,17 @@ namespace RadarAnalyst.UIComponent
             this.label_alpha_title.Text = "α";
 
             this.label_note_title.AutoSize = true;
-            this.label_note_title.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_note_title.Location = new System.Drawing.Point(220, 25);
+            this.label_note_title.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_note_title.Location = new System.Drawing.Point(180, 25);
             this.label_note_title.Name = "label_note_title";
-            this.label_note_title.Size = new System.Drawing.Size(60, 20);
-            this.label_note_title.TabIndex = 13;
+            this.label_note_title.Size = new System.Drawing.Size(200, 20);
+            //this.label_note_title.TabIndex = 13;
+            this.label_note_title.AutoSize = false;
+            this.label_note_title.TextAlign = ContentAlignment.MiddleCenter;
             this.label_note_title.Text = "Dph(km)";
 
             label_h1.AutoSize = true;
-            label_h1.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label_h1.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label_h1.Location = new System.Drawing.Point(180, 50);
             label_h1.Name = "label_note_title";
             label_h1.Size = new System.Drawing.Size(60, 20);
@@ -163,7 +172,7 @@ namespace RadarAnalyst.UIComponent
             label_h1.Text = "H=1000";
 
             label_h2.AutoSize = true;
-            label_h2.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label_h2.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label_h2.Location = new System.Drawing.Point(250, 50);
             label_h2.Name = "label_note_title";
             label_h2.Size = new System.Drawing.Size(60, 20);
@@ -173,7 +182,7 @@ namespace RadarAnalyst.UIComponent
             label_h2.Text = "H=3000";
 
             label_h3.AutoSize = true;
-            label_h3.Font = new System.Drawing.Font("MonoLisa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label_h3.Font = new System.Drawing.Font("MonoLisa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label_h3.Location = new System.Drawing.Point(320, 50);
             label_h3.Name = "label_note_title";
             label_h3.Size = new System.Drawing.Size(60, 20);
@@ -225,7 +234,7 @@ namespace RadarAnalyst.UIComponent
                 nud_alpha.Name = "nud_alpha";
                 nud_alpha.Size = new System.Drawing.Size(60, 30);
                 nud_alpha.TabIndex = 6;
-                nud_alpha.Maximum = 5;
+                nud_alpha.Maximum = 180;
                 nud_alpha.Minimum = 0;
                 nud_alpha.DecimalPlaces = 1;
                 nud_alpha.Increment = 1m;
