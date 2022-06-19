@@ -150,7 +150,7 @@ namespace RadarAnalyst.UIComponent
             this.label_delta_H_tt_title.Name = "label_delta_H_tt_title";
             this.label_delta_H_tt_title.Size = new System.Drawing.Size(58, 20);
             this.label_delta_H_tt_title.TabIndex = 13;
-            this.label_delta_H_tt_title.Text = "Δhtt";
+            this.label_delta_H_tt_title.Text = "Δh";
             // nud_delta_H_tt
             this.nud_delta_H_tt.Location = new System.Drawing.Point(87, 80);
             this.nud_delta_H_tt.Name = "nud_hpx";
@@ -356,14 +356,14 @@ namespace RadarAnalyst.UIComponent
             {
                 float unitX = 30F;
                 point1 = new PointF(60F, i * unitX + 20F);
-                point2 = new PointF(55F, i * unitX + 20F);
+                point2 = new PointF(50F, i * unitX + 20F);
                 e.Graphics.DrawLine(pen, point1, point2);
 
                 // draw text ha
                 string unitTextDisplay = (textUnit>0) ? textUnit.ToString() : (0 - textUnit).ToString();
-                using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+                using (Font font1 = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Point))
                 {
-                    RectangleF rectF1 = new RectangleF(unitTextDisplay == "0" ? 25F : 35F, i * unitX + 10F, 15, 15);
+                    RectangleF rectF1 = new RectangleF(unitTextDisplay == "0" ? 25F : 35F, i * unitX + 12F, 15, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                     e.Graphics.DrawString((unitTextDisplay == "0") ? "O" : unitTextDisplay, font1, Brushes.White, rectF1);
@@ -378,7 +378,7 @@ namespace RadarAnalyst.UIComponent
                 e.Graphics.DrawLine(pen, point1, point2);
 
                 // draw text ha
-                using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+                using (Font font1 = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Point))
                 {
                     RectangleF rectF1 = new RectangleF(25F, i * unitX + 10F, 10, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
@@ -407,10 +407,10 @@ namespace RadarAnalyst.UIComponent
                 // draw text ha
                 string unitTextDisplay = ytextUnit.ToString();
                 float div = 15F;
-                if (ytextUnit >= 1000) div = 22F;
-                using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
+                if (ytextUnit >= 1000) div = 20F;
+                using (Font font1 = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Point))
                 {
-                    RectangleF rectF1 = new RectangleF(60F - div + i * unitY, 215F, 45, 15);
+                    RectangleF rectF1 = new RectangleF(62F - div + i * unitY, 215F, 45, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
                     e.Graphics.DrawString(unitTextDisplay, font1, Brushes.White, rectF1);
@@ -435,6 +435,12 @@ namespace RadarAnalyst.UIComponent
                 new PointF(oX + (1500F / 200F) * 80F, oY - (2F / 2F) * 30F)
             };
             e.Graphics.DrawLines(pen, curvePoints);
+
+            // vẽ đường thẳng trung bình
+            pen = new Pen(Color.Red, 2);
+            PointF pointStart = new PointF(oX, oY - (2F / 2F) * 30F);
+            PointF pointEnd = new PointF(oX + (1500F / 200F) * 80F, oY - (-4.5F / 2F) * 30F);
+            e.Graphics.DrawLine(pen, pointStart, pointEnd);
         }
     }
 }
