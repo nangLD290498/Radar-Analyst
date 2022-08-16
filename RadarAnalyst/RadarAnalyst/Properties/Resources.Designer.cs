@@ -103,6 +103,26 @@ namespace RadarAnalyst.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap c300b4e006e5c3bb9af4 {
+            get {
+                object obj = ResourceManager.GetObject("c300b4e006e5c3bb9af4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap c300b4e006e5c3bb9af41 {
+            get {
+                object obj = ResourceManager.GetObject("c300b4e006e5c3bb9af41", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MPX_P18M {
             get {
                 object obj = ResourceManager.GetObject("MPX_P18M", resourceCulture);

@@ -39,5 +39,9 @@ namespace RadarAnalyst.Util
         // phạm vi phát hiện mặt phẳng
         public const string PVPHMP = "PVPHMP";
         public const string PVPHMP_TEXT = "phạm vi phát hiện mặt phẳng";
+
+        // Help
+        public const string HELP = "HELP";
+        public const string HELP_TEXT = "trợ giúp";
     }
 }

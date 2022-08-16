@@ -1,0 +1,96 @@
+﻿<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>
+      HƯỚNG DẪN CÀI ĐẶT VÀ SỬ DỤNG
+
+     1. HƯỚNG DẪN CÀI ĐẶT
+     a. Yêu cầu về phần mềm và phần cứng:
+     - Phần mềm:
+     Máy vi tính được cài đặt hệ điều hành với yêu cầu như sau:
+     + Windows 7 trở lên.
+     + Máy tính cần cài dotnet-runtime-6.0.4-win-x64 và mapinfo 15
+     - Phần cứng:
+     Máy tính với CPU có tốc độ xử lý 1.0 GHz trở lên, RAM tối thiểu từ 2GB.
+     b. Cài đặt
+     Bước 1: Mở đĩa CD-ROM hoặc USB đã có chứa phần mềm.
+     Bước 2: Sao chép thư mục Ra đarAnalyst vào ổ cứng của máy tính
+     Bước 3: Giải nén file Ra đarAnalyst.rar trong thư mục đã sao chép
+     Bước 4: Mở và cài đặt
+     Bước 5: Chọn Yes để cài đặt
+     Bước 6: Chọn Next&gt; đế khi xuất hiện Install&gt; chọn để cài đặt phần mềm sau đó chọn Finish(hoàn tất các bước cài đặt phần mềm)
+     2. HƯỚNG DẪN SỬ DỤNG
+     Sau khi đã cài đặt xong ta được thư mục chứa phần mềm cần sử dụng cùng các tệp liên quan đến sự hoạt động của nó. Các bước sử dụng được tiến hành như sau:
+     Bước 1: Khởi động phần mềm bằng cách nhấp đúp chuột vào file ra đarAnalyst.rar trên trong thư mục đã cài đặt
+     Bước 2: chọn radar Analyst =&gt; bin =&gt; Degu =&gt;net6.0-windows =&gt; rađarAnalyst.
+     Lúc này trên màn hình sẽ hiển thị giao diện chính của phần mềm. Để sử dụng các menu người dùng kích chuột vào menu cần sử dụng.
+     -Để sử dụng menu khu vực chọn trận địa thực hiện các bước sau:
+     Bước 1: chọn menu vị trí đặt đài rađa, chọn công cụ khu vực chọn trận địa.
+     Bước 2: Chọn menu file =&gt; open
+     Bước 3: Chọn file bản đồ sử dụng
+     Bước 4: chọn open
+     - Để sử dụng các menu khác còn lại thực hiện các bước sau:
+     Bước 1: Chọn menu cần dùng, chọn công cụ tính
+     Bước 2: Chọn đài rađa
+     Bước 3: Nhập số liệu vào bảng số liệu
+     Bước 4: Chọn lệnh “OK”.
+     - Để thoát phần mềm kích chuột trái và dấu X góc phải màn hình</value>
+  </data>
+</root>

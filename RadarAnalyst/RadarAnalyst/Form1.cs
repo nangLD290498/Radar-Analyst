@@ -22,24 +22,27 @@
             // tp_welcome
             // 
             tp_welcome.Controls.Add(pictureBox1);
-            tp_welcome.Controls.Add(lbl_appName);
+            //tp_welcome.Controls.Add(lbl_appName);
             tp_welcome.Location = new System.Drawing.Point(4, 24);
             tp_welcome.Name = "tp_welcome";
-            tp_welcome.Size = new System.Drawing.Size(1245, 575);
+            tp_welcome.Size = new System.Drawing.Size(tc_mainTap.Width, tc_mainTap.Height);
             tp_welcome.TabIndex = 0;
             tp_welcome.Text = "Welcome";
             tp_welcome.UseVisualStyleBackColor = true;
             // 
             // pictureBox1
             // 
-            pictureBox1.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom);
-            pictureBox1.Image = global::RadarAnalyst.Properties.Resources.rabar_background;
-            pictureBox1.Location = new System.Drawing.Point(0, 80);
+            pictureBox1.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right);
+            pictureBox1.Image = global::RadarAnalyst.Properties.Resources.c300b4e006e5c3bb9af4;
+            pictureBox1.Location = new System.Drawing.Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size((tc_mainTap.Width) - 100, 480);
+            pictureBox1.Size = new System.Drawing.Size(tp_welcome.Width, tp_welcome.Height);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            //pictureBox1.Size = new System.Drawing.Size((tc_mainTap.Width) - 100 , 480);
             pictureBox1.TabIndex = 1;
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabStop = false;
+            pictureBox1.Controls.Add(lbl_appName);
             // 
             // lbl_appName
             // 
@@ -47,11 +50,12 @@
             lbl_appName.AutoSize = true;
             lbl_appName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             lbl_appName.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            lbl_appName.Location = new System.Drawing.Point((tc_mainTap.Width) / 20, 20);
+            
             lbl_appName.Name = "lbl_appName";
             lbl_appName.Size = new System.Drawing.Size(796, 76);
             lbl_appName.TabIndex = 0;
             lbl_appName.Text = "PHẦN MỀM TÍNH TOÁN CÁC THAM SỐ TRẬN ĐỊA CỦA TRẠM RAĐA PHÒNG KHÔNG ";
+            lbl_appName.Location = new System.Drawing.Point((tc_mainTap.Width - lbl_appName.Width) / 2 - 50, 50);
             lbl_appName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             tp_welcome.ResumeLayout(false);
             tp_welcome.PerformLayout();
@@ -149,6 +153,13 @@
             smi_pvphmp.BackColor = Color.Aquamarine;
         }
 
+        private void smi_help_Click(object sender, EventArgs e)
+        {
+            addTabPage(Util.Constant.HELP);
+            clearTabPageColor();
+            smi_help.BackColor = Color.Aquamarine;
+        }
+
         private void smi_vtddrd_CheckedChanged(object sender, EventArgs e)
         {
                 smi_vtddrd.BackColor = Color.Blue;
@@ -171,6 +182,7 @@
             smi_mcdh.BackColor = Color.White;
             smi_gck.BackColor = Color.White;
             smi_pvphmp.BackColor = Color.White;
+            smi_help.BackColor = Color.White;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace RadarAnalyst.UIComponent
             this.Location = new System.Drawing.Point(4, 24);
             this.Name = tabCode;
             this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(1326, 633);
+            this.Size = new System.Drawing.Size(Form1.tc_mainTap.Width, Form1.tc_mainTap.Height);
             this.TabIndex = 0;
             this.UseVisualStyleBackColor = true;
 
@@ -40,14 +40,14 @@ namespace RadarAnalyst.UIComponent
             //Make mapinfo visible otherwise it won't show up in our control.
             mapinfo.Visible = true;
 
-            //Set the parent of MapInfo to a picture box on the form.
+           //Set the parent of MapInfo to a picture box on the form.
             SetParent(oldhandle, this.Handle);
 
             //Get current window style of MapInfo window
-            int style = GetWindowLong(oldhandle, GWL_STYLE);
+            //int style = GetWindowLong(oldhandle, GWL_STYLE);
 
             //Take current window style and remove WS_CAPTION(title bar) from it
-            SetWindowLong(oldhandle, GWL_STYLE, (style & ~WS_CAPTION));
+            //SetWindowLong(oldhandle, GWL_STYLE, (style & ~WS_CAPTION));
 
             //Maximize MapInfo so that it fits into our control
             mapinfo.Do("Set Window 1011 Max");
@@ -74,7 +74,6 @@ namespace RadarAnalyst.UIComponent
         public static int WS_BORDER = 0x00800000; //window with border
         public static int WS_DLGFRAME = 0x00400000; //window with double border but no title
         public static int WS_CAPTION = WS_BORDER | WS_DLGFRAME; //window with a title bar
-        public static int WS_MAXIMIZE = 0x1000000;
 
     }
 }

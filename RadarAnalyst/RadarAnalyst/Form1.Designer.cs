@@ -40,7 +40,7 @@
             this.smi_gck = new System.Windows.Forms.ToolStripMenuItem();
             this.smi_pvphmp = new System.Windows.Forms.ToolStripMenuItem();
             this.smi_help = new System.Windows.Forms.ToolStripMenuItem();
-            this.tc_mainTap = new System.Windows.Forms.TabControl();
+            tc_mainTap = new System.Windows.Forms.TabControl();
             this.ms_mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,26 +148,29 @@
             this.smi_help.Name = "smi_help";
             this.smi_help.Size = new System.Drawing.Size(47, 20);
             this.smi_help.Text = "HELP";
+            this.smi_help.Click += new System.EventHandler(this.smi_help_Click);
             // 
             // tc_mainTap
             // 
-            this.tc_mainTap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            tc_mainTap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tc_mainTap.Location = new System.Drawing.Point(0, 27);
-            this.tc_mainTap.Name = "tc_mainTap";
-            this.tc_mainTap.SelectedIndex = 0;
-            this.tc_mainTap.Size = new System.Drawing.Size(1346, 666);
-            this.tc_mainTap.TabIndex = 1;
+            tc_mainTap.Location = new System.Drawing.Point(0, 27);
+            tc_mainTap.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            tc_mainTap.Name = "tc_mainTap";
+            tc_mainTap.Padding = new System.Drawing.Point(0, 0);
+            tc_mainTap.SelectedIndex = 0;
+            tc_mainTap.Size = new System.Drawing.Size(1346, 666);
+            tc_mainTap.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1346, 691);
-            this.Controls.Add(this.tc_mainTap);
-            this.Controls.Add(this.ms_mainMenu);
-            this.MainMenuStrip = this.ms_mainMenu;
+            this.Controls.Add(tc_mainTap);
+            this.Controls.Add(ms_mainMenu);
+            this.MainMenuStrip = ms_mainMenu;
             this.Name = "Form1";
             this.Text = "Rada Analyst";
             this.ms_mainMenu.ResumeLayout(false);
@@ -192,7 +195,7 @@
         private ToolStripMenuItem smi_pvphmp;
         private ToolStripMenuItem smi_help;
 
-        private TabControl tc_mainTap;
+        public static TabControl tc_mainTap;
 
         private const int WINDOW_WIDTH = 1375;
         private const int WINDOW_HEIGHT = 675;

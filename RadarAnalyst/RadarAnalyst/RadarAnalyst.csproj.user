@@ -4,6 +4,12 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UIComponent\ComponentI\TabPageCI.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="UIComponent\ComponentI\TabPageCII.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -11,6 +17,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UIComponent\DLLTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\DNTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UIComponent\Element\GroupBoxCtm.cs">
@@ -22,10 +31,22 @@
     <Compile Update="UIComponent\Element\ButtonCtm.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="UIComponent\GCKTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\HelpTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="UIComponent\KTMPXTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="UIComponent\KVCTDTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\MCDHTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UIComponent\PVPHMPTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

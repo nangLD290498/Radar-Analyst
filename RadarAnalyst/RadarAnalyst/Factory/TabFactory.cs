@@ -41,6 +41,9 @@ namespace RadarAnalyst.Factory
                 case Util.Constant.PVPHMP:
                     tabPage = new UIComponent.PVPHMPTabPage(tabCode, Util.Constant.PVPHMP_TEXT.ToUpper());
                     break;
+                case Util.Constant.HELP:
+                    tabPage = new UIComponent.HelpTabPage(Util.Constant.HELP_TEXT.ToUpper());
+                    break;
                 default:
                     tabPage = new TabPage();
                     break;

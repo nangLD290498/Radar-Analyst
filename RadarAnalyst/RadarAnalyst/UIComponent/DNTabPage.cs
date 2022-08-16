@@ -248,7 +248,7 @@ namespace RadarAnalyst.UIComponent
             this.label_first_result_unit.Name = "label_first_result_unit";
             this.label_first_result_unit.Size = new System.Drawing.Size(10, 31);
             this.label_first_result_unit.TabIndex = 2;
-            this.label_first_result_unit.Text = "độ";
+            this.label_first_result_unit.Text = "m";
 
             //// ================================================================
             //// label_second_result_title
