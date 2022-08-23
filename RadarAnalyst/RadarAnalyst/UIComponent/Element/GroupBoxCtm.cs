@@ -4,14 +4,14 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 public class GroupBoxCtm : GroupBox
 {
-    private Color borderColor = System.Drawing.Color.WhiteSmoke;
+    private Color borderColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
     [DefaultValue(typeof(Color), "Black")]
     public Color BorderColor
     {
         get { return borderColor; }
         set { borderColor = value; this.Invalidate(); }
     }
-    private Color textColor = System.Drawing.Color.Black;
+    private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
     [DefaultValue(typeof(Color), "White")]
     public Color TextColor
     {

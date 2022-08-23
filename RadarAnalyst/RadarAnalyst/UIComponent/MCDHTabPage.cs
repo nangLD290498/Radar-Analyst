@@ -32,7 +32,7 @@ namespace RadarAnalyst.UIComponent
 
         private const float nud_beta_default_value = 7.5F;
 
-        private Color groupBoxColor = System.Drawing.Color.WhiteSmoke;
+        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
         private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
@@ -303,7 +303,7 @@ namespace RadarAnalyst.UIComponent
 
                 // draw dash line ha
                 float[] dashValues = { 3, 3, 3, 3 };
-                Pen dashPen = new Pen(Color.Black, 1);
+                Pen dashPen = new Pen(Color.White, 1);
                 dashPen.DashPattern = dashValues;
                 e.Graphics.DrawLine(dashPen, new PointF(oX, pointY), new PointF(pointX, pointY));
                 e.Graphics.DrawLine(dashPen, new PointF(pointX, oY), new PointF(pointX, pointY));
@@ -316,7 +316,7 @@ namespace RadarAnalyst.UIComponent
 
         private static void drawOy(PaintEventArgs e, Color groupBoxColor)
         {
-            Color whiteColor = Color.Black;
+            Color whiteColor = Color.White;
             // draw x line
             Pen pen = new Pen(whiteColor, 2);
             float topY = 50.0F;
@@ -333,7 +333,7 @@ namespace RadarAnalyst.UIComponent
                 RectangleF rectF1 = new RectangleF(0F, topY, 50, 15);
                 SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(Htext, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(Htext, font1, Brushes.White, rectF1);
             }
 
             // draw vạch
@@ -354,7 +354,7 @@ namespace RadarAnalyst.UIComponent
                     RectangleF rectF1 = new RectangleF(unitTextDisplay == "0" ? 25F : 25F, i * unitX + 12F, 25, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                    e.Graphics.DrawString((unitTextDisplay == "0") ? "O" : unitTextDisplay, font1, Brushes.Black, rectF1);
+                    e.Graphics.DrawString((unitTextDisplay == "0") ? "O" : unitTextDisplay, font1, Brushes.White, rectF1);
                 }
                 textUnit -= 5;
             }
@@ -371,7 +371,7 @@ namespace RadarAnalyst.UIComponent
                     RectangleF rectF1 = new RectangleF(15F, i * unitX + 10F, 10, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                    e.Graphics.DrawString("-", font1, Brushes.Black, rectF1);
+                    e.Graphics.DrawString("-", font1, Brushes.White, rectF1);
                 }
             }
         }
@@ -379,7 +379,7 @@ namespace RadarAnalyst.UIComponent
         private static void drawOx(PaintEventArgs e, Color groupBoxColor)
         {
             float oyPosition = 290.0F;
-            Color whiteColor = Color.Black;
+            Color whiteColor = Color.White;
             // draw y line
             Pen pen = new Pen(whiteColor, 2);
             PointF point1 = new PointF(60F, oyPosition);
@@ -406,7 +406,7 @@ namespace RadarAnalyst.UIComponent
                     RectangleF rectF1 = new RectangleF(62F - div + i * unitY, oyPosition + 15F, 45, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                    e.Graphics.DrawString(unitTextDisplay, font1, Brushes.Black, rectF1);
+                    e.Graphics.DrawString(unitTextDisplay, font1, Brushes.White, rectF1);
                 }
                 ytextUnit += 10;
             }
@@ -418,7 +418,7 @@ namespace RadarAnalyst.UIComponent
                 RectangleF rectF1 = new RectangleF(770F, oyPosition - 30F, 60, 15);
                 SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(Htext, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(Htext, font1, Brushes.White, rectF1);
             }
         }
     }

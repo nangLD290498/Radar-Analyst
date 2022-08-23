@@ -8,7 +8,7 @@ namespace RadarAnalyst.UIComponent.Element
 {
     internal class LabelCtm : Label
     {
-        private Color textColor = Color.Black;
+        private Color textColor = ColorTranslator.FromHtml("#7a8696");
         public LabelCtm()
         {
             ForeColor = textColor;
