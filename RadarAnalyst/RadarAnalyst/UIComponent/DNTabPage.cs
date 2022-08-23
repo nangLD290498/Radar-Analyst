@@ -47,7 +47,7 @@ namespace RadarAnalyst.UIComponent
         private float hRotation = 1.5F;
         private float lRotation = 7.5F;
 
-        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+        private Color groupBoxColor = System.Drawing.Color.WhiteSmoke;
         private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
@@ -332,7 +332,7 @@ namespace RadarAnalyst.UIComponent
 
         private void drawGraph(object sender, PaintEventArgs e)
         {
-            Color whiteColor = Color.White;
+            Color whiteColor = Color.Black;
             // draw x line
             Pen pen = new Pen(whiteColor, 2);
             PointF point1 = new PointF(60F, 20.0F);
@@ -348,7 +348,7 @@ namespace RadarAnalyst.UIComponent
                 RectangleF rectF1 = new RectangleF(25F, 20F, 15, 15);
                 SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(Htext, font1, Brushes.White, rectF1);
+                e.Graphics.DrawString(Htext, font1, Brushes.Black, rectF1);
             }
             // draw vạch
             float textUnit = 8;
@@ -366,7 +366,7 @@ namespace RadarAnalyst.UIComponent
                     RectangleF rectF1 = new RectangleF(unitTextDisplay == "0" ? 25F : 35F, i * unitX + 12F, 15, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                    e.Graphics.DrawString((unitTextDisplay == "0") ? "O" : unitTextDisplay, font1, Brushes.White, rectF1);
+                    e.Graphics.DrawString((unitTextDisplay == "0") ? "O" : unitTextDisplay, font1, Brushes.Black, rectF1);
                 }
                 textUnit -= 2;
             }
@@ -383,7 +383,7 @@ namespace RadarAnalyst.UIComponent
                     RectangleF rectF1 = new RectangleF(25F, i * unitX + 10F, 10, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                    e.Graphics.DrawString("-", font1, Brushes.White, rectF1);
+                    e.Graphics.DrawString("-", font1, Brushes.Black, rectF1);
                 }
             }
 
@@ -413,7 +413,7 @@ namespace RadarAnalyst.UIComponent
                     RectangleF rectF1 = new RectangleF(62F - div + i * unitY, 215F, 45, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                    e.Graphics.DrawString(unitTextDisplay, font1, Brushes.White, rectF1);
+                    e.Graphics.DrawString(unitTextDisplay, font1, Brushes.Black, rectF1);
                 }
                 ytextUnit += 200;
             }

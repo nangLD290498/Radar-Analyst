@@ -121,7 +121,7 @@ namespace RadarAnalyst.UIComponent.ComponentI
             Rectangle gradient_rectangle = new Rectangle(0, 0, Width, Height);
 
             //define gradient's properties
-            System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#07081d");
+            System.Drawing.Color col = System.Drawing.Color.White;
 
             Brush b = new LinearGradientBrush(gradient_rectangle, col, col, 65f);
             

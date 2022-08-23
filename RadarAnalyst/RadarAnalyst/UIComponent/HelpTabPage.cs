@@ -41,8 +41,8 @@ namespace RadarAnalyst.UIComponent
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(this.Width - 100, this.Height - 50);
             this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.BackColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
-            this.richTextBox1.ForeColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
+            this.richTextBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.richTextBox1.ForeColor = System.Drawing.Color.Black;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.Controls.Add(this.richTextBox1);
         }
@@ -55,7 +55,7 @@ namespace RadarAnalyst.UIComponent
             Rectangle gradient_rectangle = new Rectangle(0, 0, Width, Height);
 
             //define gradient's properties
-            System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#07081d");
+            System.Drawing.Color col = System.Drawing.Color.White;
 
             Brush b = new LinearGradientBrush(gradient_rectangle, col, col, 65f);
 
