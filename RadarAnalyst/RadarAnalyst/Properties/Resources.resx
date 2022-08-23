@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MPX_VRS-2DMv2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPX_VRS-2DMv2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picv2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picv2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="P18M-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\P18M-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,8 +148,14 @@
   <data name="VRS-2DM-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VRS-2DM-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MPX_P18Mv2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MPX_P18Mv2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="rabar_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rabar_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picv3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\picv3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="36D6-LINE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\36D6-LINE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,6 +175,9 @@
   <data name="c300b4e006e5c3bb9af4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c300b4e006e5c3bb9af4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="c300b4e006e5c3bb9af41" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\c300b4e006e5c3bb9af41.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="VRS-2DM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VRS-2DM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,7 +187,31 @@
   <data name="VRS-2DM-TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VRS-2DM-TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="c300b4e006e5c3bb9af41" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c300b4e006e5c3bb9af41.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="36D6v2-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\36D6v2-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="36D6v2-LINE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\36D6v2-LINE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="36D6v2-TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\36D6v2-TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P18Mv2-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18Mv2-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P18Mv2-LINE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18Mv2-LINE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="P18Mv2-TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\P18Mv2-TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRS-2DMv2-BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DMv2-BODY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRS-2DMv2-LINE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DMv2-LINE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VRS-2DMv2-TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VRS-2DMv2-TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

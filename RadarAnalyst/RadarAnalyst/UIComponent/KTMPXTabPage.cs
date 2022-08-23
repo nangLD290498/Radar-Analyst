@@ -45,7 +45,7 @@ namespace RadarAnalyst.UIComponent
         static float minHaVrs2dm = 14, maxHaVrs2dm = 23;
         float minHaOnPic = minHaP18, maxHaOnPic = maxHaP18;
 
-        Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18M;
+        Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18Mv2;
         public KTMPXTabPage(String tabCode, String text) : base(tabCode, text)
         {
             // create layout
@@ -204,7 +204,7 @@ namespace RadarAnalyst.UIComponent
             btn_P_18M.setBackColor(true);
             minHaOnPic = minHaP18;
             maxHaOnPic = maxHaP18;
-            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18M;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_P18Mv2;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
@@ -215,7 +215,7 @@ namespace RadarAnalyst.UIComponent
             btn_P_18M.setBackColor(false);
             minHaOnPic = minHaVrs2dm;
             maxHaOnPic = maxHaVrs2dm;
-            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_VRS_2DM;
+            radarImgBitmap = global::RadarAnalyst.Properties.Resources.MPX_VRS_2DMv2;
         }
 
         private void clearPictureBox(ButtonCtm clickedButton)
@@ -322,10 +322,10 @@ namespace RadarAnalyst.UIComponent
             float l = (1.5F * (rMaxOnpic - rMinOnpic));
             PictureBox pic = new PictureBox();
             //pic.Location = new Point(75 + (int)(rMinOnpic * 0.75), 232 - l/2);
-            pic.Location = new Point(90, 232 - 120);
+            pic.Location = new Point(91, 232 - 120);
             pic.Size = new System.Drawing.Size((int)(l * 1.2), 120);
             pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            pic.Image = global::RadarAnalyst.Properties.Resources.pic;
+            pic.Image = global::RadarAnalyst.Properties.Resources.picv3;
             pictureBox1.Controls.Add(pic);
             // arrow Rmin ------------------------------------------------------
             PointF minTopPoint = new PointF(93, 250);
@@ -370,8 +370,8 @@ namespace RadarAnalyst.UIComponent
             // draw eclipse
             Pen eclipsePen = new Pen(Color.FromArgb(192, 80, 77), 2);
             Brush eclipseBrush = new SolidBrush(Color.FromArgb(198, 217, 241));
-            e.Graphics.FillEllipse(eclipseBrush, minBotPoint.X + 2, minBotPoint.Y - 5, l / 2 + 10, 15);
-            e.Graphics.DrawEllipse(eclipsePen, minBotPoint.X + 2, minBotPoint.Y - 5, l / 2 + 10, 15);
+            e.Graphics.FillEllipse(eclipseBrush, minBotPoint.X + 2, minBotPoint.Y - 5, l / 2 + 5, 15);
+            e.Graphics.DrawEllipse(eclipsePen, minBotPoint.X + 2, minBotPoint.Y - 5, l / 2 + 5, 15);
 
         }
     }

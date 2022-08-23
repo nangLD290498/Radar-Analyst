@@ -48,14 +48,14 @@ namespace RadarAnalyst.UIComponent
         private float lRotation = 7.5F;
 
         private Color groupBoxColor = System.Drawing.Color.WhiteSmoke;
-        private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
+        private Color lineBlueColor = System.Drawing.Color.Red;
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
 
         //Bitmap radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
-        Bitmap radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.P18M_TOP;
-        Bitmap radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.P18M_BODY;
-        Bitmap radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18M_LINE;
+        Bitmap radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.P18Mv2_TOP;
+        Bitmap radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.P18Mv2_BODY;
+        Bitmap radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18Mv2_LINE;
 
         public DLLTabPage(String tabCode, String text) : base(tabCode, text)
         {
@@ -281,9 +281,9 @@ namespace RadarAnalyst.UIComponent
             btn_P_18M.setBackColor(true);
             this.modOn = P_18M;
             //radarImgBitmap = global::RadarAnalyst.Properties.Resources.P18M;
-            radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.P18M_TOP;
-            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.P18M_BODY;
-            radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18M_LINE;
+            radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.P18Mv2_TOP;
+            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.P18Mv2_BODY;
+            radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18Mv2_LINE;
         }
 
         private void btn_VRS_2DM_Click(object sender, EventArgs e)
@@ -293,9 +293,9 @@ namespace RadarAnalyst.UIComponent
             btn_P_18M.setBackColor(false);
             this.modOn = VRS_2DM;
             //radarImgBitmap = global::RadarAnalyst.Properties.Resources.VRS_2DM;
-            radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.VRS_2DM_TOP;
-            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.VRS_2DM_BODY;
-            radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.P18M_LINE;
+            radarImgBitmap_top = global::RadarAnalyst.Properties.Resources.VRS_2DMv2_TOP;
+            radarImgBitmap_body = global::RadarAnalyst.Properties.Resources.VRS_2DMv2_BODY;
+            radarImgBitmap_line = global::RadarAnalyst.Properties.Resources.VRS_2DMv2_LINE;
         }
 
         private void clearPictureBox(ButtonCtm clickedButton)
@@ -385,7 +385,7 @@ namespace RadarAnalyst.UIComponent
             pictureBox1.Controls.Add(radar_top);
             // draw radar line
             PictureBox radar_line = new PictureBox();
-            radar_line.Location = new Point((int)haBaseX - 26, (int)point1.Y + 12);
+            radar_line.Location = new Point((int)haBaseX - 27, (int)point1.Y + 12);
             radar_line.Size = new System.Drawing.Size(50, (int)(haOnPic - 5) - ((int)point1.Y + 12));
             radar_line.SizeMode = PictureBoxSizeMode.StretchImage;
             radar_line.Image = radarImgBitmap_line;

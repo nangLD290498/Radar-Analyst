@@ -103,6 +103,36 @@ namespace RadarAnalyst.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _36D6v2_BODY {
+            get {
+                object obj = ResourceManager.GetObject("36D6v2-BODY", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _36D6v2_LINE {
+            get {
+                object obj = ResourceManager.GetObject("36D6v2-LINE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _36D6v2_TOP {
+            get {
+                object obj = ResourceManager.GetObject("36D6v2-TOP", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap c300b4e006e5c3bb9af4 {
             get {
                 object obj = ResourceManager.GetObject("c300b4e006e5c3bb9af4", resourceCulture);
@@ -133,9 +163,29 @@ namespace RadarAnalyst.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MPX_P18Mv2 {
+            get {
+                object obj = ResourceManager.GetObject("MPX_P18Mv2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MPX_VRS_2DM {
             get {
                 object obj = ResourceManager.GetObject("MPX_VRS-2DM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MPX_VRS_2DMv2 {
+            get {
+                object obj = ResourceManager.GetObject("MPX_VRS-2DMv2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +233,59 @@ namespace RadarAnalyst.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap P18Mv2_BODY {
+            get {
+                object obj = ResourceManager.GetObject("P18Mv2-BODY", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap P18Mv2_LINE {
+            get {
+                object obj = ResourceManager.GetObject("P18Mv2-LINE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap P18Mv2_TOP {
+            get {
+                object obj = ResourceManager.GetObject("P18Mv2-TOP", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pic {
             get {
                 object obj = ResourceManager.GetObject("pic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picv2 {
+            get {
+                object obj = ResourceManager.GetObject("picv2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picv3 {
+            get {
+                object obj = ResourceManager.GetObject("picv3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,6 +346,36 @@ namespace RadarAnalyst.Properties {
         internal static System.Drawing.Bitmap VRS_2DM_TOP {
             get {
                 object obj = ResourceManager.GetObject("VRS-2DM-TOP", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VRS_2DMv2_BODY {
+            get {
+                object obj = ResourceManager.GetObject("VRS-2DMv2-BODY", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VRS_2DMv2_LINE {
+            get {
+                object obj = ResourceManager.GetObject("VRS-2DMv2-LINE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VRS_2DMv2_TOP {
+            get {
+                object obj = ResourceManager.GetObject("VRS-2DMv2-TOP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
