@@ -10,7 +10,7 @@ namespace RadarAnalyst.UIComponent.Element
     public class ButtonCtm : Button
     {
         private static Font _normalFont = new Font("Arial", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        private static Color violetColor = ColorTranslator.FromHtml("#9b51e0");
+        private static Color violetColor = Color.Gray;
 
         private static Color _back = violetColor;
         private static Color _border = violetColor;

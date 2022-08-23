@@ -47,7 +47,7 @@ namespace RadarAnalyst.UIComponent
         private float hRotation = 1.5F;
         private float lRotation = 7.5F;
 
-        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+        private Color groupBoxColor = System.Drawing.Color.WhiteSmoke;
         private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
@@ -368,7 +368,7 @@ namespace RadarAnalyst.UIComponent
             // ========================================================================================================
             // draw begin line
             float[] dashValues = { 3, 3, 3, 3 };
-            Pen dashPen = new Pen(Color.White, 2);
+            Pen dashPen = new Pen(Color.Black, 2);
             dashPen.DashPattern = dashValues;
             Pen pen = new Pen(lineBlueColor, 2);
             PointF point1 = new PointF(haBaseX - 50F, 50.0F);
@@ -415,7 +415,7 @@ namespace RadarAnalyst.UIComponent
 
             // ========================================================================================================
             // draw ha line white
-            pen = new Pen(Color.White, 2);
+            pen = new Pen(Color.Black, 2);
             haTopPoint = new PointF(haBaseX - 35F, haBaseY);
             haBotPoint = new PointF(haBaseX - 35F, 30F + haOnPic);
             e.Graphics.DrawLine(pen, haTopPoint, haBotPoint);
@@ -431,9 +431,9 @@ namespace RadarAnalyst.UIComponent
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
                 RectangleF rectF1 = new RectangleF(haBaseX - 80F, haOnPic >= haOnPicMax ? haBaseY + haOnPic / 2 - 20F : haTextY, 40, 20);
-                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                SolidBrush whiteBrush = new SolidBrush(Color.Gray);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(text1, font1, Brushes.White, rectF1);
             }
             // draw dash line ha
             e.Graphics.DrawLine(dashPen, new PointF(haBaseX, haBaseY + haOnPic - 15F), new PointF(haBaseX, endLineY + 50F));
@@ -458,9 +458,9 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 RectangleF rectF1 = new RectangleF(haBaseX + (lOnPic - haBaseX) / 2 - 30 / 2, endLineY + 40F, 30, 20);
-                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                SolidBrush whiteBrush = new SolidBrush(Color.Gray);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(lText, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(lText, font1, Brushes.White, rectF1);
             }
 
             float deltaHOnPic = endLineY - deltaHOnPicMin * 2 - deltaHValue / hRotation;
@@ -481,7 +481,7 @@ namespace RadarAnalyst.UIComponent
 
             // ========================================================================================================
             // draw line delta h
-            pen = new Pen(Color.White, 2);
+            pen = new Pen(Color.Black, 2);
             PointF deltaHTopPoint = new PointF(lOnPic, deltaHOnPic);
             PointF detaHBotPoint = new PointF(lOnPic, endLineY);
             e.Graphics.DrawLine(pen, deltaHTopPoint, detaHBotPoint);
@@ -497,9 +497,9 @@ namespace RadarAnalyst.UIComponent
             {
                 float haTextY = haBaseY + haOnPicMin + haValue / hRotation / 2;
                 RectangleF rectF1 = new RectangleF(lOnPic + 10F, deltaHOnPic - 20F, 40, 20);
-                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                SolidBrush whiteBrush = new SolidBrush(Color.Gray);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(deltaHText, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(deltaHText, font1, Brushes.White, rectF1);
             }
 
             // draw dash line delta H

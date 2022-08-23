@@ -39,7 +39,7 @@ namespace RadarAnalyst.UIComponent
         private const float nud_ha_default_value = 60.0F;
         private float hRotation = 100F;
 
-        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+        private Color groupBoxColor = System.Drawing.Color.WhiteSmoke;
 
         static float minHaP18 = 50, maxHaP18 = 70;
         static float minHaVrs2dm = 14, maxHaVrs2dm = 23;
@@ -278,7 +278,7 @@ namespace RadarAnalyst.UIComponent
             e.Graphics.DrawEllipse(pen, circlePointX - (rMaxOnpic + deltaR) / 2, circlePointY - (rMaxOnpic + deltaR) / 2, rMaxOnpic + deltaR, rMaxOnpic + deltaR);
             e.Graphics.DrawEllipse(pen, circlePointX - (rMinOnpic - deltaR) / 2, circlePointY - (rMinOnpic - deltaR) / 2, rMinOnpic - deltaR, rMinOnpic - deltaR);
             // draw Rmin line white
-            pen = new Pen(Color.White, 2);
+            pen = new Pen(Color.Black, 2);
             PointF rminTopPoint = centerPoint;
             PointF rminBotPoint = new PointF(centerPoint.X - (rMinOnpic - deltaR) / 2, centerPoint.Y);
             e.Graphics.DrawLine(pen, rminTopPoint, rminBotPoint);
@@ -290,12 +290,12 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 RectangleF rectF1 = new RectangleF(centerPoint.X - rMinOnpic / 4, centerPoint.Y + 5F, 65, 20); //note
-                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                SolidBrush whiteBrush = new SolidBrush(Color.Gray);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(textRmin, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(textRmin, font1, Brushes.White, rectF1);
             }
             // draw Rmax line white
-            pen = new Pen(Color.White, 2);
+            pen = new Pen(Color.Black, 2);
             PointF rmaxTopPoint = centerPoint;
             PointF rmaxBotPoint = new PointF(centerPoint.X, centerPoint.Y - (rMaxOnpic + deltaR) / 2);
             e.Graphics.DrawLine(pen, rmaxTopPoint, rmaxBotPoint);
@@ -307,9 +307,9 @@ namespace RadarAnalyst.UIComponent
             using (Font font1 = new Font("Arial", 12, FontStyle.Regular, GraphicsUnit.Point))
             {
                 RectangleF rectF1 = new RectangleF(centerPoint.X + 5F, centerPoint.Y - rMaxOnpic / 4, 65, 20);
-                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                SolidBrush whiteBrush = new SolidBrush(Color.Gray);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(textRmax, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(textRmax, font1, Brushes.White, rectF1);
             }
             //draw traigle
             PictureBox radar = new PictureBox();
@@ -343,9 +343,9 @@ namespace RadarAnalyst.UIComponent
             {
 
                 RectangleF rectF1 = new RectangleF(15, 240, 65, 20);
-                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                SolidBrush whiteBrush = new SolidBrush(Color.Gray);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(text1, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(text1, font1, Brushes.White, rectF1);
             }
             // arrow Rmax ------------------------------------------------------
             PointF maxTopPoint = new PointF(93, 280);
@@ -363,9 +363,9 @@ namespace RadarAnalyst.UIComponent
             {
 
                 RectangleF rectF1 = new RectangleF(15, 270, 65, 20);
-                SolidBrush whiteBrush = new SolidBrush(Color.White);
+                SolidBrush whiteBrush = new SolidBrush(Color.Gray);
                 e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                e.Graphics.DrawString(text2, font1, Brushes.Black, rectF1);
+                e.Graphics.DrawString(text2, font1, Brushes.White, rectF1);
             }
             // draw eclipse
             Pen eclipsePen = new Pen(Color.FromArgb(192, 80, 77), 2);

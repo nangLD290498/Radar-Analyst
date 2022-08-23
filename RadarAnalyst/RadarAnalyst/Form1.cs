@@ -101,63 +101,63 @@
         {
             addTabPage(Util.Constant.KVCTD);
             clearTabPageColor();
-            smi_vtddrd.BackColor = Color.Aquamarine;
+            smi_vtddrd.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_dcdd_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.DCDD);
             clearTabPageColor();
-            smi_vtddrd.BackColor = Color.Aquamarine;
+            smi_vtddrd.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_ktmpx_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.KTMPX);
             clearTabPageColor();
-            smi_mpx.BackColor = Color.Aquamarine;
+            smi_mpx.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_dll_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.DLL);
             clearTabPageColor();
-            smi_mpx.BackColor = Color.Aquamarine;
+            smi_mpx.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_dn_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.DN);
             clearTabPageColor();
-            smi_mpx.BackColor = Color.Aquamarine;
+            smi_mpx.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_mcdh_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.MCDH);
             clearTabPageColor();
-            smi_mcdh.BackColor = Color.Aquamarine;
+            smi_mcdh.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_gck_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.GCK);
             clearTabPageColor();
-            smi_gck.BackColor = Color.Aquamarine;
+            smi_gck.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_pvphmp_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.PVPHMP);
             clearTabPageColor();
-            smi_pvphmp.BackColor = Color.Aquamarine;
+            smi_pvphmp.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_help_Click(object sender, EventArgs e)
         {
             addTabPage(Util.Constant.HELP);
             clearTabPageColor();
-            smi_help.BackColor = Color.Aquamarine;
+            smi_help.BackColor = Color.WhiteSmoke;
         }
 
         private void smi_vtddrd_CheckedChanged(object sender, EventArgs e)
