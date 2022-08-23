@@ -33,7 +33,7 @@ namespace RadarAnalyst.UIComponent
 
         private const float nud_beta_default_value = 7.5F;
 
-        private Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+        private Color groupBoxColor = System.Drawing.Color.WhiteSmoke;
         private Color lineBlueColor = System.Drawing.ColorTranslator.FromHtml("#e35736");
         private Color violetColor = System.Drawing.ColorTranslator.FromHtml("#c74259");
         private Color textColor = System.Drawing.ColorTranslator.FromHtml("#7a8696");
@@ -225,7 +225,7 @@ namespace RadarAnalyst.UIComponent
                 System.Windows.Forms.Button c1 = new System.Windows.Forms.Button();
                 c1.Location = new Point((int)endPoint.X - 5, (int)endPoint.Y - 2);
                 c1.Size = new Size(10, 10);
-                c1.BackColor = Color.White;
+                c1.BackColor = Color.Black;
                 this.gb_picture.Controls.Add(c1);
 
                 ToolTip toolTip1 = new ToolTip();
@@ -290,7 +290,7 @@ namespace RadarAnalyst.UIComponent
         {
             // draw curve
             Pen pen = new Pen(Color.Red, 2);
-            SolidBrush brush = new SolidBrush(Color.White);
+            SolidBrush brush = new SolidBrush(Color.Black);
             float oX = 60F;
             float oY = 290.0F;
             
@@ -339,7 +339,7 @@ namespace RadarAnalyst.UIComponent
 
         private static void drawCoordinateAxis(PaintEventArgs e, PointF centerCoordinates)
         {
-            Color whiteColor = Color.White;
+            Color whiteColor = Color.Black;
             Color grayColor = Color.Gray;
             Pen thickPen = new Pen(grayColor, 1);
             Pen boldPen = new Pen(whiteColor, 2);
@@ -383,9 +383,9 @@ namespace RadarAnalyst.UIComponent
 
         private static void drawPartLine(PaintEventArgs e, PointF centerCoordinates, float angle, float radius)
         {
-            Color groupBoxColor = System.Drawing.ColorTranslator.FromHtml("#19182a");
+            Color groupBoxColor = System.Drawing.Color.WhiteSmoke;
             Graphics g = e.Graphics;
-            Color whiteColor = Color.White;
+            Color whiteColor = Color.Black;
             Color grayColor = Color.Gray;
             Color blackColor = Color.Black;
             Color redColor = Color.Red;
@@ -421,7 +421,7 @@ namespace RadarAnalyst.UIComponent
                     RectangleF rectF1 = new RectangleF(startX + xChange + xRotation, startY + yChange + yRotation, 40, 15);
                     SolidBrush whiteBrush = new SolidBrush(groupBoxColor);
                     e.Graphics.FillRectangle(whiteBrush, Rectangle.Round(rectF1));
-                    e.Graphics.DrawString(Htext, font1, Brushes.White, rectF1);
+                    e.Graphics.DrawString(Htext, font1, Brushes.Black, rectF1);
                 }
             }
         }
