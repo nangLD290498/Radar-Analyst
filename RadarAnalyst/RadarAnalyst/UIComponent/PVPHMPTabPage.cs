@@ -330,7 +330,10 @@ namespace RadarAnalyst.UIComponent
                     System.Windows.Forms.Button c1 = new System.Windows.Forms.Button();
                     c1.Location = new Point((int)point.X - 5, (int)point.Y - 2);
                     c1.Size = new Size(10, 10);
-                    c1.BackColor = Color.Black;
+                    c1.BackColor = Color.Red;
+                   // c1.FlatStyle = FlatStyle.Flat;
+                    //c1.FlatAppearance.BorderColor = Color.Red;
+                    c1.FlatAppearance.BorderSize = 0;
                     this.gb_picture.Controls.Add(c1);
 
                     ToolTip toolTip1 = new ToolTip();
