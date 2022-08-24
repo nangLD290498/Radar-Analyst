@@ -289,7 +289,7 @@ namespace RadarAnalyst.UIComponent
         private static void drawCurve(PaintEventArgs e, Color lineBlueColor, GCKTabPage _this, PointF centerCoordinates)
         {
             // draw curve
-            Pen pen = new Pen(Color.Red, 2);
+            Pen pen = new Pen(Color.Red, 3);
             SolidBrush brush = new SolidBrush(Color.Black);
             float oX = 60F;
             float oY = 290.0F;

@@ -451,7 +451,7 @@ namespace RadarAnalyst.UIComponent
 
                 PointF[] curvePoints = curvePointsList.ToArray();
 
-                Pen pen = new Pen(penColor, 2);
+                Pen pen = new Pen(penColor, 4);
                 e.Graphics.DrawLines(pen, curvePoints);
             }
         }
